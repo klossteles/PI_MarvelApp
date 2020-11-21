@@ -6,4 +6,6 @@
     <string name="we_couldnt_find_anything_with_the_term_entered">Não encontramos nada com o termo digitado</string>
     <string name="please_check_your_search_and_try_again">Por favor, verifique sua pesquisa e tente novamente para obter resultados.</string>
     <string name="image_search_not_found">Imagem busca não encontrada</string>
+    <string name="back">Voltar</string>
+    <string name="marvel_logo">Marvel logo</string>
 </resources>
