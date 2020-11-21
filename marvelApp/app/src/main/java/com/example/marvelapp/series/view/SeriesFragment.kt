@@ -13,6 +13,6 @@ class SeriesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_series, container, false)
+        return inflater.inflate(R.layout.fragment_series_list_item, container, false)
     }
 }

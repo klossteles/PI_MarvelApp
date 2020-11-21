@@ -10,7 +10,7 @@ class SeriesListAdapter(private val dataset: List<SeriesModel>, private val list
     RecyclerView.Adapter<SeriesListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SeriesListViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_series, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_series_list_item, parent, false)
         return SeriesListViewHolder(view)
     }
 
