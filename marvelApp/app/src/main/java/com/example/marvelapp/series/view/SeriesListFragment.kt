@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.marvelapp.R
 import com.example.marvelapp.series.model.SeriesModel
@@ -18,6 +19,7 @@ class SeriesListFragment : Fragment() {
     private lateinit var _viewModel: SeriesViewModel
     private lateinit var _view:View
     private lateinit var _listAdapter: SeriesListAdapter
+    private lateinit var _recyclerView: RecyclerView
 
     private var _series = mutableListOf<SeriesModel>()
     override fun onCreateView(
@@ -39,6 +41,7 @@ class SeriesListFragment : Fragment() {
 
         }
 
+        _recyclerView = _view.findViewById<RecyclerView>(R.id.listSeries)
         list.apply {
             setHasFixedSize(true)
             layoutManager = manager
@@ -54,12 +57,12 @@ class SeriesListFragment : Fragment() {
             showResults(it)
         })
         showLoading(true)
+        setScrollView()
     }
 
     private fun showResults(list: List<SeriesModel>?) {
         showLoading(false)
         list?.isNotEmpty()?.let { notFound(it) }
-        _series.clear()
         list?.let { _series.addAll(it) }
         _listAdapter.notifyDataSetChanged()
     }
@@ -79,6 +82,25 @@ class SeriesListFragment : Fragment() {
             _view.findViewById<View>(R.id.notFoundLayout).visibility = View.GONE
         } else {
             _view.findViewById<View>(R.id.notFoundLayout).visibility = View.VISIBLE
+        }
+    }
+
+    private fun setScrollView() {
+        _recyclerView.run {
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val target = recyclerView.layoutManager as LinearLayoutManager?
+                    val totalItemCount = target!!.itemCount
+                    val lastVisible = target.findLastVisibleItemPosition()
+                    val lastItem = lastVisible + 4 >= totalItemCount
+                    if (totalItemCount > 0 && lastItem) {
+                        _viewModel.nextPage().observe(viewLifecycleOwner, Observer {
+                            showResults(it)
+                        })
+                    }
+                }
+            })
         }
     }
 }

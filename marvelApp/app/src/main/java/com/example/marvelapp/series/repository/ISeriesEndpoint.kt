@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface ISeriesEndpoint {
     @GET("/v1/public/series")
-    suspend fun getSeries(@Query("title") title: String?): ResponseModel<SeriesModel>
+    suspend fun getSeries(@Query("title") title: String?, @Query("offset") offset: Int? = 0): ResponseModel<SeriesModel>
 
     companion object {
         val endpoint: ISeriesEndpoint by lazy {
