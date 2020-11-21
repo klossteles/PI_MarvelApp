@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -20,8 +21,10 @@ class SeriesListFragment : Fragment() {
     private lateinit var _view:View
     private lateinit var _listAdapter: SeriesListAdapter
     private lateinit var _recyclerView: RecyclerView
+    private lateinit var _searchView: SearchView
 
     private var _series = mutableListOf<SeriesModel>()
+    private var _title: String? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,6 +61,38 @@ class SeriesListFragment : Fragment() {
         })
         showLoading(true)
         setScrollView()
+        initSearch()
+    }
+
+    private fun initSearch() {
+        _searchView = _view.findViewById<SearchView>(R.id.searchSeries)
+        _searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                _searchView.clearFocus()
+                _title = query
+                if (query.isEmpty()) {
+                    _viewModel.getList().observe(viewLifecycleOwner, Observer {
+                        _series.clear()
+                        showResults(it)
+                    })
+                } else {
+                    _viewModel.search(query).observe(viewLifecycleOwner, Observer {
+                        _series.clear()
+                        showResults(it)
+                    })
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                if (newText.isBlank()) {
+                    _title = null
+                    showResults(_viewModel.returnFirstList())
+                }
+                return true
+            }
+        })
+        _viewModel.getList()
     }
 
     private fun showResults(list: List<SeriesModel>?) {

@@ -19,7 +19,11 @@ class SeriesViewModel (
         val response = _repository.getSeries(null)
 
         _count = response.data.count
-        _totalPages = response.data.total / _count
+        if (response.data.total != 0) {
+            _totalPages = response.data.total / _count
+        } else {
+            _totalPages = 0
+        }
         _series = response.data.results
         emit(response.data.results)
     }
@@ -31,7 +35,11 @@ class SeriesViewModel (
 
         val response = _repository.getSeries(title)
         _count = response.data.count
-        _totalPages = response.data.total / _count
+        if (response.data.total != 0) {
+            _totalPages = response.data.total / _count
+        } else {
+            _totalPages = 0
+        }
         _offset = 0
         _series = response.data.results
         emit(response.data.results)

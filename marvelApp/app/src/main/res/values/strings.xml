@@ -8,4 +8,6 @@
     <string name="image_search_not_found">Imagem busca não encontrada</string>
     <string name="back">Voltar</string>
     <string name="marvel_logo">Marvel logo</string>
+    <string name="cover_image">Imagem da capa</string>
+    <string name="series">Séries</string>
 </resources>
