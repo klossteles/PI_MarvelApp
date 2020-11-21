@@ -10,4 +10,7 @@
     <string name="marvel_logo">Marvel logo</string>
     <string name="cover_image">Imagem da capa</string>
     <string name="series">Séries</string>
+    <string name="home">Home</string>
+    <string name="profile">Perfil</string>
+    <string name="favorites">Favoritos</string>
 </resources>
