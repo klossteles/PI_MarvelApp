@@ -56,6 +56,11 @@ class SeriesViewModel (
         }
     }
 
+    fun getSeriesById(seriesId: Int) = liveData(Dispatchers.IO) {
+        val response = _repository.getSeriesById(seriesId)
+        emit(response.data.results[0])
+    }
+
     class SeriesViewModelFactory(private val _repository: SeriesRepository ): ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return SeriesViewModel(_repository) as T

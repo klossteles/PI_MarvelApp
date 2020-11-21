@@ -13,4 +13,7 @@
     <string name="home">Home</string>
     <string name="profile">Perfil</string>
     <string name="favorites">Favoritos</string>
+    <string name="favorite_icon">Ícone de favoritos</string>
+    <string name="share_icon">Ícone de compartilhamento</string>
+    <string name="series_details_image">Imagem de detalhes da série</string>
 </resources>

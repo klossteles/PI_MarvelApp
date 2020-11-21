@@ -5,9 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.SearchView
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +19,7 @@ import com.example.marvelapp.R
 import com.example.marvelapp.series.model.SeriesModel
 import com.example.marvelapp.series.repository.SeriesRepository
 import com.example.marvelapp.series.viewmodel.SeriesViewModel
+import java.util.*
 
 class SeriesListFragment : Fragment() {
     private lateinit var _viewModel: SeriesViewModel
@@ -41,7 +46,8 @@ class SeriesListFragment : Fragment() {
         val manager = GridLayoutManager(_view.context, 2)
         _series = mutableListOf<SeriesModel>()
         _listAdapter = SeriesListAdapter(_series) {
-
+            val bundle = bundleOf(SERIES_ID to it.id)
+            _view.findNavController().navigate(R.id.action_seriesListFragment_to_seriesFragment, bundle)
         }
 
         _recyclerView = _view.findViewById<RecyclerView>(R.id.listSeries)
@@ -137,5 +143,9 @@ class SeriesListFragment : Fragment() {
                 }
             })
         }
+    }
+
+    companion object {
+        const val SERIES_ID = "SERIES_ID"
     }
 }

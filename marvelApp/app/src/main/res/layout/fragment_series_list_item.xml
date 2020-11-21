@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".series.view.SeriesFragment"
+    tools:context=".series.view.SeriesListItemFragment"
     app:cardCornerRadius="@dimen/dimen_14dp"
     android:layout_margin="@dimen/dimen_10dp"
     android:backgroundTint="@color/color_black">
