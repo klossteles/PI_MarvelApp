@@ -21,10 +21,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:contentDescription="@string/series_image"
-            tools:src="@drawable/iWolverine"/>
+            tools:src="@drawable/i_wolverine"/>
 
         <TextView
-            android:id="@+id/txtSeries"
+            android:id="@+id/txtSeriesName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
