@@ -7,7 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.marvelapp.R
 
-class CadastroFragment : Fragment() {
+class ProfileFragment : Fragment() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -19,9 +20,10 @@ class CadastroFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cadastro, container, false)
+        return inflater.inflate(R.layout.fragment_perfil, container, false)
     }
 
     companion object {
+
     }
 }
