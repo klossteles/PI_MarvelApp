@@ -19,7 +19,7 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cadastro, container, false)
+        return inflater.inflate(R.layout.fragment_register, container, false)
     }
 
     companion object {

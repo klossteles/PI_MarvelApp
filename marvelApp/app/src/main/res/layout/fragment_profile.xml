@@ -7,41 +7,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".login.view.ProfileFragment"
     android:background="@color/colorPrimaryDark"
-    android:padding="30dp">
+    android:padding="@dimen/dimen_30dp">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewHelloName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="@dimen/dimen_60dp"
         android:text="@string/hello_name"
-        android:textColor="@color/titulosPrincipais"
-        android:textSize="30sp"
+        android:textColor="@color/mainTitles"
+        android:textSize="@dimen/dimen_30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewAcessAndSecurity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="@dimen/dimen_60dp"
         android:text="@string/acess_and_security"
-        android:textColor="@color/titulosPrincipais"
-        android:textSize="24sp"
+        android:textColor="@color/mainTitles"
+        android:textSize="@dimen/dimen_24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewHelloName" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textNomeCompleto"
+        android:id="@+id/textFullnameProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="@dimen/dimen_30dp"
         android:hint="@string/fullname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
+        app:layout_constraintTop_toBottomOf="@+id/textViewAcessAndSecurity">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -50,14 +50,14 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textEmail"
+        android:id="@+id/textEmailProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="@dimen/dimen_30dp"
         android:hint="@string/email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textNomeCompleto">
+        app:layout_constraintTop_toBottomOf="@+id/textFullnameProfile">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -66,14 +66,14 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textSenha"
+        android:id="@+id/textPasswordProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="@dimen/dimen_30dp"
         android:hint="@string/password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textEmail"
+        app:layout_constraintTop_toBottomOf="@+id/textEmailProfile"
         app:endIconMode="password_toggle">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -84,19 +84,19 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/containedButtonSalvar"
+        android:id="@+id/containedButtonSave"
         style="@style/Widget.MaterialComponents.Button.Icon"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="@color/buttonsBlack"
+        android:layout_height="@dimen/dimen_60dp"
+        android:layout_marginTop="@dimen/dimen_30dp"
+        android:backgroundTint="@color/color_black"
         android:text="@string/save"
         android:textAllCaps="false"
-        android:textColor="@color/titulosPrincipais"
-        android:textSize="16sp"
+        android:textColor="@color/mainTitles"
+        android:textSize="@dimen/dimen_16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textSenha" />
+        app:layout_constraintTop_toBottomOf="@+id/textPasswordProfile" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,53 +10,53 @@
     android:padding="@dimen/dimen_30dp">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewTitleLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_30dp"
         android:text="@string/title_login"
-        android:textColor="@color/titulosPrincipais"
+        android:textColor="@color/mainTitles"
         android:textSize="@dimen/dimen_30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewMessageLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_30dp"
         android:text="@string/message_login"
-        android:textColor="@color/titulosPrincipais"
-        android:textSize="24sp"
+        android:textColor="@color/mainTitles"
+        android:textSize="@dimen/dimen_24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="00"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitleLogin" />
 
     <Button
-        android:id="@+id/textButton"
+        android:id="@+id/textButtonRegisterLogin"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_25dp"
-        android:text="@string/btn_cadastrar"
+        android:layout_marginBottom="@dimen/dimen_22dp"
+        android:text="@string/register"
         android:textAllCaps="false"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/dimen_16sp"
+        app:layout_constraintBottom_toTopOf="@+id/textEmailLogin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintStart_toEndOf="@+id/textViewMessageLogin" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textEmail"
+        android:id="@+id/textEmailLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_30dp"
         android:hint="@string/email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
+        app:layout_constraintTop_toBottomOf="@+id/textViewMessageLogin">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -65,14 +65,14 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textSenha"
+        android:id="@+id/textPasswordLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_30dp"
         android:hint="@string/password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textEmail"
+        app:layout_constraintTop_toBottomOf="@+id/textEmailLogin"
         app:endIconMode="password_toggle">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -83,44 +83,44 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/containedButtonEntrar"
+        android:id="@+id/containedButtonLogin"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_60dp"
         android:layout_marginTop="@dimen/dimen_30dp"
-        android:backgroundTint="@color/buttonsBlack"
+        android:backgroundTint="@color/color_black"
         android:text="@string/login"
         android:textAllCaps="false"
         android:textSize="@dimen/dimen_16sp"
-        android:textColor="@color/titulosPrincipais"
+        android:textColor="@color/mainTitles"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textSenha"/>
+        app:layout_constraintTop_toBottomOf="@+id/textPasswordLogin"/>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textViewOr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_15dp"
         android:text="@string/or"
         android:textAllCaps="true"
-        android:textColor="@color/titulosPrincipais"
+        android:textColor="@color/mainTitles"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/containedButtonEntrar" />
+        app:layout_constraintTop_toBottomOf="@+id/containedButtonLogin" />
 
     <Button
         android:id="@+id/containedButtonLoginGoogle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_60dp"
-        android:layout_marginTop="15dp"
-        android:backgroundTint="@color/buttonsBlack"
+        android:layout_marginTop="@dimen/dimen_15dp"
+        android:backgroundTint="@color/color_black"
         android:text="@string/login_google"
         android:textAllCaps="false"
-        android:textColor="@color/titulosPrincipais"
+        android:textColor="@color/mainTitles"
         android:textSize="@dimen/dimen_16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewOr" />
 
     <Button
         android:id="@+id/containedButtonLoginFacebook"
@@ -128,10 +128,10 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_60dp"
         android:layout_marginTop="@dimen/dimen_30dp"
-        android:backgroundTint="@color/buttonsBlack"
+        android:backgroundTint="@color/color_black"
         android:text="@string/login_facebook"
         android:textAllCaps="false"
-        android:textColor="@color/titulosPrincipais"
+        android:textColor="@color/mainTitles"
         android:textSize="@dimen/dimen_16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

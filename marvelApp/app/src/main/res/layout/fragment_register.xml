@@ -6,29 +6,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".login.view.RegisterFragment"
     android:background="@color/colorPrimaryDark"
-    android:padding="30dp">
+    android:padding="@dimen/dimen_30dp">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewTitleRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="@dimen/dimen_30dp"
         android:text="@string/title_register"
-        android:textColor="@color/titulosPrincipais"
-        android:textSize="30sp"
+        android:textColor="@color/mainTitles"
+        android:textSize="@dimen/dimen_30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textNomeCompleto"
+        android:id="@+id/textFullnameRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="@dimen/dimen_60dp"
         android:hint="@string/fullname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitleRegister">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -37,14 +37,14 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textEmail"
+        android:id="@+id/textEmailProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="@dimen/dimen_30dp"
         android:hint="@string/email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textNomeCompleto">
+        app:layout_constraintTop_toBottomOf="@+id/textFullnameRegister">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -53,14 +53,14 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textSenha"
+        android:id="@+id/textPassowordRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="@dimen/dimen_30dp"
         android:hint="@string/password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textEmail"
+        app:layout_constraintTop_toBottomOf="@+id/textEmailProfile"
         app:endIconMode="password_toggle">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -71,14 +71,14 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textConfirmacaoSenha"
+        android:id="@+id/textPasswordConfirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="@dimen/dimen_30dp"
         android:hint="@string/password_confirmation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textSenha"
+        app:layout_constraintTop_toBottomOf="@+id/textPassowordRegister"
         app:endIconMode="password_toggle">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -89,19 +89,18 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/containedButtonLoginFacebook"
-        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:id="@+id/containedButtonRegister"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="@color/buttonsBlack"
+        android:layout_height="@dimen/dimen_60dp"
+        android:layout_marginTop="@dimen/dimen_30dp"
+        android:backgroundTint="@color/color_black"
         android:text="@string/register"
         android:textAllCaps="false"
-        android:textColor="@color/titulosPrincipais"
-        android:textSize="16sp"
+        android:textColor="@color/mainTitles"
+        android:textSize="@dimen/dimen_16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textConfirmacaoSenha" />
+        app:layout_constraintTop_toBottomOf="@+id/textPasswordConfirm" />
 
 
 
