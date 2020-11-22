@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">marvelApp</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="series_image">Series Image</string>
+    <string name="ops_not_found">Ops não encontrado</string>
+    <string name="we_couldnt_find_anything_with_the_term_entered">Não encontramos nada com o termo digitado</string>
+    <string name="please_check_your_search_and_try_again">Por favor, verifique sua pesquisa e tente novamente para obter resultados.</string>
+    <string name="image_search_not_found">Imagem busca não encontrada</string>
+    <string name="back">Voltar</string>
+    <string name="marvel_logo">Marvel logo</string>
+    <string name="cover_image">Imagem da capa</string>
+    <string name="series">Séries</string>
+    <string name="home">Home</string>
+    <string name="profile">Perfil</string>
+    <string name="favorites">Favoritos</string>
+    <string name="favorite_icon">Ícone de favoritos</string>
+    <string name="share_icon">Ícone de compartilhamento</string>
+    <string name="series_details_image">Imagem de detalhes da série</string>
 </resources>

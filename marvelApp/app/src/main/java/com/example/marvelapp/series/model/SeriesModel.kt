@@ -1,10 +1,6 @@
 package com.example.marvelapp.series.model
 
-import com.example.marvelapp.character.model.CharactersModel
-import com.example.marvelapp.creator.model.CreatorsModel
-import com.example.marvelapp.data.model.ThumbnailModel
-import com.example.marvelapp.data.model.UrlModel
-import com.example.marvelapp.comic.model.ComicsModel
+import com.example.marvelapp.data.model.*
 
 data class SeriesModel (
     val id: Int?,
@@ -17,9 +13,9 @@ data class SeriesModel (
     val type: String?,
     val modified: String?,
     val thumbnail: ThumbnailModel?,
-    val comics: List<ComicsModel>,
-    val characters: List<CharactersModel>?,
-    val creators: List<CreatorsModel>?,
+    val comics: ComicsList?,
+    val characters: CharactersList?,
+    val creators: CreatorsList?,
     val next: SeriesSummaryModel?,
     val previous: SeriesSummaryModel?
 )
