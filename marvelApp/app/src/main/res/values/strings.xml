@@ -36,4 +36,8 @@
     <string name="creators_image">creators_image</string>
     <string name="creators_name">Stan Lee</string>
     <string name="creators">Criadores</string>
+    <string name="comic">HQ\'s</string>
+    <string name="character">Personagens</string>
+    <string name="splash_image">Splash Image</string>
+    <string name="screen">Screen</string>
 </resources>
