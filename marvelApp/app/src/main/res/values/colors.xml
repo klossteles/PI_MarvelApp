@@ -4,5 +4,5 @@
     <color name="colorPrimaryDark">#040202</color>
     <color name="colorAccent">#ED0000</color>
     <color name="iconsAppBarBottom">#979797</color>
-    <color name="titulosPrincipais">#FDF2F2</color>
+    <color name="mainTitles">#FDF2F2</color>
 </resources>
