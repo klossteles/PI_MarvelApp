@@ -77,15 +77,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dimen_10dp"
                 android:layout_marginTop="@dimen/dimen_20dp"
-                android:fontFamily="@font/quicksand_bold"
                 android:gravity="center_vertical"
                 android:text="@string/characters"
+                android:fontFamily="@font/quicksand_bold"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/dimen_20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <SearchView
+                android:id="@+id/searchCharacters"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dimen_10dp"
