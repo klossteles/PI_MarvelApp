@@ -19,4 +19,18 @@
         android:name="com.example.marvelapp.series.view.SeriesFragment"
         android:label="fragment_series"
         tools:layout="@layout/fragment_series" />
+    <fragment
+        android:id="@+id/characterListFragment"
+        android:name="com.example.marvelapp.character.view.CharacterListFragment"
+        android:label="fragment_character_list"
+        tools:layout="@layout/fragment_character_list" >
+        <action
+            android:id="@+id/action_characterListFragment_to_characterActivity"
+            app:destination="@id/characterActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/characterActivity"
+        android:name="com.example.marvelapp.character.view.CharacterActivity"
+        android:label="activity_character"
+        tools:layout="@layout/activity_character" />
 </navigation>

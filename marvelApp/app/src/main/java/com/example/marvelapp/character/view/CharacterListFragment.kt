@@ -5,56 +5,150 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
+import androidx.core.os.bundleOf
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.marvelapp.R
+import com.example.marvelapp.character.model.CharactersModel
+import com.example.marvelapp.character.repository.CharacterRepository
+import com.example.marvelapp.character.viewmodel.CharacterViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CharacterListFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CharacterListFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var _viewModel: CharacterViewModel
+    private lateinit var _view: View
+    private lateinit var _listAdapter: CharacterListAdapter
+    private lateinit var _recyclerView: RecyclerView
+    private lateinit var _searchView: SearchView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _characters = mutableListOf<CharactersModel>()
+    private var _nameCharacter: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_character_list, container, false)
+        _view = inflater.inflate(R.layout.fragment_character_list, container, false)
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        _view = view
+
+        val list = _view.findViewById<RecyclerView>(R.id.listCharacters)
+        val manager = GridLayoutManager(_view.context, 2)
+        _characters = mutableListOf<CharactersModel>()
+        _listAdapter = CharacterListAdapter(_characters) {
+            val bundle = bundleOf(CHARACTER_ID to it.id)
+            _view.findNavController()
+                .navigate(R.id.action_characterListFragment_to_characterActivity, bundle)
+        }
+
+        list.apply {
+            setHasFixedSize(true)
+            layoutManager = manager
+            adapter = _listAdapter
+        }
+
+        _viewModel = ViewModelProvider(
+            this,
+            CharacterViewModel.CharacterViewModelFactory(CharacterRepository())
+        ).get(CharacterViewModel::class.java)
+
+        _viewModel.getListCharacters().observe(viewLifecycleOwner, Observer {
+            showResults(it)
+        })
+
+        showLoading(true)
+        setScrollView()
+        initSearch()
+    }
+
+    private fun showResults(list: List<CharactersModel>?) {
+        showLoading(false)
+        list?.isNotEmpty()?.let { notFound(it) }
+        list?.let { _characters.addAll(it) }
+        _listAdapter.notifyDataSetChanged()
+    }
+
+    private fun initSearch() {
+        _searchView = _view.findViewById<SearchView>(R.id.searchCharacters)
+        _searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                _searchView.clearFocus()
+                _nameCharacter = query
+
+                if (query!!.isEmpty()) {
+                    _viewModel.getListCharacters().observe(viewLifecycleOwner, Observer {
+                        _characters.clear()
+                        showResults(it)
+                    })
+                } else {
+                    _viewModel.searchCharacter(query).observe(viewLifecycleOwner, Observer {
+                        _characters.clear()
+                        showResults(it)
+                    })
+                }
+
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText!!.isBlank()) {
+                    _nameCharacter = null
+                    showResults(_viewModel.returnFirstListCharacters())
+                }
+                return true
+            }
+
+        })
+        _viewModel.getListCharacters()
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        val viewLoading = _view.findViewById<View>(R.id.characterLoading)
+
+        if (isLoading) {
+            viewLoading.visibility = View.VISIBLE
+        } else {
+            viewLoading.visibility = View.GONE
+        }
+    }
+
+    private fun notFound(notFound: Boolean) {
+        if (notFound) {
+            _view.findViewById<View>(R.id.notFoundLayout).visibility = View.GONE
+        } else {
+            _view.findViewById<View>(R.id.notFoundLayout).visibility = View.VISIBLE
+        }
+    }
+
+    private fun setScrollView() {
+        _recyclerView.run {
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val target = recyclerView.layoutManager as LinearLayoutManager?
+                    val totalItemCount = target!!.itemCount
+                    val lastVisible = target.findLastVisibleItemPosition()
+                    val lastItem = lastVisible + 4 >= totalItemCount
+                    if (totalItemCount > 0 && lastItem) {
+                        _viewModel.nextPage().observe(viewLifecycleOwner, Observer {
+                            showResults(it)
+                        })
+                    }
+                }
+            })
+        }
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CharacterListFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CharacterListFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        const val CHARACTER_ID = "CHARACTER_ID"
     }
 }
