@@ -7,16 +7,16 @@ import com.example.marvelapp.series.model.SeriesModel
 import java.util.*
 
 class CreatorsModel (
-    id: Int?,
-    firstName: String?,
-    middleName: String?,
-    lastName: String?,
-    suffix: String?,
-    fullName: String?,
-    modified: Date?,
-    resourceURI: String?,
-    urls: List<UrlModel>?,
-    thumbnail: ThumbnailModel?,
-    series: List<SeriesModel>?,
-    comics: List<ComicsModel>?
+    val id: Int?,
+    val firstName: String?,
+    val middleName: String?,
+    val lastName: String?,
+    val suffix: String?,
+    val fullName: String?,
+    val modified: Date?,
+    val resourceURI: String?,
+    val urls: List<UrlModel>?,
+    val  thumbnail: ThumbnailModel?,
+    val series: List<SeriesModel>?,
+    val comics: List<ComicsModel>?
 )

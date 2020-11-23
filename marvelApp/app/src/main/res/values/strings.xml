@@ -18,4 +18,22 @@
     <string name="series_details_image">Imagem de detalhes da série</string>
     <string name="characters">Personagens</string>
     <string name="character_image">Character Image</string>
+    <string name="title_login">ENTRAR</string>
+    <string name="message_login">Primeira vez por aqui?</string>
+    <string name="register">Cadastre-se</string>
+    <string name="email">Email</string>
+    <string name="password">Senha</string>
+    <string name="login">Entrar</string>
+    <string name="or">ou</string>
+    <string name="login_google">Continuar com o Google</string>
+    <string name="login_facebook">Continuar com o Facebook</string>
+    <string name="title_register">CADASTRAR</string>
+    <string name="fullname">Nome completo</string>
+    <string name="password_confirmation">Confirmação de senha</string>
+    <string name="hello_name">Olá, Grupo06</string>
+    <string name="acess_and_security">Acesso e segurança</string>
+    <string name="save">Salvar</string>
+    <string name="creators_image">creators_image</string>
+    <string name="creators_name">Stan Lee</string>
+    <string name="creators">Criadores</string>
 </resources>
