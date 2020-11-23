@@ -33,4 +33,7 @@
     <string name="hello_name">Olá, Grupo06</string>
     <string name="acess_and_security">Acesso e segurança</string>
     <string name="save">Salvar</string>
+    <string name="creators_image">creators_image</string>
+    <string name="creators_name">Stan Lee</string>
+    <string name="creators">Criadores</string>
 </resources>
