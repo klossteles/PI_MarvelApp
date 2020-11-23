@@ -157,7 +157,7 @@
                 <View
                     android:id="@+id/viewBackgroundNotFound"
                     android:layout_width="@dimen/dimen_50dp"
-                    android:layout_height="50dp"
+                    android:layout_height="@dimen/dimen_50dp"
                     android:background="@drawable/search_circle_shape"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
