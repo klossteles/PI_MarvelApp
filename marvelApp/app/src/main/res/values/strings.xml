@@ -40,4 +40,6 @@
     <string name="character">Personagens</string>
     <string name="splash_image">Splash Image</string>
     <string name="screen">Screen</string>
+    <string name="comic_image">Comic Image</string>
+    <string name="comic_details_image">Comic details image</string>
 </resources>

@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_seriesListFragment_to_seriesFragment"
             app:destination="@id/seriesFragment" />
+        <action
+            android:id="@+id/action_seriesListFragment_to_homeFragment2"
+            app:destination="@id/homeFragment2" />
     </fragment>
     <fragment
         android:id="@+id/seriesFragment"
@@ -33,4 +36,37 @@
         android:name="com.example.marvelapp.character.view.CharacterActivity"
         android:label="activity_character"
         tools:layout="@layout/activity_character" />
+    <fragment
+        android:id="@+id/homeFragment2"
+        android:name="com.example.marvelapp.home.view.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment2_to_seriesListFragment"
+            app:destination="@id/seriesListFragment" />
+        <action
+            android:id="@+id/action_homeFragment2_to_searchComicFragment"
+            app:destination="@id/searchComicFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchComicFragment"
+        android:name="com.example.marvelapp.comic.view.SearchComicFragment"
+        android:label="fragment_search_comic"
+        tools:layout="@layout/fragment_search_comic" >
+        <action
+            android:id="@+id/action_searchComicFragment_to_comicFragment"
+            app:destination="@id/comicFragment" />
+        <action
+            android:id="@+id/action_searchComicFragment_to_homeFragment2"
+            app:destination="@id/homeFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/comicFragment"
+        android:name="com.example.marvelapp.comic.view.ComicFragment"
+        android:label="fragment_comic"
+        tools:layout="@layout/fragment_comic" >
+        <action
+            android:id="@+id/action_comicFragment_to_searchComicFragment"
+            app:destination="@id/searchComicFragment" />
+    </fragment>
 </navigation>

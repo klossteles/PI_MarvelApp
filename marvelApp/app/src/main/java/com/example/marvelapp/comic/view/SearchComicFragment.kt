@@ -5,54 +5,55 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.marvelapp.R
+import com.example.marvelapp.comic.model.ComicsModel
+import com.example.marvelapp.comic.viewModel.ComicViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SearchComicFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class SearchComicFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var _viewModel: ComicViewModel
+    private lateinit var _view: View
+    private lateinit var _listAdapter: ComicListAdapter
+    private lateinit var _recyclerView: RecyclerView
+    private lateinit var _searchView: SearchView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    private var _comic = mutableListOf<ComicsModel>()
+    private var _title: String? = null
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_search_comic, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        _view = view
+
+        val list = _view.findViewById<RecyclerView>(R.id.listComic)
+        val manager = GridLayoutManager(_view.context, 2)
+        _comic = mutableListOf<ComicsModel>()
+        _listAdapter = ComicListAdapter(_comic) {
+            val bundle = bundleOf(SearchComicFragment.COMIC_ID to it.id)
+            _view.findNavController()
+                .navigate(R.id.action_searchComicFragment_to_comicFragment, bundle)
+        }
+        _recyclerView = _view.findViewById<RecyclerView>(R.id.listComic)
+        list.apply {
+            setHasFixedSize(true)
+            layoutManager = manager
+            adapter = _listAdapter
+        }
+
+    }
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SearchComicFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-                SearchComicFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
-                }
+        const val COMIC_ID = "COMIC_ID"
     }
 }
