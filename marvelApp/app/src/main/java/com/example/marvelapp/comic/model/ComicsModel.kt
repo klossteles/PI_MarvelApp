@@ -1,7 +1,7 @@
 package com.example.marvelapp.comic.model
 
-import com.example.marvelapp.character.model.CharactersModel
-import com.example.marvelapp.creator.model.CreatorsModel
+import com.example.marvelapp.data.model.CharactersList
+import com.example.marvelapp.data.model.CreatorsList
 import com.example.marvelapp.data.model.ThumbnailModel
 import com.example.marvelapp.data.model.UrlModel
 import com.example.marvelapp.series.model.SeriesSummaryModel
@@ -33,6 +33,6 @@ class ComicsModel (
     val prices: List<ComicPrice>?,
     val thumbnail: ThumbnailModel?,
     val images: List<ThumbnailModel>?,
-    val creators: List<CreatorsModel>?,
-    val characters: List<CharactersModel?>
+    val creators: CreatorsList?,
+    val characters: CharactersList?
 )
