@@ -16,4 +16,6 @@
     <string name="favorite_icon">Ícone de favoritos</string>
     <string name="share_icon">Ícone de compartilhamento</string>
     <string name="series_details_image">Imagem de detalhes da série</string>
+    <string name="characters">Personagens</string>
+    <string name="character_image">Character Image</string>
 </resources>
