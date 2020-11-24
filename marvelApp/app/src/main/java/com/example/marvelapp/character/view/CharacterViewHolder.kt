@@ -10,7 +10,7 @@ import com.squareup.picasso.Picasso
 
 class CharacterViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
     private val nameCharacter = view.findViewById<TextView>(R.id.txtNameCharacterItemList)
-    private val imageCharacter = view.findViewById<ImageView>(R.id.imageCharacterList)
+    private val image = view.findViewById<ImageView>(R.id.imgCharacterItemList)
 
     fun bind(charactersModel: CharactersModel) {
         nameCharacter.text = charactersModel.name
