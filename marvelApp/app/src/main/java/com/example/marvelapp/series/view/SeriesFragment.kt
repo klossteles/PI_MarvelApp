@@ -10,9 +10,11 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager.widget.ViewPager
 import com.example.marvelapp.R
 import com.example.marvelapp.series.repository.SeriesRepository
 import com.example.marvelapp.series.viewmodel.SeriesViewModel
+import com.google.android.material.tabs.TabLayout
 import com.squareup.picasso.Picasso
 
 class SeriesFragment : Fragment() {
@@ -35,6 +37,15 @@ class SeriesFragment : Fragment() {
             SeriesViewModel.SeriesViewModelFactory(SeriesRepository())
         ).get(SeriesViewModel::class.java)
 
+        val pager = _view.findViewById<ViewPager>(R.id.seriesViewPager)
+        val tab = _view.findViewById<TabLayout>(R.id.seriesTabLayout)
+
+        tab.setupWithViewPager(pager)
+        val fragments = mutableListOf<Fragment>()
+
+        val titles = listOf(getString(R.string.description), getString(R.string.creators), getString(
+                    R.string.caracters), getString(R.string.comics))
+
         showLoading(true)
         val txtSeriesDetailsTitle = _view.findViewById<TextView>(R.id.txtSeriesDetailsTitle)
         val image = _view.findViewById<ImageView>(R.id.imgSeriesDetails)
@@ -53,6 +64,15 @@ class SeriesFragment : Fragment() {
                     Picasso.get()
                         .load(imagePath)
                         .into(image)
+                }
+                fragments.add(SeriesDescriptionFragment.newInstance(it.description))
+                fragments.add(SeriesCreatorListFragment.newInstance(it.creators))
+                fragments.add(SeriesCaracthersListFragment.newInstance(it.characters))
+                fragments.add(SeriesComicsListFragment.newInstance(it.comics))
+                pager.adapter = activity?.supportFragmentManager?.let { it1 ->
+                    ViewPageAdapter(fragments, titles,
+                        it1
+                    )
                 }
             })
         }
