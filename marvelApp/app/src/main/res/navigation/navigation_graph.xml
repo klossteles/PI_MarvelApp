@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/seriesListFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/seriesListFragment"
@@ -14,14 +14,18 @@
             android:id="@+id/action_seriesListFragment_to_seriesFragment"
             app:destination="@id/seriesFragment" />
         <action
-            android:id="@+id/action_seriesListFragment_to_homeFragment2"
-            app:destination="@id/homeFragment2" />
+            android:id="@+id/action_seriesListFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/seriesFragment"
         android:name="com.example.marvelapp.series.view.SeriesFragment"
         android:label="fragment_series"
-        tools:layout="@layout/fragment_series" />
+        tools:layout="@layout/fragment_series" >
+        <action
+            android:id="@+id/action_seriesFragment_to_seriesListFragment"
+            app:destination="@id/seriesListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/characterListFragment"
         android:name="com.example.marvelapp.character.view.CharacterListFragment"
@@ -37,16 +41,19 @@
         android:label="activity_character"
         tools:layout="@layout/activity_character" />
     <fragment
-        android:id="@+id/homeFragment2"
+        android:id="@+id/homeFragment"
         android:name="com.example.marvelapp.home.view.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment2_to_seriesListFragment"
+            android:id="@+id/action_homeFragment_to_seriesListFragment"
             app:destination="@id/seriesListFragment" />
         <action
-            android:id="@+id/action_homeFragment2_to_searchComicFragment"
+            android:id="@+id/action_homeFragment_to_searchComicFragment"
             app:destination="@id/searchComicFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_characterListFragment"
+            app:destination="@id/characterListFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchComicFragment"
@@ -57,8 +64,8 @@
             android:id="@+id/action_searchComicFragment_to_comicFragment"
             app:destination="@id/comicFragment" />
         <action
-            android:id="@+id/action_searchComicFragment_to_homeFragment2"
-            app:destination="@id/homeFragment2" />
+            android:id="@+id/action_searchComicFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/comicFragment"
