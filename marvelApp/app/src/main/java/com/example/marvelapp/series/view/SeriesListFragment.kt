@@ -136,7 +136,7 @@ class SeriesListFragment : Fragment() {
                     val lastVisible = target.findLastVisibleItemPosition()
                     val lastItem = lastVisible + 4 >= totalItemCount
                     if (totalItemCount > 0 && lastItem) {
-                        _viewModel.nextPage().observe(viewLifecycleOwner, Observer {
+                        _viewModel.nextPage(_title).observe(viewLifecycleOwner, Observer {
                             showResults(it)
                         })
                     }
