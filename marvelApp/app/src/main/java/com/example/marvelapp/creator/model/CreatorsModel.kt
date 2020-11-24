@@ -2,8 +2,8 @@ package com.example.marvelapp.creator.model
 
 import com.example.marvelapp.data.model.ThumbnailModel
 import com.example.marvelapp.data.model.UrlModel
-import com.example.marvelapp.comic.model.ComicsModel
-import com.example.marvelapp.series.model.SeriesModel
+import com.example.marvelapp.data.model.ComicsList
+import com.example.marvelworld.api.models.SeriesList
 import java.util.*
 
 class CreatorsModel (
@@ -16,7 +16,7 @@ class CreatorsModel (
     val modified: Date?,
     val resourceURI: String?,
     val urls: List<UrlModel>?,
-    val  thumbnail: ThumbnailModel?,
-    val series: List<SeriesModel>?,
-    val comics: List<ComicsModel>?
+    val thumbnail: ThumbnailModel?,
+    val series: SeriesList?,
+    val comics: ComicsList?
 )
