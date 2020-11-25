@@ -16,7 +16,7 @@ import com.example.marvelapp.comic.viewModel.ComicViewModel
 
 
 
-class ComicListFragment : Fragment() {
+class SearchComicFragment : Fragment() {
     private lateinit var _viewModel: ComicViewModel
     private lateinit var _view: View
     private lateinit var _listAdapter: ComicListAdapter
@@ -30,7 +30,7 @@ class ComicListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_comic_list, container, false)
+        return inflater.inflate(R.layout.fragment_search_comic, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,7 +41,7 @@ class ComicListFragment : Fragment() {
         val manager = GridLayoutManager(_view.context, 2)
         _comic = mutableListOf<ComicsModel>()
         _listAdapter = ComicListAdapter(_comic) {
-            val bundle = bundleOf(ComicListFragment.COMIC_ID to it.id)
+            val bundle = bundleOf(SearchComicFragment.COMIC_ID to it.id)
             _view.findNavController()
                 .navigate(R.id.action_searchComicFragment_to_comicFragment, bundle)
         }
