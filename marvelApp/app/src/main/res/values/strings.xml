@@ -46,4 +46,7 @@
     <string name="comic_image">Comic Image</string>
     <string name="comic_details_image">Comic details image</string>
     <string name="read_now">READ NOW!</string>
+    <string name="img_creators_details">Imagem Criadores detalhes</string>
+    <string name="events">Eventos</string>
+    <string name="stories">Histórias</string>
 </resources>
