@@ -14,7 +14,6 @@
             android:id="@+id/seriesToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
             android:background="@color/color_black"
             android:minHeight="?attr/actionBarSize"
             android:padding="@dimen/dimen_10dp"
