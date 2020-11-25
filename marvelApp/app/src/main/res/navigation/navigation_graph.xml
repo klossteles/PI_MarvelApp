@@ -57,6 +57,15 @@
         <action
             android:id="@+id/action_homeFragment_to_characterListFragment"
             app:destination="@id/characterListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_creatorsListFragment"
+            app:destination="@id/creatorsListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchComicFragment"
@@ -79,4 +88,51 @@
             android:id="@+id/action_comicFragment_to_searchComicFragment"
             app:destination="@id/searchComicFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/creatorsListFragment"
+        android:name="com.example.marvelapp.creator.view.CreatorsListFragment"
+        android:label="fragment_creators_list"
+        tools:layout="@layout/fragment_creators_list" >
+        <action
+            android:id="@+id/action_creatorsListFragment_to_creatorsFragment"
+            app:destination="@id/creatorsFragment" />
+        <action
+            android:id="@+id/action_creatorsListFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/creatorsFragment"
+        android:name="com.example.marvelapp.creator.view.CreatorsFragment"
+        android:label="fragment_creators"
+        tools:layout="@layout/fragment_creators" >
+        <action
+            android:id="@+id/action_creatorsFragment_to_creatorsListFragment"
+            app:destination="@id/creatorsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.marvelapp.login.view.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment2"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.marvelapp.login.view.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.marvelapp.login.view.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

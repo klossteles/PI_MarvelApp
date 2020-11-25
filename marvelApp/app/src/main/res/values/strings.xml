@@ -47,7 +47,7 @@
     <string name="comic_details_image">Comic details image</string>
     <string name="read_now">READ NOW!</string>
     <string name="personagens">Personagens</string>
-    <string name="s_ries">Séries</string>
-    <string name="hq_s">HQ\'s</string>
-    <string name="criadores">Criadores</string>
+    <string name="img_creators_details">Imagem Criadores detalhes</string>
+    <string name="events">Eventos</string>
+    <string name="stories">Histórias</string>
 </resources>
