@@ -36,7 +36,7 @@ class CharacterDescriptionFragment : Fragment() {
 
     companion object {
 
-        fun newInstance(description:String?) =
+        fun newInstance(description: String?) =
             CharacterDescriptionFragment().apply {
                 arguments = Bundle().apply {
                     putString("CHARACTER_DESCRIPTION", description)

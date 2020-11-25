@@ -43,13 +43,14 @@ class CharacterListFragment : Fragment() {
         val list = _view.findViewById<RecyclerView>(R.id.listCharacters)
         val manager = GridLayoutManager(_view.context, 2)
 
-        _recyclerView= _view.findViewById<RecyclerView>(R.id.listCharacters)
         _characters = mutableListOf<CharactersModel>()
         _listAdapter = CharacterListAdapter(_characters) {
             val bundle = bundleOf(CHARACTER_ID to it.id)
             _view.findNavController()
                 .navigate(R.id.action_characterListFragment_to_characterFragment, bundle)
         }
+
+        _recyclerView= _view.findViewById<RecyclerView>(R.id.listCharacters)
 
         list.apply {
             setHasFixedSize(true)
@@ -111,6 +112,7 @@ class CharacterListFragment : Fragment() {
         })
         _viewModel.getListCharacters()
     }
+
 
     private fun showLoading(isLoading: Boolean) {
         val viewLoading = _view.findViewById<View>(R.id.characterLoading)

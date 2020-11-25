@@ -36,14 +36,12 @@
         android:label="fragment_character_list"
         tools:layout="@layout/fragment_character_list" >
         <action
-            android:id="@+id/action_characterListFragment_to_characterActivity"
-            app:destination="@id/characterActivity" />
+            android:id="@+id/action_characterListFragment_to_characterFragment"
+            app:destination="@id/characterFragment" />
+        <action
+            android:id="@+id/action_characterListFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
-    <activity
-        android:id="@+id/characterActivity"
-        android:name="com.example.marvelapp.character.view.CharacterActivity"
-        android:label="activity_character"
-        tools:layout="@layout/activity_character" />
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.marvelapp.home.view.HomeFragment"
@@ -89,6 +87,15 @@
             app:destination="@id/searchComicFragment"
             app:popUpTo="@id/searchComicFragment"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/characterFragment"
+        android:name="com.example.marvelapp.character.view.CharacterFragment"
+        android:label="fragment_character"
+        tools:layout="@layout/fragment_character" >
+        <action
+            android:id="@+id/action_characterFragment_to_characterListFragment"
+            app:destination="@id/characterListFragment" />
     </fragment>
     <fragment
         android:id="@+id/creatorsListFragment"

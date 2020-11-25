@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.example.marvelapp.R
 import com.example.marvelapp.data.model.ComicsList
 
@@ -41,7 +40,6 @@ class CharacterComicsListFragment : Fragment() {
             CharacterComicsListFragment().apply {
                 arguments = Bundle().apply {
                     putString("CHARACTER_COMICS",comics.toString())
-
                 }
             }
     }

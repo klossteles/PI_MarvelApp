@@ -36,7 +36,7 @@ class CharacterSeriesListFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(series:SeriesList?) =
+        fun newInstance(series: SeriesList?) =
             CharacterSeriesListFragment().apply {
                 arguments = Bundle().apply {
                     putString("CHARACTER_SERIES", series.toString())
