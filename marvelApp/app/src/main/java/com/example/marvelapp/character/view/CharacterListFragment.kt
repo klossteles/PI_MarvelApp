@@ -59,9 +59,15 @@ class CharacterListFragment : Fragment() {
                 .navigate(R.id.action_characterListFragment_to_characterFragment, bundle)
         }
 
+<<<<<<< HEAD
 
         _recyclerView= _view.findViewById<RecyclerView>(R.id.listCharacters)
         _recyclerView.apply {
+=======
+        _recyclerView= _view.findViewById<RecyclerView>(R.id.listCharacters)
+
+        list.apply {
+>>>>>>> d6b10fa... remove app bar botton and add navegation
             setHasFixedSize(true)
             layoutManager = manager
             adapter = _listAdapter
