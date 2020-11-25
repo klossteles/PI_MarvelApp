@@ -70,18 +70,73 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <ImageView
-        android:id="@+id/imgCreatorsDetails"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardImage"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_200dp"
-        android:src="@drawable/stan_lee"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbarCreatorsDetails"
-        android:scaleType="fitCenter"
-        android:paddingVertical="@dimen/dimen_10dp"
+        android:layout_height="wrap_content"
         android:background="@color/color_black"
-        android:contentDescription="@string/img_creators_details" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarCreatorsDetails">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_black">
+
+            <TextView
+                android:id="@+id/textCreatorsNameDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:fontFamily="@font/quicksand_bold"
+                android:textAlignment="center"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/dimen_20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/creators_name" />
+
+            <ImageView
+                android:id="@+id/imgCreatorDetails"
+                android:layout_width="@dimen/dimen_200dp"
+                android:layout_height="@dimen/dimen_200dp"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:contentDescription="@string/character_image"
+                android:scaleType="centerCrop"
+                android:src="@drawable/stan_lee"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textCreatorsNameDetails"
+                app:layout_constraintVertical_bias="1.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/creatorsViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_0dp"
+        android:layout_marginHorizontal="@dimen/dimen_10dp"
+        android:background="@color/color_gray"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavSeriesList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardImage"
+        tools:ignore="NotSibling">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/creatorsTabLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/color_gray"
+            app:tabIndicatorColor="@color/color_red"
+            app:tabSelectedTextColor="@color/color_red" />
+    </androidx.viewpager.widget.ViewPager>
 
     <LinearLayout
         android:id="@+id/creatorsDetailsLoading"

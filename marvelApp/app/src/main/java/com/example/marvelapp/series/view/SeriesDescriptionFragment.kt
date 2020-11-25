@@ -41,5 +41,6 @@ class SeriesDescriptionFragment : Fragment() {
                     putString("SERIES_DESCRIPTION", description)
                 }
             }
+
     }
 }

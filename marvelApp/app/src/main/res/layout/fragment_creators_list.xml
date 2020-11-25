@@ -92,7 +92,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <SearchView
-                android:id="@+id/searchSeries"
+                android:id="@+id/searchCreators"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/txtName"
@@ -124,7 +124,7 @@
             tools:listitem="@layout/fragment_creators_item_list"/>
 
         <LinearLayout
-            android:id="@+id/characterLoading"
+            android:id="@+id/creatorLoading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
