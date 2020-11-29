@@ -46,7 +46,15 @@ class SeriesListFragment : Fragment() {
         val manager = GridLayoutManager(_view.context, 2)
         _series = mutableListOf<SeriesModel>()
         _listAdapter = SeriesListAdapter(_series) {
-            val bundle = bundleOf(SERIES_ID to it.id)
+            val bundle = bundleOf(SERIES_ID to it.id,
+                SERIES_TITLE to it.title,
+                SERIES_CHARACTERS to it.characters?.items,
+                SERIES_COMICS to it.comics?.items,
+                SERIES_CREATORS to it.creators?.items,
+                SERIES_DESCRIPTION to it.description,
+                SERIES_THUMBNAIL to it.thumbnail?.getImagePath("landscape_incredible"),
+                SERIES_START to it.startYear,
+                SERIES_END to it.endYear)
             _view.findNavController().navigate(R.id.action_seriesListFragment_to_seriesFragment, bundle)
         }
 
@@ -147,5 +155,13 @@ class SeriesListFragment : Fragment() {
 
     companion object {
         const val SERIES_ID = "SERIES_ID"
+        const val SERIES_TITLE = "SERIES_TITLE"
+        const val SERIES_DESCRIPTION = "SERIES_DESCRIPTION"
+        const val SERIES_CREATORS = "SERIES_CREATORS"
+        const val SERIES_CHARACTERS = "SERIES_CHARACTERS"
+        const val SERIES_COMICS = "SERIES_COMICS"
+        const val SERIES_THUMBNAIL = "SERIES_THUMBNAIL"
+        const val SERIES_START = "SERIES_START"
+        const val SERIES_END = "SERIES_END"
     }
 }

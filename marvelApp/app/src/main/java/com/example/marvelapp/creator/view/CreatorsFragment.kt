@@ -66,11 +66,11 @@ class CreatorsFragment : Fragment() {
                 fragments.add(CreatorsComicsListFragment.newInstance(it.comics))
                 fragments.add(CreatorsSeriesListFragment.newInstance(it.series))
                 fragments.add(CreatorsEventsListFragment.newInstance(it.events))
-                pager.adapter = activity?.supportFragmentManager?.let { it1 ->
-                    ViewPageAdapter(fragments, titles,
-                        it1
-                    )
-                }
+//                pager.adapter = activity?.supportFragmentManager?.let { it1 ->
+//                    ViewPageAdapter(fragments, titles,
+//                        it1
+//                    )
+//                }
             })
         }
         showLoading(false)

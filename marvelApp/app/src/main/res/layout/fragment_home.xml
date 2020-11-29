@@ -27,8 +27,8 @@
                 android:layout_marginEnd="@dimen/dimen_10dp">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/dimen_100dp"
+                    android:layout_height="@dimen/dimen_50dp"
                     android:contentDescription="@string/marvel_logo"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -95,7 +95,7 @@
                     android:layout_height="@dimen/dimen_200dp"
                     android:src="@drawable/series_home"
                     android:scaleType="fitXY"
-                    android:contentDescription="@string/home_characters_image"
+                    android:contentDescription="@string/home_series_image"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

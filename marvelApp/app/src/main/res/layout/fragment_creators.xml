@@ -35,8 +35,8 @@
                 app:tint="@color/color_white" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/dimen_100dp"
+                android:layout_height="@dimen/dimen_50dp"
                 android:contentDescription="@string/marvel_logo"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
