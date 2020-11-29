@@ -49,4 +49,8 @@
     <string name="img_creators_details">Imagem Criadores detalhes</string>
     <string name="events">Eventos</string>
     <string name="stories">Histórias</string>
+    <string name="home_characters_image">Home characters image</string>
+    <string name="home_series_image">Home series image</string>
+    <string name="home_comics_image">Home comics image</string>
+    <string name="home_creators_image">Home creators image</string>
 </resources>

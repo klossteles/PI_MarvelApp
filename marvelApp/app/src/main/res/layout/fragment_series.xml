@@ -78,8 +78,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbarSeriesDetails"
-        android:scaleType="fitCenter"
-        android:padding="@dimen/dimen_10dp"
+        android:scaleType="fitXY"
         android:background="@color/color_black"
         android:contentDescription="@string/series_details_image" />
 

@@ -16,16 +16,6 @@ class ComicListViewHolder(private val view: View): RecyclerView.ViewHolder(view)
 
     fun bind(comicsModel: ComicsModel) {
         name.text = comicsModel.title
-        if (comicsModel.thumbnail == null || comicsModel.thumbnail.path.contains("image_not_available")) {
-            Picasso.get()
-                .load(R.drawable.image_not_available)
-                .into(image)
-        } else {
-            val imagePath =
-                "${comicsModel.thumbnail.path}/landscape_large.${comicsModel.thumbnail.extension}"
-            Picasso.get()
-                .load(imagePath)
-                .into(image)
-        }
+        Picasso.get().load(comicsModel.thumbnail?.getImagePath()).into(image)
     }
 }

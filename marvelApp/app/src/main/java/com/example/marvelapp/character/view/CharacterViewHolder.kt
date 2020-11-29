@@ -14,16 +14,7 @@ class CharacterViewHolder(private val view: View) : RecyclerView.ViewHolder(view
 
     fun bind(charactersModel: CharactersModel) {
         nameCharacter.text = charactersModel.name
-        if (charactersModel.thumbnail == null || charactersModel.thumbnail.path.contains("image_not_available")) {
-            Picasso.get()
-                .load(R.drawable.image_not_available)
-                .into(imageCharacter)
-        } else {
-            val imagePath="${charactersModel.thumbnail.path}/landscape_large.${charactersModel.thumbnail.extension}"
-            Picasso.get()
-                .load(imagePath)
-                .into(imageCharacter)
-        }
+        Picasso.get().load(charactersModel.thumbnail?.getImagePath()).into(imageCharacter)
     }
 
 }

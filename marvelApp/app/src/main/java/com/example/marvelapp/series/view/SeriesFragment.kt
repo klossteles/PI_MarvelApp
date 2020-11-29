@@ -55,16 +55,7 @@ class SeriesFragment : Fragment() {
             _viewModel.getSeriesById(seriesId).observe(viewLifecycleOwner, Observer {
                 showLoading(false)
                 txtSeriesDetailsTitle.text = it.title
-                if (it.thumbnail == null || it.thumbnail.path.contains("image_not_available")) {
-                    Picasso.get()
-                        .load(R.drawable.image_not_available)
-                        .into(image)
-                } else {
-                    val imagePath = "${it.thumbnail.path}/landscape_large.${it.thumbnail.extension}"
-                    Picasso.get()
-                        .load(imagePath)
-                        .into(image)
-                }
+                Picasso.get().load(it.thumbnail?.getImagePath("landscape_incredible")).into(image)
                 fragments.add(SeriesDescriptionFragment.newInstance(it.description))
                 fragments.add(SeriesCreatorListFragment.newInstance(it.creators))
                 fragments.add(SeriesCaracthersListFragment.newInstance(it.characters))
