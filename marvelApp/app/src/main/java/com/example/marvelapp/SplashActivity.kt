@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-const val DURACAO_DO_SPLASH = 4000L
+const val SPLASH_DURATION = 4000L
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -13,9 +13,7 @@ class SplashActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-
-        }, DURACAO_DO_SPLASH
-
-        )
+            finish()
+        }, SPLASH_DURATION)
     }
 }
