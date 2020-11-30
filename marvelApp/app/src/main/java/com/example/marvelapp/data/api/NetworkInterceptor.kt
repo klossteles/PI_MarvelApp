@@ -1,5 +1,6 @@
 package com.example.marvelapp.data.api
 
+import android.util.Log
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.math.BigInteger
@@ -17,11 +18,21 @@ class NetworkInterceptor : Interceptor {
             .addQueryParameter(HASH, getHash(ts))
             .build()
 
-        request = request.newBuilder().url(httpUrl).build()
-        return chain.proceed(request)
+        val requestBuilder = request.newBuilder().url(httpUrl)
+        request = requestBuilder.build()
+
+        var response = chain.proceed(request)
+        var tryCount = 0
+        while (!response.isSuccessful && tryCount < 3) {
+            Log.d("intercept", "Request is not successful - $tryCount")
+            tryCount++
+            // retry the request
+            response = chain.proceed(request)
+        }
+        return response
     }
 
-    fun getHash(ts: String) = "${ts}$PRIVATE_KEY$PUBLIC_KEY".md5
+    private fun getHash(ts: String) = "${ts}$PRIVATE_KEY$PUBLIC_KEY".md5
 
     private val String.md5: String
         get() {
