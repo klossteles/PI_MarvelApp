@@ -62,24 +62,15 @@ class CreatorsFragment : Fragment() {
             _viewModel.getCreatorsById(creatorsId).observe(viewLifecycleOwner, Observer {
                 showLoading(false)
                 textCreatorsNameDetails.text = it.fullName
-                if (it.thumbnail == null || it.thumbnail.path.contains("image_not_available")) {
-                    Picasso.get()
-                        .load(R.drawable.image_not_available)
-                        .into(image)
-                } else {
-                    val imagePath = "${it.thumbnail.path}/landscape_large.${it.thumbnail.extension}"
-                    Picasso.get()
-                        .load(imagePath)
-                        .into(image)
-                }
+                Picasso.get().load(it.thumbnail?.getImagePath()).into(image)
                 fragments.add(CreatorsComicsListFragment.newInstance(it.comics))
                 fragments.add(CreatorsSeriesListFragment.newInstance(it.series))
                 fragments.add(CreatorsEventsListFragment.newInstance(it.events))
-                pager.adapter = activity?.supportFragmentManager?.let { it1 ->
-                    ViewPageAdapter(fragments, titles,
-                        it1
-                    )
-                }
+//                pager.adapter = activity?.supportFragmentManager?.let { it1 ->
+//                    ViewPageAdapter(fragments, titles,
+//                        it1
+//                    )
+//                }
             })
         }
         showLoading(false)

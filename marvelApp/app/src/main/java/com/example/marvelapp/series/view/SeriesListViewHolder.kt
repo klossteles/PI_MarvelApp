@@ -14,15 +14,6 @@ class SeriesListViewHolder(private val view: View): RecyclerView.ViewHolder(view
 
     fun bind(seriesModel: SeriesModel) {
         name.text = seriesModel.title
-        if (seriesModel.thumbnail == null || seriesModel.thumbnail.path.contains("image_not_available")) {
-            Picasso.get()
-                .load(R.drawable.image_not_available)
-                .into(image)
-        } else {
-            val imagePath = "${seriesModel.thumbnail.path}/landscape_large.${seriesModel.thumbnail.extension}"
-            Picasso.get()
-                .load(imagePath)
-                .into(image)
-        }
+        Picasso.get().load(seriesModel.thumbnail?.getImagePath()).into(image)
     }
 }

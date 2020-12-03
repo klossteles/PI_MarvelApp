@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.example.marvelapp.series.view.SeriesDescriptionFragment
 
 class ComicDescriptionFragment : Fragment() {
     private lateinit var _view: View
@@ -30,13 +29,13 @@ class ComicDescriptionFragment : Fragment() {
         _view.findViewById<TextView>(R.id.txtComicDescription).text = _description
 
     }
-    companion object {
-        @JvmStatic
-        fun newInstance(description: String?) =
-                SeriesDescriptionFragment().apply {
-                    arguments = Bundle().apply {
-                        putString("COMIC_DESCRIPTION", description)
-                    }
-                }
-    }
+//    companion object {
+//        @JvmStatic
+//        fun newInstance(description: String?) =
+//                SeriesDescriptionFragment().apply {
+//                    arguments = Bundle().apply {
+//                        putString("COMIC_DESCRIPTION", description)
+//                    }
+//                }
+//    }
 }

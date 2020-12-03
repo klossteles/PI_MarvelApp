@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,130 +7,249 @@
     android:background="@color/color_gray"
     tools:context=".series.view.SeriesFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarSeriesDetails"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/color_black"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarSeriesDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dimen_10dp">
-            <ImageView
-                android:id="@+id/imgSeriesDetailsBack"
-                android:layout_width="wrap_content"
+            android:background="@color/color_black"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/back"
-                android:src="@drawable/ic_baseline_arrow_back_24"
-                android:layout_marginTop="@dimen/dimen_5dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:tint="@color/color_white" />
+                android:layout_marginEnd="@dimen/dimen_10dp">
+                <ImageView
+                    android:id="@+id/imgSeriesDetailsBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/back"
+                    android:src="@drawable/ic_baseline_arrow_back_24"
+                    android:layout_marginTop="@dimen/dimen_5dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:tint="@color/color_white" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/marvel_logo"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:src="@drawable/marvel_logo"/>
+                <ImageView
+                    android:layout_width="@dimen/dimen_100dp"
+                    android:layout_height="@dimen/dimen_50dp"
+                    android:contentDescription="@string/marvel_logo"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/marvel_logo"/>
 
-            <ImageView
-                android:id="@+id/imgSeriesDetailsShare"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toStartOf="@id/imgSeriesDetailsFavorite"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginEnd="@dimen/dimen_20dp"
-                android:src="@drawable/ic_baseline_share_24"
-                android:contentDescription="@string/share_icon"
-                app:tint="@color/color_white" />
+                <ImageView
+                    android:id="@+id/imgSeriesDetailsShare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@id/imgSeriesDetailsFavorite"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:src="@drawable/ic_baseline_share_24"
+                    android:contentDescription="@string/share_icon"
+                    app:tint="@color/color_white" />
 
-            <ImageView
-                android:id="@+id/imgSeriesDetailsFavorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:src="@drawable/ic_baseline_favorite_24"
-                app:tint="@color/color_white"
-                android:contentDescription="@string/favorite_icon"
-                android:layout_marginEnd="@dimen/dimen_10dp"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.appcompat.widget.Toolbar>
+                <ImageView
+                    android:id="@+id/imgSeriesDetailsFavorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/ic_baseline_favorite_24"
+                    app:tint="@color/color_white"
+                    android:contentDescription="@string/favorite_icon"
+                    android:layout_marginEnd="@dimen/dimen_10dp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
 
-    <ImageView
-        android:id="@+id/imgSeriesDetails"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_200dp"
-        tools:src="@drawable/i_wolverine"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbarSeriesDetails"
-        android:scaleType="fitCenter"
-        android:padding="@dimen/dimen_10dp"
-        android:background="@color/color_black"
-        android:contentDescription="@string/series_details_image" />
+        <ImageView
+            android:id="@+id/imgSeriesDetails"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_200dp"
+            tools:src="@drawable/i_wolverine"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbarSeriesDetails"
+            android:scaleType="fitXY"
+            android:background="@color/color_black"
+            android:contentDescription="@string/series_details_image" />
 
-    <TextView
-        android:id="@+id/txtSeriesDetailsTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="iWolverine 2020"
-        android:textColor="@color/color_black"
-        android:textStyle="bold"
-        android:layout_marginTop="@dimen/dimen_5dp"
-        android:layout_marginHorizontal="@dimen/dimen_10dp"
-        android:gravity="center_horizontal"
-        android:textSize="@dimen/dimen_30sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgSeriesDetails"
-        />
+        <TextView
+            android:id="@+id/txtSeriesDetailsTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="iWolverine 2020"
+            android:textColor="@color/color_black"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/dimen_5dp"
+            android:layout_marginHorizontal="@dimen/dimen_10dp"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/dimen_30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgSeriesDetails"
+            />
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/seriesViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_0dp"
-        android:layout_marginHorizontal="@dimen/dimen_10dp"
-        app:layout_constraintTop_toBottomOf="@id/txtSeriesDetailsTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/color_gray">
+        <TextView
+            android:id="@+id/txtDescriptionSeries"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/txtSeriesDetailsTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:textSize="@dimen/dimen_16sp"
+            android:textColor="@color/color_black"
+            tools:text="Award-winning writer Neil Gaiman teams with artist Andy Kubert to re-imagine the Marvel Universe in the year 1602! It's Spider-Man, the X-Men, Nick Fury, Doctor Strange, Daredevil and more as you'd never think to imagine them in an utterly unique and thrilling tale of high adventure!"
+            />
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/seriesTabLayout"
+        <TextView
+            android:id="@+id/txtStartSeriesFixed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:tabIndicatorColor="@color/color_red"
-            app:tabSelectedTextColor="@color/color_red"
-            android:background="@color/color_gray"/>
-    </androidx.viewpager.widget.ViewPager>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtDescriptionSeries"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:textSize="@dimen/dimen_18sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_black"
+            android:text="@string/start_date"/>
 
-    <LinearLayout
-        android:id="@+id/seriesDetailsLoading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ProgressBar
-            style="?android:attr/progressBarStyle"
+        <TextView
+            android:id="@+id/txtStartSeries"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/txtStartSeriesFixed"
+            app:layout_constraintTop_toBottomOf="@id/txtDescriptionSeries"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:textSize="@dimen/dimen_18sp"
+            android:textColor="@color/color_black"
+            tools:text="2003"/>
+
+        <TextView
+            android:id="@+id/txtEndSeriesFixed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtStartSeriesFixed"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:textSize="@dimen/dimen_18sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_black"
+            android:text="@string/end_date"/>
+
+        <TextView
+            android:id="@+id/txtEndSeries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/txtEndSeriesFixed"
+            app:layout_constraintTop_toBottomOf="@id/txtStartSeries"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:textSize="@dimen/dimen_18sp"
+            android:textColor="@color/color_black"
+            tools:text="2004"/>
+
+        <TextView
+            android:id="@+id/txtCreatorsSeries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/txtEndSeriesFixed"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:textSize="@dimen/dimen_18sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_black"
+            android:text="@string/creators_with_double_dot"
+            />
+
+        <HorizontalScrollView
+            android:id="@+id/hsvCreatorSeries"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/txtCreatorsSeries"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="@dimen/dimen_20dp">
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/cgCreatorsSeries"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:singleLine="true"
+                android:layout_margin="@dimen/dimen_10dp"
+                />
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/txtCharactersSeries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/hsvCreatorSeries"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:textSize="@dimen/dimen_18sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_black"
+            android:text="@string/characters_with_double_dots"
+            />
+
+        <HorizontalScrollView
+            android:id="@+id/hsvCharactersSeries"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/txtCharactersSeries"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="@dimen/dimen_20dp">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/cgCharactersSeries"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:singleLine="true"
+                android:layout_margin="@dimen/dimen_10dp"
+                />
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/txtComicsSeries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/hsvCharactersSeries"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:textSize="@dimen/dimen_18sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_black"
+            android:text="@string/comics_with_double_dot"
+            />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/txtComicsSeries"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginHorizontal="@dimen/dimen_20dp"
+            android:layout_marginBottom="@dimen/dimen_70dp">
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/cgComicsSeries"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:singleLine="true"
+                android:layout_margin="@dimen/dimen_10dp"
+                />
+        </HorizontalScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

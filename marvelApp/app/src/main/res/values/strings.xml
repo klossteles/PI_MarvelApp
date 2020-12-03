@@ -2,7 +2,6 @@
     <string name="app_name">marvelApp</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="series_image">Series Image</string>
-    <string name="ops_not_found">Ops não encontrado</string>
     <string name="we_couldnt_find_anything_with_the_term_entered">Não encontramos nada com o termo digitado</string>
     <string name="please_check_your_search_and_try_again">Por favor, verifique sua pesquisa e tente novamente para obter resultados.</string>
     <string name="image_search_not_found">Imagem busca não encontrada</string>
@@ -36,17 +35,19 @@
     <string name="creators_image">creators_image</string>
     <string name="creators_name">Stan Lee</string>
     <string name="creators">Criadores</string>
-    <string name="description">Descrição</string>
-    <string name="caracters">Personagens</string>
     <string name="comics">Quadrinhos</string>
     <string name="comic">HQ\'s</string>
-    <string name="character">Personagens</string>
     <string name="splash_image">Splash Image</string>
-    <string name="screen">Screen</string>
-    <string name="comic_image">Comic Image</string>
     <string name="comic_details_image">Comic details image</string>
     <string name="read_now">READ NOW!</string>
-    <string name="img_creators_details">Imagem Criadores detalhes</string>
     <string name="events">Eventos</string>
-    <string name="stories">Histórias</string>
+    <string name="home_characters_image">Home characters image</string>
+    <string name="home_series_image">Home series image</string>
+    <string name="home_comics_image">Home comics image</string>
+    <string name="home_creators_image">Home creators image</string>
+    <string name="start_date">Start date:</string>
+    <string name="end_date">End date:</string>
+    <string name="comics_with_double_dot">Comics:</string>
+    <string name="characters_with_double_dots">Characters:</string>
+    <string name="creators_with_double_dot">Creators:</string>
 </resources>

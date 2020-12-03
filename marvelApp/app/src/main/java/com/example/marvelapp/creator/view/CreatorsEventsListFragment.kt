@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.marvelapp.R
-import com.example.marvelapp.data.model.ComicsList
 import com.example.marvelapp.data.model.EventList
-import com.example.marvelapp.series.view.SeriesComicsListFragment
 
 
 class CreatorsEventsListFragment : Fragment() {
