@@ -1,12 +1,14 @@
 package com.example.marvelapp.series.view
 
 import android.annotation.SuppressLint
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -105,6 +107,17 @@ class SeriesFragment : Fragment() {
             _view.findViewById<TextView>(R.id.txtComicsSeries).visibility = View.GONE
         }
         setBackNavigation()
+        setOnFavoriteClick()
+    }
+
+    private fun setOnFavoriteClick() {
+        val seriesFavorites = _view.findViewById<ImageView>(R.id.imgSeriesDetailsFavorite)
+        seriesFavorites.setOnClickListener {
+            seriesFavorites.setColorFilter(
+                ContextCompat.getColor(_view.context, R.color.color_red),
+                PorterDuff.Mode.SRC_IN
+            );
+        }
     }
 
     private fun setBackNavigation() {
