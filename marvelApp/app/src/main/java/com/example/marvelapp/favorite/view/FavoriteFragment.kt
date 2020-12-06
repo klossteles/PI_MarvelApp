@@ -30,7 +30,7 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        _view=view
         val viewPager = _view.findViewById<ViewPager>(R.id.favoritesViewPager)
         val tab = _view.findViewById<TabLayout>(R.id.favoritesTabLayout)
 
