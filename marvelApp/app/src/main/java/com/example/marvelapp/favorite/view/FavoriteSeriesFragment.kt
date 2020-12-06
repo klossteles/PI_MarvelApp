@@ -5,56 +5,56 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.marvelapp.R
+import com.example.marvelapp.favorite.model.SeriesFavoriteModel
+import com.example.marvelapp.favorite.repository.SeriesFavoriteRepository
+import com.example.marvelapp.favorite.viewmodel.SeriesFavoriteViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [FavoriteSeriesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FavoriteSeriesFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var _view:View
+    private lateinit var _viewModel: SeriesFavoriteViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorite_series, container, false)
+        _view =inflater.inflate(R.layout.fragment_favorite_series, container, false)
+        return _view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FavoriteSeriesFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FavoriteSeriesFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        _viewModel = ViewModelProvider(
+            this,
+            SeriesFavoriteViewModel.SeriesFavoriteViewModelFactory(SeriesFavoriteRepository(_view.context))
+        ).get(SeriesFavoriteViewModel::class.java)
+
+        _viewModel.listSeriesFavoriteData.observe(viewLifecycleOwner, Observer{
+            getList(it)
+        })
+
+        _viewModel.getSeriesFavorites()
+
     }
+
+    fun getList(list:List<SeriesFavoriteModel>){
+        val viewManager= GridLayoutManager(_view.context,2)
+        val recyclerView=_view.findViewById<RecyclerView>(R.id.listSeriesFavorites)
+        val menuAdapter = SeriesFavoriteAdapter(list){
+            Toast.makeText(context, "redirecionar para serie em questão", Toast.LENGTH_SHORT).show()
+        }
+
+        recyclerView.apply {
+            layoutManager=viewManager
+            adapter=menuAdapter
+        }
+    }
+
 }
