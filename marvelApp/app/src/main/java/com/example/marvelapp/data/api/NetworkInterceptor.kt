@@ -26,6 +26,7 @@ class NetworkInterceptor : Interceptor {
         while (!response.isSuccessful && tryCount < 3) {
             Log.d("intercept", "Request is not successful - $tryCount")
             tryCount++
+            response.close()
             // retry the request
             response = chain.proceed(request)
         }

@@ -25,10 +25,9 @@ class MainActivity : AppCompatActivity() {
                     true
                  }
                 R.id.profile -> {
-                    val profileFragment = ProfileFragment()
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.nav_host_fragment_container, profileFragment)
-                        .commit()
+                    val intent = Intent(this, ProfileActivity::class.java)
+                    startActivity(intent)
+                    finish()
                     true
                 }
                 else -> false
