@@ -170,21 +170,24 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_200dp"
-                    android:src="@drawable/creator_home"
-                    android:scaleType="fitXY"
+                    android:layout_height="200dp"
                     android:contentDescription="@string/home_creators_image"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/creator_home"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/comics"
+                    android:text="@string/creators"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/dimen_22sp"
                     android:textStyle="bold"

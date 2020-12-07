@@ -124,7 +124,7 @@
             tools:listitem="@layout/fragment_creators_item_list"/>
 
         <LinearLayout
-            android:id="@+id/creatorLoading"
+            android:id="@+id/creatorsLoading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"

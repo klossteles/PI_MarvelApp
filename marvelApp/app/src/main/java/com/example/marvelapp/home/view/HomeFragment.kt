@@ -24,6 +24,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _view = view
+
         _view.findViewById<MaterialCardView>(R.id.crdCharacterHome).setOnClickListener {
             _view.findNavController().navigate(R.id.action_homeFragment_to_characterListFragment)
         }
@@ -32,6 +33,10 @@ class HomeFragment : Fragment() {
         }
         _view.findViewById<MaterialCardView>(R.id.crdComicHome).setOnClickListener {
             _view.findNavController().navigate(R.id.action_homeFragment_to_searchComicFragment)
+        }
+
+        _view.findViewById<MaterialCardView>(R.id.crdCreatorHome).setOnClickListener {
+            _view.findNavController().navigate(R.id.action_homeFragment_to_creatorsListFragment)
         }
     }
 }
