@@ -57,9 +57,9 @@ class CreatorsFragment : Fragment() {
 
         val thumbnail = arguments?.getString(CreatorsListFragment.CREATORS_THUMBNAIL)
         val fullname = arguments?.getString(CreatorsListFragment.CREATORS_FULLNAME)
-        val series = arguments?.getString(CreatorsListFragment.CREATORS_SERIES)
-        val comics = arguments?.getString(CreatorsListFragment.CREATORS_COMICS)
-        val events = arguments?.getString(CreatorsListFragment.CREATORS_EVENTS)
+        val serie = arguments?.getString(CreatorsListFragment.CREATORS_SERIES)
+        val comic = arguments?.getString(CreatorsListFragment.CREATORS_COMICS)
+        val event = arguments?.getString(CreatorsListFragment.CREATORS_EVENTS)
 
         textCreatorsNameDetails.text = fullname
 
