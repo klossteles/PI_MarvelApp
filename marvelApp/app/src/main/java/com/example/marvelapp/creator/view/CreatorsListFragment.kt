@@ -48,7 +48,14 @@ class CreatorsListFragment : Fragment() {
         val manager = GridLayoutManager(_view.context, 2)
         _creators = mutableListOf<CreatorsModel>()
         _listAdapter = CreatorsListAdapter(_creators) {
-            val bundle = bundleOf(CreatorsListFragment.CREATORS_ID to it.id)
+            val bundle = bundleOf(
+                CreatorsListFragment.CREATORS_ID to it.id,
+                CREATORS_THUMBNAIL to it.thumbnail?.getImagePath("landscape_incredible"),
+                CREATORS_FULLNAME to it.fullName,
+                CREATORS_SERIES to it.series,
+                CREATORS_COMICS to it.comics,
+                CREATORS_EVENTS to it.events
+            )
             _view.findNavController()
                 .navigate(R.id.action_creatorsListFragment_to_creatorsFragment, bundle)
         }
@@ -112,7 +119,7 @@ class CreatorsListFragment : Fragment() {
     }
 
     private fun showLoading(isLoading: Boolean) {
-        val viewLoading = _view.findViewById<View>(R.id.seriesLoading)
+        val viewLoading = _view.findViewById<View>(R.id.creatorsLoading)
 
         if (isLoading) {
             viewLoading.visibility = View.VISIBLE
@@ -158,6 +165,11 @@ class CreatorsListFragment : Fragment() {
     companion object {
 
         const val CREATORS_ID = "CREATORS_ID"
+        const val CREATORS_THUMBNAIL = "CREATORS_THUMBNAIL"
+        const val CREATORS_FULLNAME = "CREATORS_FULLNAME"
+        const val CREATORS_SERIES = "CREATORS_SERIES"
+        const val CREATORS_COMICS = "CREATORS_COMICS"
+        const val CREATORS_EVENTS = "CREATORS_EVENTS"
 
 
     }

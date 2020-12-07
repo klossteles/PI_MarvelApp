@@ -10,7 +10,8 @@ import retrofit2.http.Query
 interface ICreatorsEndpoint {
     @GET("/v1/public/creators")
     suspend fun getCreators (@Query("nameStartsWith") nameStartsWith: String?,
-                             @Query("offset") offset: Int? = 0
+                             @Query("offset") offset: Int? = 0,
+                             @Query("orderBy")orderBy:String = "firstName"
     ) : ResponseModel<CreatorsModel>
 
     @GET("/v1/public/creators/{creatorId}")

@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".creator.view.CreatorsFragment">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarCreatorsDetails"
@@ -71,7 +75,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardImage"
+        android:id="@+id/cardCreatorDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_black"
@@ -84,20 +88,6 @@
             android:layout_height="match_parent"
             android:background="@color/color_black">
 
-            <TextView
-                android:id="@+id/textCreatorsNameDetails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_16dp"
-                android:fontFamily="@font/quicksand_bold"
-                android:textAlignment="center"
-                android:textColor="@color/color_white"
-                android:textSize="@dimen/dimen_20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/creators_name" />
-
             <ImageView
                 android:id="@+id/imgCreatorDetails"
                 android:layout_width="@dimen/dimen_200dp"
@@ -108,49 +98,95 @@
                 android:src="@drawable/stan_lee"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textCreatorsNameDetails"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="UnknownIdInLayout" />
+
+            <TextView
+                android:id="@+id/txtFullnameCreatorsDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_10dp"
+                android:layout_marginTop="@dimen/dim_6dp"
+                android:text="@string/creators_name"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/dimen_18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgCreatorDetails" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/creatorsViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_0dp"
-        android:layout_marginHorizontal="@dimen/dimen_10dp"
-        android:background="@color/color_gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardImage"
-        tools:ignore="NotSibling">
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/creatorsTabLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/color_gray"
-            app:tabIndicatorColor="@color/color_red"
-            app:tabSelectedTextColor="@color/color_red" />
-    </androidx.viewpager.widget.ViewPager>
-
-    <LinearLayout
-        android:id="@+id/creatorsDetailsLoading"
+    <TextView
+        android:id="@+id/txtSeriesCreatorsDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/dimen_10dp"
+        android:text="@string/series_creators_chip"
+        android:textColor="@color/color_black"
+        android:textSize="@dimen/dimen_18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/cardCreatorDetail" />
 
-        <ProgressBar
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/cgSeriesCreators"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txtSeriesCreatorsDetails"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="@dimen/dimen_20dp"
+        />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/txtComicsCreatorsDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_10dp"
+        android:text="@string/hqs_creators_chips"
+        android:textColor="@color/color_black"
+        android:textSize="@dimen/dimen_18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtSeriesCreatorsDetails" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/cgComicsCreators"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txtSeriesCreatorsDetails"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="@dimen/dimen_20dp"
+        />
+
+    <TextView
+        android:id="@+id/txtEventsCreatorsDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_10dp"
+        android:text="@string/events_chip"
+        android:textColor="@color/color_black"
+        android:textSize="@dimen/dimen_18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtComicsCreatorsDetails" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/cgEventsCreators"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txtSeriesCreatorsDetails"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="@dimen/dimen_20dp"
+        />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
