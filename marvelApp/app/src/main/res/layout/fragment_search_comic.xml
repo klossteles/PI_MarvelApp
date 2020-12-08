@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
-                android:id="@+id/imgBackSeries"
+                android:id="@+id/imgBackComic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/back"
@@ -89,7 +89,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <SearchView
-                android:id="@+id/searchSeries"
+                android:id="@+id/searchComic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/txtName"
@@ -136,7 +136,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/notFoundLayout"
+            android:id="@+id/notFoundLayoutComic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -50,6 +50,9 @@
     <string name="comics_with_double_dot">Comics:</string>
     <string name="characters_with_double_dots">Characters:</string>
     <string name="creators_with_double_dot">Creators:</string>
+    <string name="price">Price:</string>
+    <string name="published">Published:</string>
+    <string name="pages">Pages:</string>
     <string name="series_creators_chip">Séries:</string>
     <string name="hqs_creators_chips">HQ\'s:</string>
     <string name="events_chip">Eventos:</string>

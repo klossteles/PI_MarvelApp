@@ -8,10 +8,10 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface IComicEndpoint {
-    @GET("/v1/public/comic")
+    @GET("/v1/public/comics")
     suspend fun getComic(@Query("titleStartsWith") titleStartsWith: String?, @Query("offset") offset: Int? = 0): ResponseModel<ComicsModel>
-    @GET("/v1/public/comic/{comicId}")
-    suspend fun getComicById(@Path("seriesId") seriesId: Int): ResponseModel<ComicsModel>
+    @GET("/v1/public/comics/{comicId}")
+    suspend fun getComicById(@Path("comicId") comicId: Int): ResponseModel<ComicsModel>
 
     companion object {
         val endpoint: IComicEndpoint by lazy {
