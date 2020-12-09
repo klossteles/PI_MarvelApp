@@ -1,5 +1,6 @@
 package com.example.marvelapp.character.view
 
+import android.graphics.PorterDuff
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,14 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.Observer
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager.widget.ViewPager
 import com.example.marvelapp.R
 import com.example.marvelapp.character.repository.CharacterRepository
 import com.example.marvelapp.character.viewmodel.CharacterViewModel
-import com.google.android.material.tabs.TabLayout
+import com.example.marvelworld.api.models.ComicSummary
+import com.example.marvelworld.api.models.SeriesSummary
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.squareup.picasso.Picasso
 
 class CharacterFragment : Fragment() {
@@ -39,62 +42,60 @@ class CharacterFragment : Fragment() {
             CharacterViewModel.CharacterViewModelFactory(CharacterRepository())
         ).get(CharacterViewModel::class.java)
 
-        val viewPager = _view.findViewById<ViewPager>(R.id.characterViewPager)
-        val tab = _view.findViewById<TabLayout>(R.id.characterTabLayout)
+        val txtCharacterDetailsName = _view.findViewById<TextView>(R.id.txtCharacterName)
+        val image = _view.findViewById<ImageView>(R.id.imageCharacter)
+        val txtDescription = _view.findViewById<TextView>(R.id.txtDescriptionCharacters)
+        val cgComics = _view.findViewById<ChipGroup>(R.id.cgComicsCharacters)
+        val cgSeries = _view.findViewById<ChipGroup>(R.id.cgSeriesCharacters)
 
-        tab.setupWithViewPager(viewPager)
-        val fragments = mutableListOf<Fragment>()
+        val name = arguments?.getString(CharacterListFragment.CHARACTER_NAME)
+        val thumbnail = arguments?.getString(CharacterListFragment.CHARACTER_THUMBNAIL)
+        val description = arguments?.getString(CharacterListFragment.CHARACTER_DESCRIPTION)
+        val comics = arguments?.getString(CharacterListFragment.CHARACTER_COMIC)
+        val series = arguments?.getString(CharacterListFragment.CHARACTER_SERIES)
 
-        val titles = listOf("Descrição", "HQs", "Séries")
+        txtCharacterDetailsName.text=name
+        txtDescription.text=description
+        Picasso.get().load(thumbnail).into(image)
 
-        showLoading(true)
 
-        val textCharacterName = _view.findViewById<TextView>(R.id.textCharacterName)
-        val imageCharacter = _view.findViewById<ImageView>(R.id.imageCharacter)
-        val characterId = arguments?.getInt(CharacterListFragment.CHARACTER_ID)
-
-        if (characterId != null) {
-            _viewModel.getCharactersById(characterId).observe(viewLifecycleOwner, Observer {
-                showLoading(false)
-                textCharacterName.text = it.name
-                if (it.thumbnail == null || it.thumbnail.path.contains("image_not_available")) {
-                    Picasso.get()
-                        .load(R.drawable.image_not_available)
-                        .into(imageCharacter)
-                } else {
-                    val imagePath = "${it.thumbnail.path}/landscape_large.${it.thumbnail.extension}"
-                    Picasso.get()
-                        .load(imagePath)
-                        .into(imageCharacter)
-                }
-                fragments.add(CharacterDescriptionFragment.newInstance(it.description))
-                fragments.add(CharacterComicsListFragment.newInstance(it.comics))
-                fragments.add(CharacterSeriesListFragment.newInstance(it.series))
-                viewPager.adapter = activity?.supportFragmentManager?.let { it ->
-                    CharacterViewPagerAdapter(fragments, titles, it)
-                }
-            })
+        if ((comics as List<ComicSummary>).size > 0) {
+            for (comic in comics as List<ComicSummary>){
+                val chip = Chip(_view.context)
+                chip.text = comic.name
+                cgComics.addView(chip)
+            }
+        } else {
+            _view.findViewById<TextView>(R.id.txtComicsCharacters).visibility = View.GONE
         }
 
-        showLoading(false)
-        setBackNavigation()
+        if ((series as List<SeriesSummary>).size > 0) {
+            for (serie in comics as List<SeriesSummary>){
+                val chip = Chip(_view.context)
+                chip.text = serie.name
+                cgSeries.addView(chip)
+            }
+        } else {
+            _view.findViewById<TextView>(R.id.txtSeriesCharacters).visibility = View.GONE
+        }
 
+        setBackNavigation()
+        setOnFavoriteClick()
+    }
+    private fun setOnFavoriteClick() {
+        val seriesFavorites = _view.findViewById<ImageView>(R.id.imgCharactersDetailsFavorite)
+        seriesFavorites.setOnClickListener {
+            seriesFavorites.setColorFilter(
+                ContextCompat.getColor(_view.context, R.color.color_red),
+                PorterDuff.Mode.SRC_IN
+            );
+        }
     }
 
     private fun setBackNavigation() {
         _view.findViewById<ImageView>(R.id.imgCharactersDetailsBack).setOnClickListener {
             val navController = findNavController()
             navController.navigateUp()
-        }
-    }
-
-    private fun showLoading(isLoading: Boolean) {
-        val viewLoading = _view.findViewById<View>(R.id.charactersDetailsLoading)
-
-        if (isLoading) {
-            viewLoading.visibility = View.VISIBLE
-        } else {
-            viewLoading.visibility = View.GONE
         }
     }
 }

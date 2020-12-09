@@ -1,151 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_gray"
     tools:context=".character.view.CharacterFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarCharactersDetails"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/color_black"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        android:padding="@dimen/dimen_10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarCharactersDetails"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/imgCharactersDetailsBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/back"
-                android:src="@drawable/ic_baseline_arrow_back_24"
-                android:layout_marginTop="@dimen/dimen_5dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:tint="@color/color_white" />
+            android:layout_height="wrap_content"
+            android:background="@color/color_black"
+            android:minHeight="?attr/actionBarSize"
+            android:padding="@dimen/dimen_10dp"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:layout_width="@dimen/dimen_100dp"
-                android:layout_height="@dimen/dimen_50dp"
-                android:contentDescription="@string/marvel_logo"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:src="@drawable/marvel_logo"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/imgCharactersDetailsShare"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toStartOf="@id/imgCharactersDetailsFavorite"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginEnd="@dimen/dimen_20dp"
-                android:src="@drawable/ic_baseline_share_24"
-                android:contentDescription="@string/share_icon"
-                app:tint="@color/color_white" />
+                <ImageView
+                    android:id="@+id/imgCharactersDetailsBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_5dp"
+                    android:contentDescription="@string/back"
+                    android:src="@drawable/ic_baseline_arrow_back_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/color_white" />
 
-            <ImageView
-                android:id="@+id/imgCharactersDetailsFavorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:src="@drawable/ic_baseline_favorite_24"
-                app:tint="@color/color_white"
-                android:contentDescription="@string/favorite_icon"
-                android:layout_marginEnd="@dimen/dimen_10dp"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.appcompat.widget.Toolbar>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/marvel_logo"
+                    android:src="@drawable/marvel_logo"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardImage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/color_black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarCharactersDetails">
+                <ImageView
+                    android:id="@+id/imgCharactersDetailsShare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:contentDescription="@string/share_icon"
+                    android:src="@drawable/ic_baseline_share_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/imgCharactersDetailsFavorite"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/color_white" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+                <ImageView
+                    android:id="@+id/imgCharactersDetailsFavorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dimen_10dp"
+                    android:contentDescription="@string/favorite_icon"
+                    android:src="@drawable/ic_baseline_favorite_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/color_white" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <ImageView
+            android:id="@+id/imageCharacter"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/color_black">
+            android:layout_height="200dp"
+            android:background="@color/color_white"
+            android:contentDescription="@string/character_image"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbarCharactersDetails" />
 
-            <TextView
-                android:id="@+id/textCharacterName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_16dp"
-                android:fontFamily="@font/quicksand_bold"
-                android:textAlignment="center"
-                android:textColor="@color/color_white"
-                android:textSize="@dimen/dimen_20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="CAPITÃO AMERICA" />
+        <TextView
+            android:id="@+id/txtCharacterName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_10dp"
+            android:layout_marginTop="@dimen/dimen_5dp"
+            android:fontFamily="@font/quicksand_bold"
+            android:gravity="center_horizontal"
+            android:textAlignment="center"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/dimen_30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageCharacter"
+            tools:text="CAPITÃO AMERICA" />
 
-            <ImageView
-                android:id="@+id/imageCharacter"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="@dimen/dimen_16dp"
-                android:contentDescription="@string/character_image"
-                android:scaleType="centerCrop"
-                android:background="@color/color_white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textCharacterName" />
+        <TextView
+            android:id="@+id/txtDescriptionCharacters"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/dimen_16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtCharacterName"
+            tools:text="TONY HAS COMPANY...AND HIS NAME IS KORVAC! Tony Stark continues to roughly dismantle the fancy, shiny and sophisticated ways of his past…but the world doesn’t seem quite convinced that he’s changed his rich guy tune...                    " />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/characterViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardImage"
-        >
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/characterTabLayout"
+        <TextView
+            android:id="@+id/txtComicsCharacters"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            />
-    </androidx.viewpager.widget.ViewPager>
+            android:layout_margin="@dimen/dimen_10dp"
+            android:text="Comics: "
+            android:textColor="@color/color_black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtDescriptionCharacters" />
 
-    <LinearLayout
-        android:id="@+id/charactersDetailsLoading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <ProgressBar
-            style="?android:attr/progressBarStyle"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cgComicsCharacters"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:layout_marginBottom="70dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtComicsCharacters" />
+
+        <TextView
+            android:id="@+id/txtSeriesCharacters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:text="Series: "
+            android:textColor="@color/color_black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cgComicsCharacters" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cgSeriesCharacters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:layout_marginBottom="70dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtSeriesCharacters" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

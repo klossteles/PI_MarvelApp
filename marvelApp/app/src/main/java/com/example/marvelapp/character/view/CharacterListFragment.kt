@@ -45,13 +45,20 @@ class CharacterListFragment : Fragment() {
 
         _characters = mutableListOf<CharactersModel>()
         _listAdapter = CharacterListAdapter(_characters) {
-            val bundle = bundleOf(CHARACTER_ID to it.id)
+            val bundle = bundleOf(
+                CHARACTER_ID to it.id,
+                CHARACTER_NAME to it.name,
+                CHARACTER_DESCRIPTION to it.description,
+                CHARACTER_COMIC to it.series,
+                CHARACTER_SERIES to  it.series,
+                CHARACTER_THUMBNAIL to it.thumbnail?.getImagePath("landscape_incredible")
+            )
             _view.findNavController()
                 .navigate(R.id.action_characterListFragment_to_characterFragment, bundle)
         }
 
-        _recyclerView= _view.findViewById<RecyclerView>(R.id.listCharacters)
 
+        _recyclerView= _view.findViewById<RecyclerView>(R.id.listCharacters)
         list.apply {
             setHasFixedSize(true)
             layoutManager = manager
@@ -82,11 +89,11 @@ class CharacterListFragment : Fragment() {
     private fun initSearch() {
         _searchView = _view.findViewById<SearchView>(R.id.searchCharacters)
         _searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
+            override fun onQueryTextSubmit(query: String): Boolean {
                 _searchView.clearFocus()
                 _nameCharacter = query
 
-                if (query!!.isEmpty()) {
+                if (query.isEmpty()) {
                     _viewModel.getListCharacters().observe(viewLifecycleOwner, Observer {
                         _characters.clear()
                         showResults(it)
@@ -101,8 +108,8 @@ class CharacterListFragment : Fragment() {
                 return false
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText!!.isBlank()) {
+            override fun onQueryTextChange(newText: String): Boolean {
+                if (newText.isBlank()) {
                     _nameCharacter = null
                     showResults(_viewModel.returnFirstListCharacters())
                 }
@@ -142,7 +149,7 @@ class CharacterListFragment : Fragment() {
                     val lastVisible = target.findLastVisibleItemPosition()
                     val lastItem = lastVisible + 4 >= totalItemCount
                     if (totalItemCount > 0 && lastItem) {
-                        _viewModel.nextPage().observe(viewLifecycleOwner, Observer {
+                        _viewModel.nextPage(_nameCharacter).observe(viewLifecycleOwner, Observer {
                             showResults(it)
                         })
                     }
@@ -153,5 +160,10 @@ class CharacterListFragment : Fragment() {
 
     companion object {
         const val CHARACTER_ID = "CHARACTER_ID"
+        const val CHARACTER_NAME = "CHARACTER_NAME"
+        const val CHARACTER_DESCRIPTION = "CHARACTER_DESCRIPTION"
+        const val CHARACTER_COMIC = "CHARACTER_COMIC"
+        const val CHARACTER_SERIES = "CHARACTER_SERIES"
+        const val CHARACTER_THUMBNAIL="CHARACTER_THUMBNAIL"
     }
 }
