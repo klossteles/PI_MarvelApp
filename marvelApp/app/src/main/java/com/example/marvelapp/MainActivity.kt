@@ -7,7 +7,6 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.marvelapp.creator.view.CreatorsListAdapter
 import com.example.marvelapp.favorite.view.FavoriteFragment
-import com.example.marvelapp.favorite.view.FavoritesActivity
 import com.example.marvelapp.home.view.HomeFragment
 import com.example.marvelapp.login.view.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -26,9 +25,10 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.favorite -> {
-                    val intent = Intent(this, FavoritesActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    val favoriteFragment = FavoriteFragment()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.nav_host_fragment_container, favoriteFragment)
+                        .commit()
                 }
                 R.id.profile -> {
                     val intent = Intent(this, ProfileActivity::class.java)

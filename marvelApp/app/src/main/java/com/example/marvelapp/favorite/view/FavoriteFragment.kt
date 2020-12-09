@@ -38,13 +38,14 @@ class FavoriteFragment : Fragment() {
 
         val fragmentFavorites = mutableListOf<Fragment>()
 
-        val titles = listOf("Personagens", "Séries", "HQs", "Criadores")
+        val titles = listOf("Personagens", "Séries", "HQs","Criadores")
 
 
         fragmentFavorites.add(FavoriteCharacterFragment())
         fragmentFavorites.add(FavoriteSeriesFragment())
         fragmentFavorites.add(FavoriteComicFragment())
         fragmentFavorites.add(FavoriteCreatorFragment())
+
 
         viewPager.adapter = activity?.supportFragmentManager?.let { it ->
             CharacterViewPagerAdapter(fragmentFavorites, titles, it)
