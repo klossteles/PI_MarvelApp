@@ -8,11 +8,11 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listCharacters"
+        android:id="@+id/listCreatorsFavorite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/fragment_character_list_item" />
+        tools:listitem="@layout/fragment_creators_item_list" />
 </FrameLayout>
