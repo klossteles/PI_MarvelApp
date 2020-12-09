@@ -42,7 +42,6 @@ class SeriesListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         _view = view
 
-        val list = _view.findViewById<RecyclerView>(R.id.listSeries)
         val manager = GridLayoutManager(_view.context, 2)
         _series = mutableListOf<SeriesModel>()
         _listAdapter = SeriesListAdapter(_series) {
@@ -59,7 +58,7 @@ class SeriesListFragment : Fragment() {
         }
 
         _recyclerView = _view.findViewById<RecyclerView>(R.id.listSeries)
-        list.apply {
+        _recyclerView.apply {
             setHasFixedSize(true)
             layoutManager = manager
             adapter = _listAdapter
@@ -73,9 +72,18 @@ class SeriesListFragment : Fragment() {
         _viewModel.getList().observe(viewLifecycleOwner, Observer {
             showResults(it)
         })
+
+        setOnBackClicked()
         showLoading(true)
         setScrollView()
         initSearch()
+    }
+
+    private fun setOnBackClicked() {
+        _view.findViewById<ImageView>(R.id.imgBackSeries).setOnClickListener {
+            val navController = findNavController()
+            navController.navigateUp()
+        }
     }
 
     private fun initSearch() {
