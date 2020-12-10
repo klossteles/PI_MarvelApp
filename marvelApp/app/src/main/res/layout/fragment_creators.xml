@@ -5,11 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".creator.view.CreatorsFragment">
+    tools:context=".creator.view.CreatorsFragment"
+    android:background="@color/colorPrimaryDark">
 
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarCreatorsDetails"
@@ -18,10 +20,7 @@
         android:background="@color/color_black"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        android:padding="@dimen/dimen_10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:padding="@dimen/dimen_10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -90,12 +89,11 @@
 
             <ImageView
                 android:id="@+id/imgCreatorDetails"
-                android:layout_width="@dimen/dimen_200dp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_200dp"
-                android:layout_marginTop="@dimen/dimen_16dp"
                 android:contentDescription="@string/character_image"
-                android:scaleType="centerCrop"
                 android:src="@drawable/stan_lee"
+                android:scaleType="fitXY"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -110,7 +108,7 @@
                 android:layout_marginTop="@dimen/dim_6dp"
                 android:text="@string/creators_name"
                 android:textColor="@color/color_white"
-                android:textSize="@dimen/dimen_18sp"
+                android:textSize="@dimen/dimen_20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -126,11 +124,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen_10dp"
         android:text="@string/series_creators_chip"
-        android:textColor="@color/color_black"
+        android:textColor="@color/color_white"
         android:textSize="@dimen/dimen_18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardCreatorDetail" />
+        android:textStyle="bold" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/cgSeriesCreators"
@@ -148,19 +144,14 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen_10dp"
         android:text="@string/hqs_creators_chips"
-        android:textColor="@color/color_black"
+        android:textColor="@color/color_white"
         android:textSize="@dimen/dimen_18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtSeriesCreatorsDetails" />
+        android:textStyle="bold" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/cgComicsCreators"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/txtSeriesCreatorsDetails"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="@dimen/dimen_20dp"
         />
 
@@ -170,23 +161,18 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen_10dp"
         android:text="@string/events_chip"
-        android:textColor="@color/color_black"
+        android:textColor="@color/color_white"
         android:textSize="@dimen/dimen_18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtComicsCreatorsDetails" />
+        android:textStyle="bold" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/cgEventsCreators"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/txtSeriesCreatorsDetails"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="@dimen/dimen_20dp"
         />
 
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </ScrollView>

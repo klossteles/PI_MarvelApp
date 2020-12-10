@@ -52,9 +52,9 @@ class CreatorsListFragment : Fragment() {
                 CreatorsListFragment.CREATORS_ID to it.id,
                 CREATORS_THUMBNAIL to it.thumbnail?.getImagePath("landscape_incredible"),
                 CREATORS_FULLNAME to it.fullName,
-                CREATORS_SERIES to it.series,
-                CREATORS_COMICS to it.comics,
-                CREATORS_EVENTS to it.events
+                CREATORS_SERIES to it.series?.items,
+                CREATORS_COMICS to it.comics?.items,
+                CREATORS_EVENTS to it.events?.items
             )
             _view.findNavController()
                 .navigate(R.id.action_creatorsListFragment_to_creatorsFragment, bundle)

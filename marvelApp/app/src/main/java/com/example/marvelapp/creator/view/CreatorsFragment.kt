@@ -21,6 +21,7 @@ import com.example.marvelapp.data.model.CharacterSummary
 import com.example.marvelapp.data.model.CreatorSummary
 import com.example.marvelapp.series.view.*
 import com.example.marvelworld.api.models.ComicSummary
+import com.example.marvelworld.api.models.EventSummary
 import com.example.marvelworld.api.models.SeriesSummary
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -57,13 +58,56 @@ class CreatorsFragment : Fragment() {
 
         val thumbnail = arguments?.getString(CreatorsListFragment.CREATORS_THUMBNAIL)
         val fullname = arguments?.getString(CreatorsListFragment.CREATORS_FULLNAME)
-        val serie = arguments?.getString(CreatorsListFragment.CREATORS_SERIES)
-        val comic = arguments?.getString(CreatorsListFragment.CREATORS_COMICS)
-        val event = arguments?.getString(CreatorsListFragment.CREATORS_EVENTS)
+        val series = arguments?.get(CreatorsListFragment.CREATORS_SERIES)
+        val comics = arguments?.get(CreatorsListFragment.CREATORS_COMICS)
+        val events = arguments?.get(CreatorsListFragment.CREATORS_EVENTS)
 
         textCreatorsNameDetails.text = fullname
 
         Picasso.get().load(thumbnail).into(image)
+
+        if ((series as List<SeriesSummary>).size >0){
+            for (serie in series as List<SeriesSummary>){
+                val chip = Chip(_view.context)
+                if (serie.name != null) {
+                    chip.text = "${serie.name}"
+                } else {
+                    chip.text = serie.name
+                }
+                cgSeriesCreators.addView(chip)
+            }
+        } else {
+            _view.findViewById<TextView>(R.id.txtSeriesCreatorsDetails).visibility = View.GONE
+        }
+
+
+        if ((comics as List<ComicSummary>).size >0){
+            for (comic in comics as List<ComicSummary>){
+                val chip = Chip(_view.context)
+                if (comic.name != null) {
+                    chip.text = "${comic.name}"
+                } else {
+                    chip.text = comic.name
+                }
+                cgComicsCreators.addView(chip)
+            }
+        } else {
+            _view.findViewById<TextView>(R.id.txtComicsCreatorsDetails).visibility = View.GONE
+        }
+
+        if ((events as List<EventSummary>).size >0){
+            for (event in events as List<EventSummary>){
+                val chip = Chip(_view.context)
+                if (event.name != null) {
+                    chip.text = "${event.name}"
+                } else {
+                    chip.text = event.name
+                }
+                cgEventsCreators.addView(chip)
+            }
+        } else {
+            _view.findViewById<TextView>(R.id.txtEventsCreatorsDetails).visibility = View.GONE
+        }
 
         setBackNavigation()
         setOnFavoriteClick()
