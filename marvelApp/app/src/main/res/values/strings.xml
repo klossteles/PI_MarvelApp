@@ -56,4 +56,5 @@
     <string name="series_creators_chip">Séries:</string>
     <string name="hqs_creators_chips">HQ\'s:</string>
     <string name="events_chip">Eventos:</string>
+    <string name="series_with_double_dot">Series:</string>
 </resources>
