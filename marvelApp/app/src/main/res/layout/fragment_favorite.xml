@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/bg_white_rounded"
     tools:context=".favorite.view.FavoriteFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/characterToolbar"
+        android:id="@+id/favoriteToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_black"
@@ -24,18 +23,6 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/imgBackCharacter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_5dp"
-                android:contentDescription="@string/back"
-                android:src="@drawable/ic_baseline_arrow_back_24"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/color_white" />
-
-            <ImageView
                 android:layout_width="@dimen/dimen_100dp"
                 android:layout_height="@dimen/dimen_50dp"
                 android:contentDescription="@string/marvel_logo"
@@ -44,24 +31,25 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/characterCover"
+        android:id="@+id/favoriteCover"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="@dimen/dimen_75dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/characterToolbar">
+        app:layout_constraintTop_toBottomOf="@+id/favoriteToolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/imageCharacterList"
+                android:id="@+id/imageFavoriteList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/cover_image"
@@ -74,14 +62,14 @@
                 tools:background="@color/color_black" />
 
             <TextView
-                android:id="@+id/txtTitleCharacter"
+                android:id="@+id/txtTitleFavorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dimen_10dp"
                 android:layout_marginTop="@dimen/dimen_20dp"
+                android:fontFamily="@font/quicksand_bold"
                 android:gravity="center_vertical"
                 android:text="@string/favorites"
-                android:fontFamily="@font/quicksand_bold"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/dimen_20sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -96,15 +84,16 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/characterCover">
+        app:layout_constraintTop_toBottomOf="@+id/favoriteCover">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/favoritesTabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
             app:tabGravity="center"
             app:tabMode="scrollable"
-            app:tabTextColor="@color/color_black" />
+            app:tabTextColor="@color/color_white" />
     </androidx.viewpager.widget.ViewPager>
 
 
