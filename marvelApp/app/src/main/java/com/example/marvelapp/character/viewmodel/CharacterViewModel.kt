@@ -1,8 +1,6 @@
 package com.example.marvelapp.character.viewmodel
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.liveData
+import androidx.lifecycle.*
 import com.example.marvelapp.character.model.CharactersModel
 import com.example.marvelapp.character.repository.CharacterRepository
 import kotlinx.coroutines.Dispatchers
@@ -63,8 +61,7 @@ class CharacterViewModel(
         emit(response.data.results[0])
     }
 
-    class CharacterViewModelFactory(private val _repository: CharacterRepository) :
-        ViewModelProvider.Factory {
+    class CharacterViewModelFactory(private val _repository: CharacterRepository) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return CharacterViewModel(_repository) as T
         }

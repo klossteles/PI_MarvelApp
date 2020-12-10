@@ -5,11 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -40,7 +42,7 @@ class CharacterListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         _view = view
 
-        val list = _view.findViewById<RecyclerView>(R.id.listCharacters)
+
         val manager = GridLayoutManager(_view.context, 2)
 
         _characters = mutableListOf<CharactersModel>()
@@ -49,8 +51,8 @@ class CharacterListFragment : Fragment() {
                 CHARACTER_ID to it.id,
                 CHARACTER_NAME to it.name,
                 CHARACTER_DESCRIPTION to it.description,
-                CHARACTER_COMIC to it.series,
-                CHARACTER_SERIES to  it.series,
+                CHARACTER_COMIC to it.comics?.items,
+                CHARACTER_SERIES to  it.series?.items,
                 CHARACTER_THUMBNAIL to it.thumbnail?.getImagePath("landscape_incredible")
             )
             _view.findNavController()
@@ -59,7 +61,7 @@ class CharacterListFragment : Fragment() {
 
 
         _recyclerView= _view.findViewById<RecyclerView>(R.id.listCharacters)
-        list.apply {
+        _recyclerView.apply {
             setHasFixedSize(true)
             layoutManager = manager
             adapter = _listAdapter
@@ -74,11 +76,19 @@ class CharacterListFragment : Fragment() {
             showResults(it)
         })
 
+        setOnBackClicked()
         showLoading(true)
         setScrollView()
         initSearch()
     }
 
+
+    private fun setOnBackClicked() {
+        _view.findViewById<ImageView>(R.id.imgBackCharacter).setOnClickListener {
+            val navController = findNavController()
+            navController.navigateUp()
+        }
+    }
     private fun showResults(list: List<CharactersModel>?) {
         showLoading(false)
         list?.isNotEmpty()?.let { notFound(it) }

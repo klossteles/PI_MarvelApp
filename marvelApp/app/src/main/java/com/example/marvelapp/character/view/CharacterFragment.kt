@@ -1,5 +1,6 @@
 package com.example.marvelapp.character.view
 
+import android.annotation.SuppressLint
 import android.graphics.PorterDuff
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -33,6 +34,7 @@ class CharacterFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_character, container, false)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -51,16 +53,15 @@ class CharacterFragment : Fragment() {
         val name = arguments?.getString(CharacterListFragment.CHARACTER_NAME)
         val thumbnail = arguments?.getString(CharacterListFragment.CHARACTER_THUMBNAIL)
         val description = arguments?.getString(CharacterListFragment.CHARACTER_DESCRIPTION)
-        val comics = arguments?.getString(CharacterListFragment.CHARACTER_COMIC)
-        val series = arguments?.getString(CharacterListFragment.CHARACTER_SERIES)
+        val comics = arguments?.get(CharacterListFragment.CHARACTER_COMIC)
+        val series = arguments?.get(CharacterListFragment.CHARACTER_SERIES)
 
-        txtCharacterDetailsName.text=name
-        txtDescription.text=description
+        txtCharacterDetailsName.text = name
+        txtDescription.text = description
         Picasso.get().load(thumbnail).into(image)
 
-
         if ((comics as List<ComicSummary>).size > 0) {
-            for (comic in comics as List<ComicSummary>){
+            for (comic in comics as List<ComicSummary>) {
                 val chip = Chip(_view.context)
                 chip.text = comic.name
                 cgComics.addView(chip)
@@ -70,7 +71,7 @@ class CharacterFragment : Fragment() {
         }
 
         if ((series as List<SeriesSummary>).size > 0) {
-            for (serie in comics as List<SeriesSummary>){
+            for (serie in series as List<SeriesSummary>) {
                 val chip = Chip(_view.context)
                 chip.text = serie.name
                 cgSeries.addView(chip)
@@ -82,6 +83,7 @@ class CharacterFragment : Fragment() {
         setBackNavigation()
         setOnFavoriteClick()
     }
+
     private fun setOnFavoriteClick() {
         val seriesFavorites = _view.findViewById<ImageView>(R.id.imgCharactersDetailsFavorite)
         seriesFavorites.setOnClickListener {
