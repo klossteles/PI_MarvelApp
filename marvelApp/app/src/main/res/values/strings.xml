@@ -40,6 +40,9 @@
     <string name="splash_image">Splash Image</string>
     <string name="comic_details_image">Comic details image</string>
     <string name="read_now">READ NOW!</string>
+    <string name="capitao_america">Capitão America</string>
+    <string name="personagens">Personagens</string>
+    <string name="img_creators_details">Imagem Criadores detalhes</string>
     <string name="events">Eventos</string>
     <string name="home_characters_image">Home characters image</string>
     <string name="home_series_image">Home series image</string>
@@ -58,3 +61,4 @@
     <string name="events_chip">Eventos:</string>
     <string name="series_with_double_dot">Series:</string>
 </resources>
+

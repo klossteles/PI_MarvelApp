@@ -58,8 +58,6 @@ class CharacterListFragment : Fragment() {
             _view.findNavController()
                 .navigate(R.id.action_characterListFragment_to_characterFragment, bundle)
         }
-
-
         _recyclerView= _view.findViewById<RecyclerView>(R.id.listCharacters)
         _recyclerView.apply {
             setHasFixedSize(true)
