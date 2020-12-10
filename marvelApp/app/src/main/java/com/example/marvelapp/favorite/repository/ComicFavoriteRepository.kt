@@ -9,17 +9,17 @@ class ComicFavoriteRepository (private val context: Context){
     fun getComicFavorites(callback:(seriesList:List<ComicFavoriteModel>)->Unit){
         callback.invoke(
             listOf(
-                ComicFavoriteModel("Iron Man #2", R.drawable.capitaoamerica),
-                ComicFavoriteModel("Iron Man #2", R.drawable.capitaoamerica),
-                ComicFavoriteModel("Iron Man #2", R.drawable.capitaoamerica),
-                ComicFavoriteModel("Iron Man #2", R.drawable.capitaoamerica),
-                ComicFavoriteModel("Iron Man #2", R.drawable.capitaoamerica),
-                ComicFavoriteModel("Iron Man #2", R.drawable.capitaoamerica),
-                ComicFavoriteModel("Iron Man #2", R.drawable.capitaoamerica),
-                ComicFavoriteModel("Iron Man #2", R.drawable.capitaoamerica),
-                ComicFavoriteModel("Iron Man #2", R.drawable.capitaoamerica),
-                ComicFavoriteModel("Iron Man #2", R.drawable.capitaoamerica),
-                ComicFavoriteModel("Iron Man #2", R.drawable.capitaoamerica)
+                ComicFavoriteModel("Iron Man #2", R.drawable.ironman),
+                ComicFavoriteModel("Iron Man #2", R.drawable.ironman),
+                ComicFavoriteModel("Iron Man #2", R.drawable.ironman),
+                ComicFavoriteModel("Iron Man #2", R.drawable.ironman),
+                ComicFavoriteModel("Iron Man #2", R.drawable.ironman),
+                ComicFavoriteModel("Iron Man #2", R.drawable.ironman),
+                ComicFavoriteModel("Iron Man #2", R.drawable.ironman),
+                ComicFavoriteModel("Iron Man #2", R.drawable.ironman),
+                ComicFavoriteModel("Iron Man #2", R.drawable.ironman),
+                ComicFavoriteModel("Iron Man #2", R.drawable.ironman),
+                ComicFavoriteModel("Iron Man #2", R.drawable.ironman)
             )
         )
     }
