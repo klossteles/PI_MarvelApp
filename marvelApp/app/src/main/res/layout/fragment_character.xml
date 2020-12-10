@@ -78,7 +78,7 @@
         <ImageView
             android:id="@+id/imageCharacter"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="@dimen/dimen_200dp"
             android:background="@color/color_white"
             android:contentDescription="@string/character_image"
             android:scaleType="fitXY"
@@ -154,7 +154,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dimen_10dp"
-            android:layout_marginBottom="70dp"
+            android:layout_marginBottom="@dimen/dimen_70dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
