@@ -9,17 +9,17 @@ class CreatorsFavoriteRepository (private val context: Context){
     fun getCreatorsFavorites(callback:(creatorsList:List<CreatorsFavoriteModel>)->Unit){
         callback.invoke(
             listOf(
-                CreatorsFavoriteModel("Iron Man #2", R.drawable.capitaoamerica),
-                CreatorsFavoriteModel("Iron Man #2", R.drawable.capitaoamerica),
-                CreatorsFavoriteModel("Iron Man #2", R.drawable.capitaoamerica),
-                CreatorsFavoriteModel("Iron Man #2", R.drawable.capitaoamerica),
-                CreatorsFavoriteModel("Iron Man #2", R.drawable.capitaoamerica),
-                CreatorsFavoriteModel("Iron Man #2", R.drawable.capitaoamerica),
-                CreatorsFavoriteModel("Iron Man #2", R.drawable.capitaoamerica),
-                CreatorsFavoriteModel("Iron Man #2", R.drawable.capitaoamerica),
-                CreatorsFavoriteModel("Iron Man #2", R.drawable.capitaoamerica),
-                CreatorsFavoriteModel("Iron Man #2", R.drawable.capitaoamerica),
-                CreatorsFavoriteModel("Iron Man #2", R.drawable.capitaoamerica)
+                CreatorsFavoriteModel("Stan Lee", R.drawable.stanlee),
+                CreatorsFavoriteModel("Stan Lee", R.drawable.stanlee),
+                CreatorsFavoriteModel("Stan Lee", R.drawable.stanlee),
+                CreatorsFavoriteModel("Stan Lee", R.drawable.stanlee),
+                CreatorsFavoriteModel("Stan Lee", R.drawable.stanlee),
+                CreatorsFavoriteModel("Stan Lee", R.drawable.stanlee),
+                CreatorsFavoriteModel("Stan Lee", R.drawable.stanlee),
+                CreatorsFavoriteModel("Stan Lee", R.drawable.stanlee),
+                CreatorsFavoriteModel("Stan Lee", R.drawable.stanlee),
+                CreatorsFavoriteModel("Stan Lee", R.drawable.stanlee),
+                CreatorsFavoriteModel("Stan Lee", R.drawable.stanlee)
             )
         )
     }

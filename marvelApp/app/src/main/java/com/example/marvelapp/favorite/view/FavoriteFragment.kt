@@ -7,17 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.ViewPager
 import com.example.marvelapp.R
-import com.example.marvelapp.character.model.CharactersModel
-import com.example.marvelapp.character.view.CharacterComicsListFragment
-import com.example.marvelapp.character.view.CharacterDescriptionFragment
-import com.example.marvelapp.character.view.CharacterSeriesListFragment
-import com.example.marvelapp.character.view.CharacterViewPagerAdapter
 import com.google.android.material.tabs.TabLayout
 
 class FavoriteFragment : Fragment() {
 
     private lateinit var _view : View
-    private lateinit var _viewModel:CharactersModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +42,7 @@ class FavoriteFragment : Fragment() {
 
 
         viewPager.adapter = activity?.supportFragmentManager?.let { it ->
-            CharacterViewPagerAdapter(fragmentFavorites, titles, it)
+            FavoriteViewPagerAdapter(fragmentFavorites, titles, it)
         }
 
     }
