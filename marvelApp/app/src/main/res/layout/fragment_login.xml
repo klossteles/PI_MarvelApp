@@ -157,7 +157,7 @@
             android:id="@+id/containedButtonLoginGoogle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_60dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/dimen_16dp"
             android:backgroundTint="@color/color_black"
             android:text="@string/login_google"
             android:textAllCaps="false"
