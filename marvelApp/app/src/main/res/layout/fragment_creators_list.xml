@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".creator.view.CreatorsListFragment">
+    tools:context=".creator.view.CreatorsListFragment"
+    android:background="@color/colorPrimaryDark">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/creatorsToolbar"
@@ -99,7 +100,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginHorizontal="@dimen/dimen_10dp"
-                android:background="@color/color_white"
+                android:background="@drawable/bg_white_rounded"
                 app:layout_constraintEnd_toEndOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -186,7 +187,7 @@
                 android:layout_marginTop="@dimen/dimen_15dp"
                 android:text="@string/we_couldnt_find_anything_with_the_term_entered"
                 android:textAlignment="center"
-                android:textColor="@color/color_black"
+                android:textColor="@color/color_white"
                 android:textSize="@dimen/dimen_20sp"
                 android:textStyle="bold" />
 
@@ -196,6 +197,7 @@
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="@dimen/dimen_50dp"
                 android:layout_marginTop="@dimen/dimen_15dp"
+                android:textColor="@color/color_white"
                 android:text="@string/please_check_your_search_and_try_again"
                 android:textAlignment="center" />
         </LinearLayout>
