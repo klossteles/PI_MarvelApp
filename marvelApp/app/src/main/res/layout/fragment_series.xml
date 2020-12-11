@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/color_gray"
+    android:background="@color/color_gray_dark"
     tools:context=".series.view.SeriesFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -90,7 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="iWolverine 2020"
-            android:textColor="@color/color_black"
+            android:textColor="@color/color_white"
             android:textStyle="bold"
             android:layout_marginTop="@dimen/dimen_5dp"
             android:layout_marginHorizontal="@dimen/dimen_10dp"
@@ -110,7 +110,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="@dimen/dimen_10dp"
             android:textSize="@dimen/dimen_16sp"
-            android:textColor="@color/color_black"
+            android:textColor="@color/color_white"
             tools:text="Award-winning writer Neil Gaiman teams with artist Andy Kubert to re-imagine the Marvel Universe in the year 1602! It's Spider-Man, the X-Men, Nick Fury, Doctor Strange, Daredevil and more as you'd never think to imagine them in an utterly unique and thrilling tale of high adventure!"
             />
 
@@ -123,7 +123,7 @@
             android:layout_margin="@dimen/dimen_10dp"
             android:textSize="@dimen/dimen_18sp"
             android:textStyle="bold"
-            android:textColor="@color/color_black"
+            android:textColor="@color/color_white"
             android:text="@string/start_date"/>
 
         <TextView
@@ -134,7 +134,7 @@
             app:layout_constraintTop_toBottomOf="@id/txtDescriptionSeries"
             android:layout_margin="@dimen/dimen_10dp"
             android:textSize="@dimen/dimen_18sp"
-            android:textColor="@color/color_black"
+            android:textColor="@color/color_white"
             tools:text="2003"/>
 
         <TextView
@@ -146,7 +146,7 @@
             android:layout_margin="@dimen/dimen_10dp"
             android:textSize="@dimen/dimen_18sp"
             android:textStyle="bold"
-            android:textColor="@color/color_black"
+            android:textColor="@color/color_white"
             android:text="@string/end_date"/>
 
         <TextView
@@ -157,7 +157,7 @@
             app:layout_constraintTop_toBottomOf="@id/txtStartSeries"
             android:layout_margin="@dimen/dimen_10dp"
             android:textSize="@dimen/dimen_18sp"
-            android:textColor="@color/color_black"
+            android:textColor="@color/color_white"
             tools:text="2004"/>
 
         <TextView
@@ -169,7 +169,7 @@
             android:layout_margin="@dimen/dimen_10dp"
             android:textSize="@dimen/dimen_18sp"
             android:textStyle="bold"
-            android:textColor="@color/color_black"
+            android:textColor="@color/color_white"
             android:text="@string/creators_with_double_dot"
             />
 
@@ -192,7 +192,7 @@
             android:layout_margin="@dimen/dimen_10dp"
             android:textSize="@dimen/dimen_18sp"
             android:textStyle="bold"
-            android:textColor="@color/color_black"
+            android:textColor="@color/color_white"
             android:text="@string/characters_with_double_dots"
             />
 
@@ -215,7 +215,7 @@
             android:layout_margin="@dimen/dimen_10dp"
             android:textSize="@dimen/dimen_18sp"
             android:textStyle="bold"
-            android:textColor="@color/color_black"
+            android:textColor="@color/color_white"
             android:text="@string/comics_with_double_dot"
             />
 

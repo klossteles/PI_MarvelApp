@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".comic.view.ComicFragment">
+    tools:context=".comic.view.ComicFragment"
+    android:background="@color/color_gray_dark">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -90,7 +91,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="Iron Man 2020"
-        android:textColor="@color/color_black"
+        android:textColor="@color/color_white"
         android:textStyle="bold"
         android:layout_marginTop="@dimen/dimen_5dp"
         android:layout_marginHorizontal="@dimen/dimen_10dp"
@@ -110,7 +111,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="@dimen/dimen_10dp"
             android:textSize="@dimen/dimen_16sp"
-            android:textColor="@color/color_black"
+            android:textColor="@color/color_white"
             tools:text="TONY HAS COMPANY...AND HIS NAME IS KORVAC! Tony Stark continues to roughly dismantle the fancy, shiny and sophisticated ways of his past…but the world doesn’t seem quite convinced that he’s changed his rich guy tune...                    "
             />
         <TextView
@@ -123,7 +124,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:text="@string/published"
             android:textSize="@dimen/dimen_18sp"
-            android:textColor="@color/color_black"
+            android:textColor="@color/color_white"
             android:textStyle="bold"
             />
 
@@ -135,7 +136,7 @@
             android:layout_marginStart="@dimen/dimen_10dp"
             tools:text="April 30, 2014"
             android:textSize="@dimen/dimen_16sp"
-            android:textColor="@color/color_black"
+            android:textColor="@color/color_white"
             app:layout_constraintTop_toBottomOf="@id/txtDescriptionComic"
             app:layout_constraintStart_toEndOf="@id/txtPublished"
 
@@ -148,7 +149,7 @@
             android:text="@string/price"
             android:textStyle="bold"
             android:textSize="@dimen/dimen_18sp"
-            android:textColor="@color/color_black"
+            android:textColor="@color/color_white"
             android:layout_marginTop="@dimen/dimen_10dp"
             android:layout_marginStart="@dimen/dimen_10dp"
             app:layout_constraintTop_toBottomOf="@id/txtPublished"
@@ -160,7 +161,7 @@
             android:layout_height="wrap_content"
             tools:text="$ 5,99"
             android:textSize="@dimen/dimen_18sp"
-            android:textColor="@color/color_black"
+            android:textColor="@color/color_white"
             android:layout_marginTop="@dimen/dimen_10dp"
             android:layout_marginStart="@dimen/dimen_10dp"
             app:layout_constraintTop_toBottomOf="@id/txtPublished"
@@ -174,7 +175,7 @@
             android:text="@string/pages"
             android:textStyle="bold"
             android:textSize="@dimen/dimen_18sp"
-            android:textColor="@color/color_black"
+            android:textColor="@color/color_white"
             android:layout_marginTop="@dimen/dimen_10dp"
             android:layout_marginStart="@dimen/dimen_10dp"
             app:layout_constraintTop_toBottomOf="@id/txtPrice"
@@ -187,7 +188,7 @@
             android:layout_height="wrap_content"
             tools:text="38"
             android:textSize="@dimen/dimen_16sp"
-            android:textColor="@color/color_black"
+            android:textColor="@color/color_white"
             android:layout_marginTop="@dimen/dimen_10dp"
             android:layout_marginStart="@dimen/dimen_20dp"
             app:layout_constraintTop_toBottomOf="@id/txtPrice"
@@ -202,7 +203,7 @@
             android:layout_margin="@dimen/dimen_10dp"
             android:textSize="@dimen/dimen_18sp"
             android:textStyle="bold"
-            android:textColor="@color/color_black"
+            android:textColor="@color/color_white"
             android:text="@string/creators_with_double_dot"
             />
 
@@ -225,7 +226,7 @@
             android:layout_margin="@dimen/dimen_10dp"
             android:textSize="@dimen/dimen_18sp"
             android:textStyle="bold"
-            android:textColor="@color/color_black"
+            android:textColor="@color/color_white"
             android:text="@string/characters_with_double_dots"
             />
 

@@ -15,12 +15,14 @@ class FavoritesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorites)
 
-
         supportFragmentManager.beginTransaction()
             .replace(R.id.favoriteFrameLayout, FavoriteFragment())
             .commit()
 
-        findViewById<BottomNavigationView>(R.id.favoriteBottomNav).setOnNavigationItemSelectedListener {
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.favoriteBottomNav)
+        bottomNavigationView.selectedItemId = R.id.favorite
+
+        bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.home -> {
                     val intent = Intent(this, MainActivity::class.java)
