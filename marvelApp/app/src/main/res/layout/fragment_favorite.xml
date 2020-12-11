@@ -35,31 +35,35 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/favoriteCover"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_75dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/favoriteToolbar">
+        app:layout_constraintTop_toBottomOf="@+id/favoriteToolbar"
+        app:cardPreventCornerOverlap="false">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Card.Media"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <ImageView
-                android:id="@+id/imageFavoriteList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/cover_image"
                 android:scaleType="centerCrop"
                 android:src="@drawable/cover"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:background="@color/color_black" />
+                android:contentDescription="@string/cover_image"
+                />
 
             <TextView
                 android:id="@+id/txtTitleFavorite"
@@ -73,7 +77,8 @@
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/dimen_20sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -84,7 +89,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/favoriteCover">
+        app:layout_constraintTop_toBottomOf="@+id/favoriteCover"
+        android:background="@color/color_gray_dark">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/favoritesTabLayout"
@@ -95,6 +101,4 @@
             app:tabMode="scrollable"
             app:tabTextColor="@color/color_white" />
     </androidx.viewpager.widget.ViewPager>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

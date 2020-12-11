@@ -3,13 +3,8 @@ package com.example.marvelapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import com.example.marvelapp.creator.view.CreatorsListAdapter
-import com.example.marvelapp.favorite.view.FavoriteFragment
+import android.widget.ImageView
 import com.example.marvelapp.favorite.view.FavoritesActivity
-import com.example.marvelapp.home.view.HomeFragment
-import com.example.marvelapp.login.view.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -17,7 +12,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findViewById<BottomNavigationView>(R.id.bottomNav).setOnNavigationItemSelectedListener {
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNav)
+        bottomNavigationView.selectedItemId = R.id.home
+
+        bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.home -> {
                     val intent = Intent(this, MainActivity::class.java)

@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.marvelapp.favorite.view.FavoritesActivity
 import com.example.marvelapp.login.view.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -16,7 +17,10 @@ class ProfileActivity : AppCompatActivity() {
             .replace(R.id.profileFrameLayout, ProfileFragment())
             .commit()
 
-        findViewById<BottomNavigationView>(R.id.profileBottomNav).setOnNavigationItemSelectedListener {
+        val bottomNavigationView =  findViewById<BottomNavigationView>(R.id.profileBottomNav)
+        bottomNavigationView.selectedItemId = R.id.profile
+
+        bottomNavigationView.setOnNavigationItemSelectedListener {
             when(it.itemId) {
                 R.id.home -> {
                     val intent = Intent(this, MainActivity::class.java)
@@ -25,7 +29,9 @@ class ProfileActivity : AppCompatActivity() {
                     true
                 }
                 R.id.favorite -> {
-                    Toast.makeText(applicationContext, "FAVORITE CLICKED", Toast.LENGTH_LONG).show()
+                    val intent = Intent(this, FavoritesActivity::class.java)
+                    startActivity(intent)
+                    finish()
                     true
                 }
                 else -> false

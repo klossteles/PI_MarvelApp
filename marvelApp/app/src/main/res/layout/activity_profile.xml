@@ -15,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/profile_navigation_graph"
-        android:background="@color/colorPrimaryDark"/>
+        android:background="@color/color_gray_dark"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/profileBottomNav"
