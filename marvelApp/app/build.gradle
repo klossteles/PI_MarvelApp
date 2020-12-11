@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.group06.marvelapp"
+        applicationId "com.marvelapp06.marvelapp"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
