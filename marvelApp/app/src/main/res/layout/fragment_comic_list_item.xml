@@ -28,7 +28,7 @@
         <TextView
             android:id="@+id/txtComicName"
             android:layout_width="match_parent"
-            android:layout_height="38dp"
+            android:layout_height="@dimen/dimen_38dp"
             android:gravity="center"
             tools:text="Iron Man #2"
             android:textColor="@color/colorPrimary"

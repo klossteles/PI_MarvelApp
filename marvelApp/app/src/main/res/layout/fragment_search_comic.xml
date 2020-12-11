@@ -97,7 +97,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginHorizontal="@dimen/dimen_10dp"
-                android:background="@color/color_white"
+                android:background="@drawable/bg_white_rounded"
                 app:layout_constraintEnd_toEndOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
