@@ -78,6 +78,7 @@ class CreatorsListFragment : Fragment() {
         showLoading(true)
         setScrollView()
         initSearch()
+        setBackNavigation()
     }
 
     private fun initSearch() {
