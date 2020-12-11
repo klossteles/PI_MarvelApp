@@ -39,4 +39,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    companion object {
+        const val MARVEL_APP = "MarvelApp"
+        const val KEEP_LOGGED = "KeepLogged"
+    }
 }
