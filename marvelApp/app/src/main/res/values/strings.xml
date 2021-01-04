@@ -60,5 +60,7 @@
     <string name="hqs_creators_chips">HQ\'s:</string>
     <string name="events_chip">Eventos:</string>
     <string name="series_with_double_dot">Series:</string>
+    <string name="facebook_app_id">738510870395542</string>
+    <string name="fb_login_protocol_scheme">fb738510870395542</string>
 </resources>
 
