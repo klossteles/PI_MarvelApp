@@ -155,40 +155,26 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/containedButtonLogin" />
 
-            <Button
+            <com.google.android.gms.common.SignInButton
                 android:id="@+id/containedButtonLoginGoogle"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_60dp"
-                android:layout_marginTop="@dimen/dimen_16dp"
-                android:backgroundTint="@color/color_black"
-                android:text="@string/login_google"
-                android:textAllCaps="false"
-                android:textColor="@color/mainTitles"
-                android:textSize="@dimen/dimen_16sp"
-                app:icon="@drawable/google_logo"
-                app:iconSize="@dimen/dimen_30dp"
-                app:iconTint="@null"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewOr" />
-
-            <Button
-                android:id="@+id/containedButtonLoginFacebook"
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_60dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_30dp"
-                android:backgroundTint="@color/color_black"
-                android:text="@string/login_facebook"
-                android:textAllCaps="false"
-                android:textColor="@color/mainTitles"
-                android:textSize="@dimen/dimen_16sp"
-                app:icon="@drawable/facebook_logo"
-                app:iconSize="@dimen/dim_40dp"
-                app:iconTint="@null"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/containedButtonLoginGoogle" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewOr"
+                />
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/containedButtonLoginFacebook"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/containedButtonLoginGoogle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dimen_30dp"
+                android:layout_marginBottom="@dimen/dimen_30dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
