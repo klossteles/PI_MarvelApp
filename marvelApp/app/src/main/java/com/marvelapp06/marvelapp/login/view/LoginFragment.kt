@@ -11,6 +11,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -43,22 +45,8 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _view = inflater.inflate(R.layout.fragment_login, container, false)
-        _callbackManager = CallbackManager.Factory.create()
-        _view.findViewById<LoginButton>(R.id.containedButtonLoginFacebook).setOnClickListener { loginFacebook() }
-        _googleSignInBtn = _view.findViewById<SignInButton>(R.id.containedButtonLoginGoogle)
-        _googleSignInBtn.setSize(SignInButton.SIZE_STANDARD);
-        _googleSignInBtn.setOnClickListener { googleSignIn() }
-
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .build()
-        mGoogleSignInClient = GoogleSignIn.getClient(_view.context, gso)
-
         // Inflate the layout for this fragment
-        return _view
+        return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
     override fun onStart() {
@@ -135,6 +123,20 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _view = view
+        val navController = findNavController()
+        _callbackManager = CallbackManager.Factory.create()
+        _view.findViewById<LoginButton>(R.id.containedButtonLoginFacebook).setOnClickListener { loginFacebook() }
+        _googleSignInBtn = _view.findViewById<SignInButton>(R.id.containedButtonLoginGoogle)
+        _googleSignInBtn.setSize(SignInButton.SIZE_STANDARD);
+        _googleSignInBtn.setOnClickListener { googleSignIn() }
+
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+
+        mGoogleSignInClient = GoogleSignIn.getClient(_view.context, gso)
 
         val hide = arguments?.getBoolean(HIDE_BACK)
         if (hide != null && hide) {
@@ -143,6 +145,14 @@ class LoginFragment : Fragment() {
 
         _view.findViewById<Button>(R.id.containedButtonLogin).setOnClickListener {
             saveLoggedIn(true)
+        }
+
+        onRegister(navController)
+    }
+
+    private fun onRegister(navController: NavController) {
+        _view.findViewById<Button>(R.id.textButtonRegisterLogin).setOnClickListener {
+            navController.navigate(R.id.action_loginFragment2_to_registerFragment3)
         }
     }
 
@@ -169,5 +179,8 @@ class LoginFragment : Fragment() {
         const val TAG = "GoogleActivity"
         const val FACEBOOK_LOGIN = "FACEBOOK"
         const val GOOGLE_LOGIN = "GOOGLE"
+        const val CALLER = "CALLER"
+        const val PROFILE_CALLER = "PROFILE"
+        const val FAVORITE_CALLER = "FAVORITE"
     }
 }

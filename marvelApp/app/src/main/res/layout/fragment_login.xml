@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/characterToolbar"
+            android:id="@+id/loginToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/color_black"
@@ -54,13 +54,18 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/dimen_30dp">
+            app:layout_constraintTop_toBottomOf="@id/loginToolbar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:paddingEnd="@dimen/dimen_30dp"
+            android:paddingStart="@dimen/dimen_30dp"
+            android:paddingTop="@dimen/dimen_30dp">
 
             <TextView
                 android:id="@+id/textViewTitleLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_60dp"
                 android:text="@string/title_login"
                 android:textColor="@color/mainTitles"
                 android:textSize="@dimen/dimen_30sp"
@@ -159,7 +164,7 @@
                 android:id="@+id/containedButtonLoginGoogle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_30dp"
+                android:layout_marginTop="@dimen/dimen_15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewOr"
@@ -170,11 +175,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/containedButtonLoginGoogle"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/dimen_30dp"
-                android:layout_marginBottom="@dimen/dimen_30dp" />
+                android:layout_marginTop="@dimen/dimen_15dp"
+                android:layout_marginBottom="@dimen/dimen_70dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

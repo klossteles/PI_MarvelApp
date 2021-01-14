@@ -7,14 +7,15 @@
     tools:context=".favorite.view.FavoritesActivity">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/favoriteFrameLayout"
+        android:id="@+id/favorites_nav_host_fragment"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/favoriteBottomNav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/profile_navigation_graph"
+        app:defaultNavHost='false'
+        app:navGraph="@navigation/favorites_navigation_graph"
         android:background="@color/color_gray_dark"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

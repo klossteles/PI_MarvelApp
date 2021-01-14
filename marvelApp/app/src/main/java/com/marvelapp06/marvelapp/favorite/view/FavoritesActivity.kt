@@ -9,6 +9,7 @@ import com.marvelapp06.marvelapp.ProfileActivity
 import com.marvelapp06.marvelapp.R
 import com.marvelapp06.marvelapp.login.view.LoginFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.marvelapp06.marvelapp.LoginActivity
 
 class FavoritesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,18 +19,12 @@ class FavoritesActivity : AppCompatActivity() {
         val pref = this.getSharedPreferences(MainActivity.MARVEL_APP, Context.MODE_PRIVATE)
         val value = pref.getBoolean(MainActivity.KEEP_LOGGED, false)
 
-        if (value) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.favoriteFrameLayout, FavoriteFragment())
-                .commit()
-        } else {
-            val loginFragment = LoginFragment()
-            val bundle = Bundle()
-            bundle.putBoolean(LoginFragment.HIDE_BACK, true)
-            loginFragment.arguments = bundle
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.favoriteFrameLayout, loginFragment)
-                .commit()
+        if (!value) {
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.putExtra(LoginFragment.HIDE_BACK, true)
+            intent.putExtra(LoginFragment.CALLER, LoginFragment.FAVORITE_CALLER)
+            startActivity(intent)
+            finish()
         }
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.favoriteBottomNav)

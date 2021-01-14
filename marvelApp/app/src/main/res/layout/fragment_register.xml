@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".login.view.RegisterFragment"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/color_gray_dark">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/characterToolbar"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/imgBackCharacter"
+                android:id="@+id/imgBackRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_5dp"
@@ -68,7 +68,7 @@
         android:id="@+id/textFullnameRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_60dp"
+        android:layout_marginTop="@dimen/dimen_30dp"
         android:hint="@string/fullname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
