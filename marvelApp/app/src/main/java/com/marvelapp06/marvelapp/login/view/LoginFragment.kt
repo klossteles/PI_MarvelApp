@@ -34,7 +34,6 @@ import com.marvelapp06.marvelapp.MainActivity
 import com.marvelapp06.marvelapp.R
 import com.marvelapp06.marvelapp.favorite.view.FavoritesActivity
 
-
 class LoginFragment : Fragment() {
     private lateinit var _view:View
     private lateinit var _callbackManager: CallbackManager
@@ -75,11 +74,6 @@ class LoginFragment : Fragment() {
 
         mGoogleSignInClient = GoogleSignIn.getClient(_view.context, gso)
 
-        val hide = arguments?.getBoolean(HIDE_BACK)
-        if (hide != null && hide) {
-            hideBackIcon()
-        }
-
         _view.findViewById<Button>(R.id.containedButtonLogin).setOnClickListener {
             saveLoggedIn(true)
         }
@@ -87,6 +81,9 @@ class LoginFragment : Fragment() {
         onRegister(navController)
         onRegisterSuccess(navController)
         onLogIn()
+        _view.findViewById<ImageView>(R.id.imgBackLogin).setOnClickListener {
+            activity?.finish()
+        }
     }
 
     override fun onStart() {
@@ -104,8 +101,6 @@ class LoginFragment : Fragment() {
     private fun updateUI(currentUser: FirebaseUser?) {
         if (currentUser != null) {
             if (currentUser.isEmailVerified) {
-                val intent = Intent(_view.context, FavoritesActivity::class.java)
-                startActivity(intent)
                 activity?.finish()
             } else {
                 Toast.makeText(_view.context, getString(R.string.validate_your_email), Toast.LENGTH_LONG).show()
@@ -251,12 +246,8 @@ class LoginFragment : Fragment() {
     }
 
     companion object {
-        const val HIDE_BACK = "HIDE_BACK"
         const val RC_SIGN_IN = 9001
         const val FACEBOOK_LOGIN = "FACEBOOK"
         const val GOOGLE_LOGIN = "GOOGLE"
-        const val CALLER = "CALLER"
-        const val PROFILE_CALLER = "PROFILE"
-        const val FAVORITE_CALLER = "FAVORITE"
     }
 }

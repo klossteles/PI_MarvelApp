@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import com.facebook.login.Login
 import com.marvelapp06.marvelapp.favorite.view.FavoritesActivity
 import com.marvelapp06.marvelapp.login.view.ProfileFragment
@@ -28,10 +30,7 @@ class ProfileActivity : AppCompatActivity() {
                 .commit()
         } else {
             val intent = Intent(this, LoginActivity::class.java)
-            intent.putExtra(LoginFragment.HIDE_BACK, true)
-            intent.putExtra(LoginFragment.CALLER, LoginFragment.PROFILE_CALLER)
             startActivity(intent)
-            finish()
         }
 
         val bottomNavigationView =  findViewById<BottomNavigationView>(R.id.profileBottomNav)
@@ -53,6 +52,22 @@ class ProfileActivity : AppCompatActivity() {
                 }
                 else -> false
             }
+        }
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.i("PROFILE_RESUME", "PROFILE RESUME")
+        val currentUser = _auth.currentUser
+        if (currentUser != null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.favorites_nav_host_fragment, FavoriteFragment())
+                .commit()
+        } else {
+            Toast.makeText(this, getString(R.string.its_necessary_to_logged_to_access_profile), Toast.LENGTH_LONG).show()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }

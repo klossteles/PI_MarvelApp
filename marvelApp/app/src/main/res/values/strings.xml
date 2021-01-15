@@ -70,5 +70,7 @@
     <string name="must_be_the_same_as_password">Precisa ser a mesma senha</string>
     <string name="an_error_has_occurred_check_email_and_password">Ocorreu um erro. Verifique email e senha</string>
     <string name="validate_your_email">Valide seu email</string>
+    <string name="its_necessary_to_logged_to_access_favorites">É necessário estar logado para acessar os favoritos</string>
+    <string name="its_necessary_to_logged_to_access_profile">É necessário estar logado para acessar o perfil</string>
 </resources>
 

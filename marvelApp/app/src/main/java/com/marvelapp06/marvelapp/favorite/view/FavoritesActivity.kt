@@ -3,6 +3,8 @@ package com.marvelapp06.marvelapp.favorite.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import com.marvelapp06.marvelapp.MainActivity
 import com.marvelapp06.marvelapp.ProfileActivity
 import com.marvelapp06.marvelapp.R
@@ -10,6 +12,7 @@ import com.marvelapp06.marvelapp.login.view.LoginFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.marvelapp06.marvelapp.LoginActivity
+import kotlin.math.log
 
 class FavoritesActivity : AppCompatActivity() {
     private lateinit var _auth: FirebaseAuth
@@ -27,10 +30,7 @@ class FavoritesActivity : AppCompatActivity() {
                 .commit()
         } else {
             val intent = Intent(this, LoginActivity::class.java)
-            intent.putExtra(LoginFragment.HIDE_BACK, true)
-            intent.putExtra(LoginFragment.CALLER, LoginFragment.FAVORITE_CALLER)
             startActivity(intent)
-            finish()
         }
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.favoriteBottomNav)
@@ -44,12 +44,6 @@ class FavoritesActivity : AppCompatActivity() {
                     finish()
                     true
                 }
-                R.id.favorite -> {
-                    val intent = Intent(this, FavoritesActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    true
-                }
                 R.id.profile -> {
                     val intent = Intent(this, ProfileActivity::class.java)
                     startActivity(intent)
@@ -58,6 +52,22 @@ class FavoritesActivity : AppCompatActivity() {
                 }
                 else -> false
             }
+        }
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.i("FAVORITES_RESUME", "FAVORITES RESUME")
+        val currentUser = _auth.currentUser
+        if (currentUser != null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.favorites_nav_host_fragment, FavoriteFragment())
+                .commit()
+        } else {
+            Toast.makeText(this, getString(R.string.its_necessary_to_logged_to_access_favorites), Toast.LENGTH_LONG).show()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }

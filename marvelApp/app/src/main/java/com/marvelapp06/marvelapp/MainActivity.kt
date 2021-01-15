@@ -16,12 +16,6 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.home -> {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    true
-                }
                 R.id.favorite -> {
                     val intent = Intent(this, FavoritesActivity::class.java)
                     startActivity(intent)
