@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_loginFragment2_to_registerFragment3"
             app:destination="@id/registerFragment3"/>
+        <action
+            android:id="@+id/action_loginFragment2_to_recoverPasswordFragment"
+            app:destination="@id/recoverPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment3"
@@ -22,5 +25,16 @@
         <action
             android:id="@+id/action_registerFragment3_to_loginFragment2"
             app:destination="@id/loginFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/recoverPasswordFragment"
+        android:name="com.marvelapp06.marvelapp.login.view.RecoverPasswordFragment"
+        android:label="fragment_recover_password"
+        tools:layout="@layout/fragment_recover_password" >
+        <action
+            android:id="@+id/action_recoverPasswordFragment_to_loginFragment2"
+            app:destination="@id/loginFragment2"
+            app:popUpTo="@id/loginFragment2"
+            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>

@@ -154,26 +154,65 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textPasswordLogin" />
 
-            <TextView
-                android:id="@+id/textViewOr"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnForgotPasswordLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_15dp"
-                android:text="@string/or"
-                android:textAllCaps="true"
-                android:textColor="@color/mainTitles"
+                android:text="@string/forgot_password"
+                android:layout_marginTop="@dimen/dimen_5dp"
+                android:textSize="@dimen/dimen_10sp"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/containedButtonLogin"
+                />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayoutLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:layout_marginHorizontal="@dimen/dimen_20dp"
+                android:layout_marginVertical="@dimen/dimen_20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/containedButtonLogin" />
+                app:layout_constraintTop_toBottomOf="@id/btnForgotPasswordLogin">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_1dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/txtOr"
+                    android:background="@color/color_gray" />
+
+                <TextView
+                    android:id="@+id/txtOr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="@dimen/dimen_10dp"
+                    android:layout_marginEnd="@dimen/dimen_10dp"
+                    android:gravity="center"
+                    android:text="@string/or"
+                    android:textColor="@color/mainTitles"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_1dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@id/txtOr"
+                    android:background="@color/color_gray" />
+            </RelativeLayout>
 
             <com.google.android.gms.common.SignInButton
                 android:id="@+id/containedButtonLoginGoogle"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewOr"
+                app:layout_constraintTop_toBottomOf="@+id/relativeLayoutLogin"
                 />
 
             <com.facebook.login.widget.LoginButton
@@ -182,11 +221,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/containedButtonLoginGoogle"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/dimen_15dp"
-                android:layout_marginBottom="@dimen/dimen_70dp"/>
+                android:layout_marginBottom="@dimen/dimen_30dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

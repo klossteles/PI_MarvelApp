@@ -72,5 +72,9 @@
     <string name="validate_your_email">Valide seu email</string>
     <string name="its_necessary_to_logged_to_access_favorites">É necessário estar logado para acessar os favoritos</string>
     <string name="its_necessary_to_logged_to_access_profile">É necessário estar logado para acessar o perfil</string>
+    <string name="forgot_password">Esqueceu sua senha?</string>
+    <string name="recover_password">Recuperar senha</string>
+    <string name="recover">Recuperar</string>
+    <string name="email_sent">Email enviado, verifique</string>
 </resources>
 

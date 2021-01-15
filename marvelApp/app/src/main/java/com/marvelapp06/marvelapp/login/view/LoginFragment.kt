@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.NavController
@@ -27,6 +28,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.*
@@ -81,6 +83,11 @@ class LoginFragment : Fragment() {
         onRegister(navController)
         onRegisterSuccess(navController)
         onLogIn()
+        onBack()
+        onForgotPassword(navController)
+    }
+
+    private fun onBack() {
         _view.findViewById<ImageView>(R.id.imgBackLogin).setOnClickListener {
             activity?.finish()
         }
@@ -245,9 +252,21 @@ class LoginFragment : Fragment() {
             }
     }
 
+    private fun onForgotPassword(navController: NavController) {
+        _view.findViewById<MaterialButton>(R.id.btnForgotPasswordLogin).setOnClickListener {
+            val email = _view.findViewById<TextInputEditText>(R.id.edtEmailLogin)?.text.toString()
+            var bundle = bundleOf()
+            if (email.isNotEmpty()) {
+                bundle = bundleOf(EMAIL to email)
+            }
+            navController.navigate(R.id.action_loginFragment2_to_recoverPasswordFragment, bundle)
+        }
+    }
+
     companion object {
         const val RC_SIGN_IN = 9001
         const val FACEBOOK_LOGIN = "FACEBOOK"
         const val GOOGLE_LOGIN = "GOOGLE"
+        const val EMAIL = "EMAIL"
     }
 }
