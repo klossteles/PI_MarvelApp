@@ -8,18 +8,21 @@ import com.facebook.login.Login
 import com.marvelapp06.marvelapp.favorite.view.FavoritesActivity
 import com.marvelapp06.marvelapp.login.view.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.marvelapp06.marvelapp.favorite.view.FavoriteFragment
 import com.marvelapp06.marvelapp.login.view.LoginFragment
 
 class ProfileActivity : AppCompatActivity() {
+    private lateinit var _auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
-        val pref = this.getSharedPreferences(MainActivity.MARVEL_APP, Context.MODE_PRIVATE)
-        val value = pref.getBoolean(MainActivity.KEEP_LOGGED, false)
+        _auth = FirebaseAuth.getInstance()
+        val currentUser = _auth.currentUser
 
-        if (value) {
+        if (currentUser != null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.profile_nav_host_fragment, ProfileFragment())
                 .commit()

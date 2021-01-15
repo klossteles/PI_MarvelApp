@@ -1,6 +1,5 @@
 package com.marvelapp06.marvelapp.favorite.view
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,17 +8,24 @@ import com.marvelapp06.marvelapp.ProfileActivity
 import com.marvelapp06.marvelapp.R
 import com.marvelapp06.marvelapp.login.view.LoginFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.marvelapp06.marvelapp.LoginActivity
 
 class FavoritesActivity : AppCompatActivity() {
+    private lateinit var _auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorites)
 
-        val pref = this.getSharedPreferences(MainActivity.MARVEL_APP, Context.MODE_PRIVATE)
-        val value = pref.getBoolean(MainActivity.KEEP_LOGGED, false)
+        _auth = FirebaseAuth.getInstance()
+        val currentUser = _auth.currentUser
 
-        if (!value) {
+        if (currentUser != null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.favorites_nav_host_fragment, FavoriteFragment())
+                .commit()
+        } else {
             val intent = Intent(this, LoginActivity::class.java)
             intent.putExtra(LoginFragment.HIDE_BACK, true)
             intent.putExtra(LoginFragment.CALLER, LoginFragment.FAVORITE_CALLER)

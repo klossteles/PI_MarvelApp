@@ -106,11 +106,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_30dp"
                 android:hint="@string/email"
+                android:textColorHint="@color/color_red"
+                app:hintTextColor="@color/color_red"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewMessageLogin">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtEmailLogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -122,12 +125,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_30dp"
                 android:hint="@string/password"
+                android:textColorHint="@color/color_red"
+                app:hintTextColor="@color/color_red"
                 app:endIconMode="password_toggle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textEmailLogin">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtPasswordLogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword" />
