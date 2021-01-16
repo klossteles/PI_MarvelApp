@@ -1,6 +1,6 @@
 package com.marvelapp06.marvelapp.login.view
 
-import android.content.Context
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -34,7 +34,6 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.*
 import com.marvelapp06.marvelapp.MainActivity
 import com.marvelapp06.marvelapp.R
-import com.marvelapp06.marvelapp.favorite.view.FavoritesActivity
 
 class LoginFragment : Fragment() {
     private lateinit var _view:View
@@ -103,13 +102,16 @@ class LoginFragment : Fragment() {
 
     private fun updateUI(currentUser: FirebaseUser?) {
         if (currentUser != null) {
-            if (currentUser.isEmailVerified) {
-                activity?.finish()
-            } else {
+            if (currentUser.providerData.get(1).providerId == EmailAuthProvider.PROVIDER_ID && currentUser.isEmailVerified) {
                 Toast.makeText(_view.context, getString(R.string.validate_your_email), Toast.LENGTH_LONG).show()
                 _auth.signOut()
                 val intent = Intent(_view.context, MainActivity::class.java)
                 startActivity(intent)
+                activity?.finish()
+            } else {
+                val intent = Intent()
+                intent.putExtra(LOGGED_IN, true)
+                activity?.setResult(Activity.RESULT_OK, intent)
                 activity?.finish()
             }
         }
@@ -250,5 +252,7 @@ class LoginFragment : Fragment() {
         const val FACEBOOK_LOGIN = "FACEBOOK"
         const val GOOGLE_LOGIN = "GOOGLE"
         const val EMAIL = "EMAIL"
+        const val LOGGED_IN = "LOGGED_IN"
+        const val REQUEST_CODE = 1
     }
 }
