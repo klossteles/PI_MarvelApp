@@ -7,13 +7,14 @@
     tools:context=".ProfileActivity">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/profileFrameLayout"
+        android:id="@+id/profile_nav_host_fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/profileBottomNav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:defaultNavHost='false'
         app:navGraph="@navigation/profile_navigation_graph"
         android:background="@color/color_gray_dark"/>
 

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/favorites_navigation_graph"
+    app:startDestination="@id/favoriteFragment2">
+
+    <fragment
+        android:id="@+id/favoriteFragment2"
+        android:name="com.marvelapp06.marvelapp.favorite.view.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment2_to_favoriteCharacterFragment"
+            app:destination="@id/favoriteCharacterFragment" />
+        <action
+            android:id="@+id/action_favoriteFragment2_to_favoriteCreatorFragment"
+            app:destination="@id/favoriteCreatorFragment" />
+        <action
+            android:id="@+id/action_favoriteFragment2_to_favoriteSeriesFragment"
+            app:destination="@id/favoriteSeriesFragment" />
+        <action
+            android:id="@+id/action_favoriteFragment2_to_favoriteComicFragment"
+            app:destination="@id/favoriteComicFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteCharacterFragment"
+        android:name="com.marvelapp06.marvelapp.favorite.view.FavoriteCharacterFragment"
+        android:label="fragment_favorite_character"
+        tools:layout="@layout/fragment_favorite_character" >
+        <action
+            android:id="@+id/action_favoriteCharacterFragment_to_favoriteFragment2"
+            app:destination="@id/favoriteFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteComicFragment"
+        android:name="com.marvelapp06.marvelapp.favorite.view.FavoriteComicFragment"
+        android:label="fragment_favorite_comic"
+        tools:layout="@layout/fragment_favorite_comic" >
+        <action
+            android:id="@+id/action_favoriteComicFragment_to_favoriteFragment2"
+            app:destination="@id/favoriteFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteCreatorFragment"
+        android:name="com.marvelapp06.marvelapp.favorite.view.FavoriteCreatorFragment"
+        android:label="fragment_favorite_creator"
+        tools:layout="@layout/fragment_favorite_creator" />
+    <fragment
+        android:id="@+id/favoriteSeriesFragment"
+        android:name="com.marvelapp06.marvelapp.favorite.view.FavoriteSeriesFragment"
+        android:label="fragment_favorite_series"
+        tools:layout="@layout/fragment_favorite_series" >
+        <action
+            android:id="@+id/action_favoriteSeriesFragment_to_favoriteFragment2"
+            app:destination="@id/favoriteFragment2" />
+    </fragment>
+</navigation>

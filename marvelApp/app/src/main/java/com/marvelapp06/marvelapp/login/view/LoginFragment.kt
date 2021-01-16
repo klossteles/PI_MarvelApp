@@ -1,6 +1,6 @@
 package com.marvelapp06.marvelapp.login.view
 
-import android.content.Context
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,7 +10,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.observe
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -24,13 +28,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.FacebookAuthProvider
-import com.google.firebase.auth.FirebaseAuth
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.*
 import com.marvelapp06.marvelapp.MainActivity
 import com.marvelapp06.marvelapp.R
-import com.marvelapp06.marvelapp.favorite.view.FavoritesActivity
-
 
 class LoginFragment : Fragment() {
     private lateinit var _view:View
@@ -38,12 +41,25 @@ class LoginFragment : Fragment() {
     private lateinit var _googleSignInBtn: SignInButton
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var _loginMethod: String
+    private lateinit var _auth: FirebaseAuth
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        _auth = FirebaseAuth.getInstance()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _view = inflater.inflate(R.layout.fragment_login, container, false)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_login, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        _view = view
+        val navController = findNavController()
         _callbackManager = CallbackManager.Factory.create()
         _view.findViewById<LoginButton>(R.id.containedButtonLoginFacebook).setOnClickListener { loginFacebook() }
         _googleSignInBtn = _view.findViewById<SignInButton>(R.id.containedButtonLoginGoogle)
@@ -53,19 +69,28 @@ class LoginFragment : Fragment() {
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
+
         mGoogleSignInClient = GoogleSignIn.getClient(_view.context, gso)
 
-        // Inflate the layout for this fragment
-        return _view
+        onRegister(navController)
+        onRegisterSuccess(navController)
+        onLogIn()
+        onBack()
+        onForgotPassword(navController)
+    }
+
+    private fun onBack() {
+        _view.findViewById<ImageView>(R.id.imgBackLogin).setOnClickListener {
+            activity?.finish()
+        }
     }
 
     override fun onStart() {
         super.onStart()
-        // Check for existing Google Sign In account, if the user is already signed in
-        // the GoogleSignInAccount will be non-null.
-        val account = GoogleSignIn.getLastSignedInAccount(_view.context)
+        val account = _auth.currentUser
         updateUI(account)
     }
 
@@ -75,9 +100,20 @@ class LoginFragment : Fragment() {
         _loginMethod = GOOGLE_LOGIN
     }
 
-    private fun updateUI(account: GoogleSignInAccount?) {
-        if (account != null) {
-            saveLoggedIn(true)
+    private fun updateUI(currentUser: FirebaseUser?) {
+        if (currentUser != null) {
+            if (currentUser.providerData.get(1).providerId == EmailAuthProvider.PROVIDER_ID && currentUser.isEmailVerified) {
+                Toast.makeText(_view.context, getString(R.string.validate_your_email), Toast.LENGTH_LONG).show()
+                _auth.signOut()
+                val intent = Intent(_view.context, MainActivity::class.java)
+                startActivity(intent)
+                activity?.finish()
+            } else {
+                val intent = Intent()
+                intent.putExtra(LOGGED_IN, true)
+                activity?.setResult(Activity.RESULT_OK, intent)
+                activity?.finish()
+            }
         }
     }
 
@@ -88,7 +124,10 @@ class LoginFragment : Fragment() {
         instanceFirebase.registerCallback(_callbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
                 val credential: AuthCredential = FacebookAuthProvider.getCredential(loginResult.accessToken.token)
-                FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener { saveLoggedIn(true) }
+                _auth.signInWithCredential(credential).addOnCompleteListener {
+                    val user = _auth.currentUser
+                    updateUI(user)
+                }
             }
 
             override fun onCancel() {
@@ -111,63 +150,109 @@ class LoginFragment : Fragment() {
                     // The Task returned from this call is always completed, no need to attach
                     // a listener.
                     val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-                    handleSignInResult(task)
+                    val exception = task.exception
+                    if (task.isSuccessful) {
+                        try {
+                            // Google Sign In was successful, authenticate with Firebase
+                            val account = task.getResult(ApiException::class.java)!!
+                            Log.d("LoginFragment", "firebaseAuthWithGoogle:" + account.id)
+                            firebaseAuthWithGoogle(account.idToken!!)
+                        } catch (e: ApiException) {
+                            // Google Sign In failed, update UI appropriately
+                            Log.w("MainActivity", "Google sign in failed", e)
+                        }
+                    } else {
+                        Log.w("MainActivity", exception.toString())
+
+                    }
                 }
             }
         }
     }
 
-    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
-        try {
-            val account = completedTask.getResult(ApiException::class.java)
-            // Signed in successfully, show authenticated UI.
-            updateUI(account)
-        } catch (e: ApiException) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w(TAG,
-                "signInResult:failed code=" + e.message
-            )
-            updateUI(null)
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        _auth.signInWithCredential(credential)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("TAG", "signInWithCredential:success")
+                    val user = _auth.currentUser
+                    updateUI(user)
+
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w("TAG", "signInWithCredential:failure", task.exception)
+                }
+            }
+    }
+
+    private fun onRegister(navController: NavController) {
+        _view.findViewById<Button>(R.id.textButtonRegisterLogin).setOnClickListener {
+            navController.navigate(R.id.action_loginFragment2_to_registerFragment3)
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        _view = view
+    private fun onRegisterSuccess(navController: NavController) {
+        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>(RegisterFragment.EMAIL_REGISTER)
+            ?.observe(viewLifecycleOwner) {
+                _view.findViewById<TextInputEditText>(R.id.edtEmailLogin).setText(it)
+            }
+    }
 
-        val hide = arguments?.getBoolean(HIDE_BACK)
-        if (hide != null && hide) {
-            hideBackIcon()
-        }
-
+    private fun onLogIn() {
         _view.findViewById<Button>(R.id.containedButtonLogin).setOnClickListener {
-            saveLoggedIn(true)
+            var success = true
+            val email = _view.findViewById<TextInputEditText>(R.id.edtEmailLogin)?.text.toString()
+            if (email.isEmpty()) {
+                _view.findViewById<TextInputLayout>(R.id.textEmailLogin).error =
+                    getString(R.string.insert_email)
+                success = false
+            }
+            val password =
+                _view.findViewById<TextInputEditText>(R.id.edtPasswordLogin)?.text.toString()
+            if (password.isEmpty()) {
+                _view.findViewById<TextInputLayout>(R.id.textPasswordLogin).error =
+                    getString(R.string.insert_password)
+                success = false
+            }
+            if (success) {
+                logIn(email, password)
+            }
         }
     }
 
-    private fun saveLoggedIn(logged: Boolean = false) {
-        val pref = _view.context.getSharedPreferences(
-            MainActivity.MARVEL_APP,
-            Context.MODE_PRIVATE
-        )
-        pref.edit().putBoolean(MainActivity.KEEP_LOGGED, logged).apply()
-        if (logged) {
-            val intent = Intent(_view.context, FavoritesActivity::class.java)
-            startActivity(intent)
-            activity?.finish()
-        }
+    private fun logIn(email: String, password: String) {
+        _auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val user = _auth.currentUser
+                    updateUI(user)
+                } else {
+                    Toast.makeText(_view.context, getString(R.string.an_error_has_occurred_check_email_and_password),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
     }
 
-    private fun hideBackIcon() {
-        _view.findViewById<ImageView>(R.id.imgBackLogin).visibility = View.GONE
+    private fun onForgotPassword(navController: NavController) {
+        _view.findViewById<MaterialButton>(R.id.btnForgotPasswordLogin).setOnClickListener {
+            val email = _view.findViewById<TextInputEditText>(R.id.edtEmailLogin)?.text.toString()
+            var bundle = bundleOf()
+            if (email.isNotEmpty()) {
+                bundle = bundleOf(EMAIL to email)
+            }
+            navController.navigate(R.id.action_loginFragment2_to_recoverPasswordFragment, bundle)
+        }
     }
 
     companion object {
-        const val HIDE_BACK = "HIDE_BACK"
         const val RC_SIGN_IN = 9001
-        const val TAG = "GoogleActivity"
         const val FACEBOOK_LOGIN = "FACEBOOK"
         const val GOOGLE_LOGIN = "GOOGLE"
+        const val EMAIL = "EMAIL"
+        const val LOGGED_IN = "LOGGED_IN"
+        const val REQUEST_CODE = 1
     }
 }

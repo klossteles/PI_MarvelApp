@@ -25,4 +25,7 @@
     <dimen name="dim_40dp">40dp</dimen>
     <dimen name="dimen_75dp">75dp</dimen>
     <dimen name="dimen_38dp">38dp</dimen>
+    <dimen name="dimen_12sp">12sp</dimen>
+    <dimen name="dimen_1dp">1dp</dimen>
+    <dimen name="dimen_10sp">10sp</dimen>
 </resources>

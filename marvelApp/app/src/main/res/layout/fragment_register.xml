@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".login.view.RegisterFragment"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/color_gray_dark">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/characterToolbar"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/imgBackCharacter"
+                android:id="@+id/imgBackRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_5dp"
@@ -65,49 +65,58 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textFullnameRegister"
+        android:id="@+id/textFullNameRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_60dp"
+        android:layout_marginTop="@dimen/dimen_30dp"
         android:hint="@string/fullname"
+        android:textColorHint="@color/color_red"
+        app:hintTextColor="@color/color_red"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitleRegister">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtFullNameRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textEmailProfile"
+        android:id="@+id/txtEmailRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_30dp"
+        android:layout_marginTop="@dimen/dimen_15dp"
         android:hint="@string/email"
+        android:textColorHint="@color/color_red"
+        app:hintTextColor="@color/color_red"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textFullnameRegister">
+        app:layout_constraintTop_toBottomOf="@+id/textFullNameRegister">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtEmailRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textPassowordRegister"
+        android:id="@+id/textPasswordRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_30dp"
+        android:layout_marginTop="@dimen/dimen_15dp"
         android:hint="@string/password"
+        android:textColorHint="@color/color_red"
+        app:hintTextColor="@color/color_red"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textEmailProfile"
+        app:layout_constraintTop_toBottomOf="@+id/txtEmailRegister"
         app:endIconMode="password_toggle">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtPasswordRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"/>
@@ -115,17 +124,21 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textPasswordConfirm"
+        android:id="@+id/textConfirmPasswordRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_30dp"
+        android:layout_marginTop="@dimen/dimen_15dp"
         android:hint="@string/password_confirmation"
+        android:textColorHint="@color/color_red"
+        app:hintTextColor="@color/color_red"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textPassowordRegister"
+        app:layout_constraintTop_toBottomOf="@+id/textPasswordRegister"
         app:endIconMode="password_toggle">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtConfirmPasswordRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"/>
@@ -136,15 +149,17 @@
         android:id="@+id/containedButtonRegister"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_60dp"
-        android:layout_marginTop="@dimen/dimen_30dp"
+        android:layout_marginTop="@dimen/dimen_15dp"
+        android:layout_marginBottom="@dimen/dimen_70dp"
         android:backgroundTint="@color/color_black"
         android:text="@string/register"
         android:textAllCaps="false"
         android:textColor="@color/mainTitles"
         android:textSize="@dimen/dimen_16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textPasswordConfirm" />
+        app:layout_constraintTop_toBottomOf="@+id/textConfirmPasswordRegister" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

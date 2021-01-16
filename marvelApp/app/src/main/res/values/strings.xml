@@ -62,5 +62,19 @@
     <string name="series_with_double_dot">Series:</string>
     <string name="facebook_app_id">738510870395542</string>
     <string name="fb_login_protocol_scheme">fb738510870395542</string>
+    <string name="insert_name">Insira um nome</string>
+    <string name="insert_email">Insira um email</string>
+    <string name="insert_password">Insira uma senha</string>
+    <string name="password_cannot_be_null">Senha não pode ser vazia</string>
+    <string name="must_contain_at_least_6_characters">Precisa conter pelo menos 6 caracteres</string>
+    <string name="must_be_the_same_as_password">Precisa ser a mesma senha</string>
+    <string name="an_error_has_occurred_check_email_and_password">Ocorreu um erro. Verifique email e senha</string>
+    <string name="validate_your_email">Valide seu email</string>
+    <string name="its_necessary_to_logged_to_access_favorites">É necessário estar logado para acessar os favoritos</string>
+    <string name="its_necessary_to_logged_to_access_profile">É necessário estar logado para acessar o perfil</string>
+    <string name="forgot_password">Esqueceu sua senha?</string>
+    <string name="recover_password">Recuperar senha</string>
+    <string name="recover">Recuperar</string>
+    <string name="email_sent">Email enviado, verifique</string>
 </resources>
 
