@@ -29,7 +29,7 @@
     <string name="title_register">CADASTRAR</string>
     <string name="fullname">Nome completo</string>
     <string name="password_confirmation">Confirmação de senha</string>
-    <string name="hello_name">Olá, Grupo06</string>
+    <string name="hello_name">Olá, <b>%1$s</b></string>
     <string name="acess_and_security">Acesso e segurança</string>
     <string name="save">Salvar</string>
     <string name="creators_image">creators_image</string>
@@ -77,5 +77,12 @@
     <string name="recover">Recuperar</string>
     <string name="email_sent">Email enviado, verifique</string>
     <string name="logout">Logout</string>
+    <string name="cancel">Cancelar</string>
+    <string name="confirm">Confirmar</string>
+    <string name="current_email">Email atual</string>
+    <string name="current_password">Senha atual</string>
+    <string name="update_canceled">Atualização cancelada</string>
+    <string name="invalid_email_or_password">Email ou senha inválidos</string>
+    <string name="confirmation">Confirmação</string>
 </resources>
 
