@@ -84,6 +84,9 @@ class LoginFragment : Fragment() {
 
     private fun onBack() {
         _view.findViewById<ImageView>(R.id.imgBackLogin).setOnClickListener {
+            val intent = Intent()
+            intent.putExtra(LOGGED_IN, false)
+            activity?.setResult(Activity.RESULT_CANCELED, intent)
             activity?.finish()
         }
     }

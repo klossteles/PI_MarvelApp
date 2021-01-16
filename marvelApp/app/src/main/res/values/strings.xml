@@ -76,5 +76,6 @@
     <string name="recover_password">Recuperar senha</string>
     <string name="recover">Recuperar</string>
     <string name="email_sent">Email enviado, verifique</string>
+    <string name="logout">Logout</string>
 </resources>
 
