@@ -61,7 +61,7 @@ class ProfileActivity : AppCompatActivity() {
         val currentUser = _auth.currentUser
         if (currentUser != null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.favorites_nav_host_fragment, FavoriteFragment())
+                .replace(R.id.profile_nav_host_fragment, ProfileFragment())
                 .commit()
         } else {
             Toast.makeText(this, getString(R.string.its_necessary_to_logged_to_access_profile), Toast.LENGTH_LONG).show()

@@ -212,19 +212,18 @@ class RegisterFragment : Fragment() {
                         user.sendEmailVerification()
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
+                                    Toast.makeText(_view.context, getString(R.string.validate_your_email),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                } else {
+                                    Toast.makeText(_view.context, "Erro",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
+                                val navController = findNavController()
+                                navController.navigateUp()
                             }
-                        Toast.makeText(_view.context, getString(R.string.validate_your_email),
-                            Toast.LENGTH_SHORT
-                        ).show()
                     }
-
-                    val navController = findNavController()
-                    navController.previousBackStackEntry?.savedStateHandle?.set(
-                        EMAIL_REGISTER,
-                        email
-                    )
-                    navController.popBackStack()
                 } else {
                     // If sign in fails, display a message to the user.
                     Toast.makeText(_view.context, "Authentication failed.",

@@ -76,10 +76,6 @@ class LoginFragment : Fragment() {
 
         mGoogleSignInClient = GoogleSignIn.getClient(_view.context, gso)
 
-        _view.findViewById<Button>(R.id.containedButtonLogin).setOnClickListener {
-            saveLoggedIn(true)
-        }
-
         onRegister(navController)
         onRegisterSuccess(navController)
         onLogIn()
@@ -126,7 +122,10 @@ class LoginFragment : Fragment() {
         instanceFirebase.registerCallback(_callbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
                 val credential: AuthCredential = FacebookAuthProvider.getCredential(loginResult.accessToken.token)
-                _auth.signInWithCredential(credential).addOnCompleteListener { saveLoggedIn(true) }
+                _auth.signInWithCredential(credential).addOnCompleteListener {
+                    val user = _auth.currentUser
+                    updateUI(user)
+                }
             }
 
             override fun onCancel() {
@@ -197,23 +196,6 @@ class LoginFragment : Fragment() {
             ?.observe(viewLifecycleOwner) {
                 _view.findViewById<TextInputEditText>(R.id.edtEmailLogin).setText(it)
             }
-    }
-
-    private fun saveLoggedIn(logged: Boolean = false) {
-        val pref = _view.context.getSharedPreferences(
-            MainActivity.MARVEL_APP,
-            Context.MODE_PRIVATE
-        )
-        pref.edit().putBoolean(MainActivity.KEEP_LOGGED, logged).apply()
-        if (logged) {
-            val intent = Intent(_view.context, FavoritesActivity::class.java)
-            startActivity(intent)
-            activity?.finish()
-        }
-    }
-
-    private fun hideBackIcon() {
-        _view.findViewById<ImageView>(R.id.imgBackLogin).visibility = View.GONE
     }
 
     private fun onLogIn() {

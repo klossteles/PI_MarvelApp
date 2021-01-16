@@ -17,23 +17,11 @@
             android:id="@+id/action_favoriteFragment2_to_favoriteCreatorFragment"
             app:destination="@id/favoriteCreatorFragment" />
         <action
-            android:id="@+id/action_favoriteFragment2_to_loginFragment3"
-            app:destination="@id/loginFragment3" />
-        <action
             android:id="@+id/action_favoriteFragment2_to_favoriteSeriesFragment"
             app:destination="@id/favoriteSeriesFragment" />
         <action
             android:id="@+id/action_favoriteFragment2_to_favoriteComicFragment"
             app:destination="@id/favoriteComicFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/loginFragment3"
-        android:name="com.marvelapp06.marvelapp.login.view.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/action_loginFragment3_to_favoriteFragment2"
-            app:destination="@id/favoriteFragment2" />
     </fragment>
     <fragment
         android:id="@+id/favoriteCharacterFragment"
