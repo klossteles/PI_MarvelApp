@@ -11,6 +11,6 @@ interface FavoriteDao {
     @Insert
     suspend fun addFavorite(favorite:FavoriteEntity)
 
-    @Query("SELECT * FROM Favorite")
+    @Query("SELECT * FROM Favorite WHERE category=1")
     suspend fun getFavoritesCharacters():List<FavoriteEntity>
 }
