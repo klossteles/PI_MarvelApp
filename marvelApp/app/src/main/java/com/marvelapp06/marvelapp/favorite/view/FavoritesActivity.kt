@@ -73,6 +73,15 @@ class FavoritesActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 }
+            } else {
+                Toast.makeText(
+                    this,
+                    getString(R.string.its_necessary_to_logged_to_access_favorites),
+                    Toast.LENGTH_LONG
+                ).show()
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
             }
         }
     }
