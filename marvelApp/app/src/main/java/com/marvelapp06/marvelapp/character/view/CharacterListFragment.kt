@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.marvelapp06.marvelapp.R
 import com.marvelapp06.marvelapp.character.model.CharactersModel
 import com.marvelapp06.marvelapp.character.repository.CharacterRepository
@@ -52,7 +53,8 @@ class CharacterListFragment : Fragment() {
                 CHARACTER_DESCRIPTION to it.description,
                 CHARACTER_COMIC to it.comics?.items,
                 CHARACTER_SERIES to  it.series?.items,
-                CHARACTER_THUMBNAIL to it.thumbnail?.getImagePath("landscape_incredible")
+                CHARACTER_THUMBNAIL to it.thumbnail?.getImagePath("landscape_incredible"),
+                CHARACTER_MODEL_JSON to this.objToJson(it)
             )
             _view.findNavController()
                 .navigate(R.id.action_characterListFragment_to_characterFragment, bundle)
@@ -79,6 +81,10 @@ class CharacterListFragment : Fragment() {
         initSearch()
     }
 
+    fun objToJson(charactersModel: CharactersModel):String{
+        val gson = Gson()
+        return gson.toJson(charactersModel)
+    }
 
     private fun setOnBackClicked() {
         _view.findViewById<ImageView>(R.id.imgBackCharacter).setOnClickListener {
@@ -172,5 +178,6 @@ class CharacterListFragment : Fragment() {
         const val CHARACTER_COMIC = "CHARACTER_COMIC"
         const val CHARACTER_SERIES = "CHARACTER_SERIES"
         const val CHARACTER_THUMBNAIL="CHARACTER_THUMBNAIL"
+        const val CHARACTER_MODEL_JSON="CHARACTER_MODEL_JSON"
     }
 }
