@@ -83,7 +83,7 @@ class CharacterFragment : Fragment() {
         if(arguments?.get(CharacterListFragment.CHARACTER_SERIES) == null) {
             series = jsonToObjSeries(arguments?.getString("CHARACTER_SERIES_JSON")!!)
         } else {
-            series = arguments?.get(CharacterListFragment.CHARACTER_COMIC)!!
+            series = arguments?.get(CharacterListFragment.CHARACTER_SERIES)!!
         }
 
         _characterModelJson = arguments?.getString(CharacterListFragment.CHARACTER_MODEL_JSON)!!
