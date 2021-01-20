@@ -195,6 +195,14 @@ class ProfileFragment : Fragment() {
                     startActivity(intent)
                     activity?.finish()
                 }
+            } else {
+                Toast.makeText(_view.context,
+                    getString(R.string.its_necessary_to_logged_to_access_profile),
+                    Toast.LENGTH_LONG
+                ).show()
+                val intent = Intent(_view.context, MainActivity::class.java)
+                startActivity(intent)
+                activity?.finish()
             }
         }
     }
