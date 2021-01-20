@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.marvelapp06.marvelapp.favorite.view.FavoritesActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.marvelapp06.marvelapp.character.view.CharacterFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +32,20 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
+        val bundle = intent.extras
+        if(bundle != null) {
+            val frag = bundle.getString("KEY_FRAGMENT")
+            if (frag.toString() == "CharacterFragment"){
+                val manager = supportFragmentManager
+                val transaction = manager.beginTransaction()
+                val characterFragment = CharacterFragment()
+                characterFragment.arguments = intent.extras
+                transaction.add(R.id.nav_host_fragment_container, characterFragment)
+                transaction.commit()
+            }
+        }
+
     }
 
     companion object {

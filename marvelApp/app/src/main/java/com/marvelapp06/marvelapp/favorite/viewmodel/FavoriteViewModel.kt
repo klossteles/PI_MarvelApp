@@ -19,6 +19,14 @@ class FavoriteViewModel(private val repository: FavoriteRepository):ViewModel() 
         emit(repository.getFavoritesCharacters())
     }
 
+    fun deleteFavorite(modelId: Int)= liveData(Dispatchers.IO) {
+        repository.deleteFavorite(modelId)
+        emit(true)
+    }
+
+    fun checkIfIsFavorite(modelId: Int)= liveData(Dispatchers.IO) {
+        emit(repository.checkIfIsFavorite(modelId))
+    }
 
     class FavoriteViewModelFactory(private val repository: FavoriteRepository) :
         ViewModelProvider.Factory {
