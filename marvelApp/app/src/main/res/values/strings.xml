@@ -84,5 +84,18 @@
     <string name="update_canceled">Atualização cancelada</string>
     <string name="invalid_email_or_password">Email ou senha inválidos</string>
     <string name="confirmation">Confirmação</string>
+    <string name="question">Pergunta 1</string>
+    <string name="marvel">Marvel</string>
+    <string name="quiz">Quiz</string>
+    <string name="quiz_start_message">Você sabe tudo sobre o Universo Marvel?</string>
+    <string name="start">Começar</string>
+    <string name="quiz_start_message_2">Quer descobrir?</string>
+    <string name="fished_quiz">Quiz concluído!</string>
+    <string name="quiz_result_message">Você acertou X perguntas!</string>
+    <string name="iron_man">iron_man</string>
+    <string name="groot">groot</string>
+    <string name="america_capitan">america_capitan</string>
+    <string name="trophy">trophy</string>
+    <string name="prize">prize</string>
 </resources>
 

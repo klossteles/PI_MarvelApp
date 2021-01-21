@@ -37,6 +37,10 @@ class HomeFragment : Fragment() {
         _view.findViewById<MaterialCardView>(R.id.crdCreatorHome).setOnClickListener {
             _view.findNavController().navigate(R.id.action_homeFragment_to_creatorsListFragment)
         }
+
+        _view.findViewById<MaterialCardView>(R.id.crdQuiz).setOnClickListener{
+            _view.findNavController().navigate(R.id.action_homeFragment_to_quizStartFragment2)
+        }
     }
 }
 
