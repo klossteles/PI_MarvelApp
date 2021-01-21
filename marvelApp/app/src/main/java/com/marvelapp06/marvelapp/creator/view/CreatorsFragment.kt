@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.marvelapp06.marvelapp.R
@@ -19,12 +20,25 @@ import com.marvelapp06.marvelapp.data.model.EventSummary
 import com.marvelapp06.marvelapp.data.model.SeriesSummary
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.marvelapp06.marvelapp.character.view.CharacterListFragment
+import com.marvelapp06.marvelapp.db.AppDatabase
+import com.marvelapp06.marvelapp.favorite.repository.FavoriteRepository
+import com.marvelapp06.marvelapp.favorite.viewmodel.FavoriteViewModel
 import com.squareup.picasso.Picasso
 
 class CreatorsFragment : Fragment() {
 
     private lateinit var _view: View
     private lateinit var _viewModel: CreatorsViewModel
+    private lateinit var _viewModelFavorite: FavoriteViewModel
+    private lateinit var _auth: FirebaseAuth
+    private var _idCreators: Int? = null
+    private lateinit var _creatorsModelJson: String
+    private var isFavorite: Boolean = false
+    private var color: Int? = null
+    private lateinit var creatorsFavorites: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +52,7 @@ class CreatorsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         _view = view
+        creatorsFavorites = _view.findViewById(R.id.imgCreatorsDetailsFavorite)
         _viewModel = ViewModelProvider(
             this,
             CreatorsViewModel.CreatorsViewModelFactory(CreatorsRepository())
@@ -49,11 +64,14 @@ class CreatorsFragment : Fragment() {
         val cgComicsCreators = _view.findViewById<ChipGroup>(R.id.cgComicsCreators)
         val cgEventsCreators = _view.findViewById<ChipGroup>(R.id.cgEventsCreators)
 
+        _idCreators=arguments?.getInt(CreatorsListFragment.CREATORS_ID)
         val thumbnail = arguments?.getString(CreatorsListFragment.CREATORS_THUMBNAIL)
         val fullname = arguments?.getString(CreatorsListFragment.CREATORS_FULLNAME)
         val series = arguments?.get(CreatorsListFragment.CREATORS_SERIES)
         val comics = arguments?.get(CreatorsListFragment.CREATORS_COMICS)
         val events = arguments?.get(CreatorsListFragment.CREATORS_EVENTS)
+
+        _creatorsModelJson = arguments?.getString(CreatorsListFragment.CREATORS_MODEL_JSON)!!
 
         textCreatorsNameDetails.text = fullname
 
@@ -102,17 +120,75 @@ class CreatorsFragment : Fragment() {
             _view.findViewById<TextView>(R.id.txtEventsCreatorsDetails).visibility = View.GONE
         }
 
+
+
+        _viewModelFavorite = ViewModelProvider(
+            this,
+            FavoriteViewModel.FavoriteViewModelFactory(
+                FavoriteRepository(
+                    AppDatabase.getDatabase(
+                        _view.context
+                    ).favoriteDao()
+                )
+            )
+        ).get(FavoriteViewModel::class.java)
+
+        _viewModelFavorite.checkIfIsFavorite(_idCreators!!)
+            .observe(viewLifecycleOwner, Observer { list ->
+
+                if (list.isEmpty()) {
+                    color = R.color.color_white
+                } else {
+                    isFavorite = true
+                    color = R.color.color_red
+                }
+                creatorsFavorites.setColorFilter(
+                    ContextCompat.getColor(_view.context, color!!),
+                    PorterDuff.Mode.SRC_IN
+                )
+            })
+
+
         setBackNavigation()
         setOnFavoriteClick()
     }
 
     private fun setOnFavoriteClick() {
-        val seriesFavorites = _view.findViewById<ImageView>(R.id.imgCreatorsDetailsFavorite)
-        seriesFavorites.setOnClickListener {
-            seriesFavorites.setColorFilter(
-                ContextCompat.getColor(_view.context, R.color.color_red),
+
+        creatorsFavorites.setOnClickListener {
+            isFavorite = !isFavorite
+
+            if (isFavorite) {
+                color = R.color.color_red
+                if (_idCreators != null) {
+                    _viewModelFavorite.addFavorite(
+                        _idCreators!!,
+                        _creatorsModelJson,
+                        1
+                    ).observe(viewLifecycleOwner, Observer {
+                        Snackbar.make(_view, "Criador favoritado", Snackbar.LENGTH_LONG)
+                            .show()
+                    })
+                }
+            } else {
+                _idCreators?.let { it1 ->
+                    _viewModelFavorite.deleteFavorite(it1)
+                        .observe(viewLifecycleOwner, Observer {
+                            Snackbar.make(
+                                _view,
+                                "Criador removido dos favoritos",
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        })
+                }
+                color = R.color.color_white
+            }
+
+            creatorsFavorites.setColorFilter(
+                ContextCompat.getColor(_view.context, color!!),
                 PorterDuff.Mode.SRC_IN
-            );
+            )
+
         }
     }
 
