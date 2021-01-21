@@ -4,11 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.marvelapp06.marvelapp.R
+import com.marvelapp06.marvelapp.comic.model.ComicsModel
 import com.marvelapp06.marvelapp.favorite.model.ComicFavoriteModel
 
 class ComicFavoriteAdapter(
-    private val _dataset: List<ComicFavoriteModel>,
-    private val _clickListener: (ComicFavoriteModel) -> Unit
+    private val _dataset: List<ComicsModel>,
+    private val _clickListener: (ComicsModel) -> Unit
 ) : RecyclerView.Adapter<ComicFavoriteViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ComicFavoriteViewHolder {
         val view = LayoutInflater.from(parent.context)

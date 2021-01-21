@@ -15,6 +15,17 @@ interface FavoriteDao {
     @Query("SELECT * FROM Favorite WHERE category=1")
     suspend fun getFavoritesCharacters():List<FavoriteEntity>
 
+    @Query("SELECT * FROM Favorite WHERE category=2")
+    suspend fun getFavoritesSeries():List<FavoriteEntity>
+
+    @Query("SELECT * FROM Favorite WHERE category=3")
+    suspend fun getFavoritesComics():List<FavoriteEntity>
+
+    @Query("SELECT * FROM Favorite WHERE category=4")
+    suspend fun getFavoritesCreators():List<FavoriteEntity>
+
+
+
     @Query("SELECT * FROM FAVORITE WHERE modelId=:modelId")
     suspend  fun checkIfIsFavorite(modelId:Int):List<FavoriteEntity>
 
