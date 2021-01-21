@@ -4,11 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.marvelapp06.marvelapp.R
+import com.marvelapp06.marvelapp.creator.model.CreatorsModel
 import com.marvelapp06.marvelapp.favorite.model.CreatorsFavoriteModel
 
 class CreatorsFavoriteAdapter(
-    private val _dataSet: List<CreatorsFavoriteModel>,
-    private val _clickListener: (CreatorsFavoriteModel) -> Unit
+    private val _dataSet: List<CreatorsModel>,
+    private val _clickListener: (CreatorsModel) -> Unit
 ) : RecyclerView.Adapter<CreatorsFavoriteViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CreatorsFavoriteViewHolder {
         val view = LayoutInflater.from(parent.context)
