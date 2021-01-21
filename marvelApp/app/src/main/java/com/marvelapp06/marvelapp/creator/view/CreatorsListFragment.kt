@@ -15,7 +15,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.marvelapp06.marvelapp.R
+import com.marvelapp06.marvelapp.character.model.CharactersModel
+import com.marvelapp06.marvelapp.character.view.CharacterListFragment
 import com.marvelapp06.marvelapp.creator.model.CreatorsModel
 import com.marvelapp06.marvelapp.creator.repository.CreatorsRepository
 import com.marvelapp06.marvelapp.creator.viewmodel.CreatorsViewModel
@@ -54,7 +57,8 @@ class CreatorsListFragment : Fragment() {
                 CREATORS_FULLNAME to it.fullName,
                 CREATORS_SERIES to it.series?.items,
                 CREATORS_COMICS to it.comics?.items,
-                CREATORS_EVENTS to it.events?.items
+                CREATORS_EVENTS to it.events?.items,
+                CREATORS_MODEL_JSON to this.objToJson(it)
             )
             _view.findNavController()
                 .navigate(R.id.action_creatorsListFragment_to_creatorsFragment, bundle)
@@ -79,6 +83,11 @@ class CreatorsListFragment : Fragment() {
         setScrollView()
         initSearch()
         setBackNavigation()
+    }
+
+    private fun objToJson(creatorsModel: CreatorsModel):String{
+        val gson = Gson()
+        return gson.toJson(creatorsModel)
     }
 
     private fun initSearch() {
@@ -156,6 +165,8 @@ class CreatorsListFragment : Fragment() {
         }
     }
 
+
+
     private fun setBackNavigation() {
         _view.findViewById<ImageView>(R.id.imgBackCreatorsList).setOnClickListener {
             val navController = findNavController()
@@ -171,7 +182,7 @@ class CreatorsListFragment : Fragment() {
         const val CREATORS_SERIES = "CREATORS_SERIES"
         const val CREATORS_COMICS = "CREATORS_COMICS"
         const val CREATORS_EVENTS = "CREATORS_EVENTS"
-
+        const val CREATORS_MODEL_JSON="CREATORS_MODEL_JSON"
 
     }
 }
