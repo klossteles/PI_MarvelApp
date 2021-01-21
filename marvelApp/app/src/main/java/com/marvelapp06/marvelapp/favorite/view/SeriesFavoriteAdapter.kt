@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.marvelapp06.marvelapp.R
 import com.marvelapp06.marvelapp.favorite.model.SeriesFavoriteModel
+import com.marvelapp06.marvelapp.series.model.SeriesModel
 
 class SeriesFavoriteAdapter(
-    private val _dataset: List<SeriesFavoriteModel>,
-    private val _clickListener: (SeriesFavoriteModel) -> Unit
+    private val _dataset: List<SeriesModel>,
+    private val _clickListener: (SeriesModel) -> Unit
 ) : RecyclerView.Adapter<SeriesFavoriteViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SeriesFavoriteViewHolder {
         val view = LayoutInflater.from(parent.context)
