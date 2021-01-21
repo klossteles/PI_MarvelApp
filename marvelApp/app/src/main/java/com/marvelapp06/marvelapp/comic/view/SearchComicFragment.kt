@@ -15,7 +15,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.marvelapp06.marvelapp.R
+import com.marvelapp06.marvelapp.character.model.CharactersModel
+import com.marvelapp06.marvelapp.character.view.CharacterListFragment
 import com.marvelapp06.marvelapp.comic.model.ComicsModel
 import com.marvelapp06.marvelapp.comic.repository.ComicRepository
 import com.marvelapp06.marvelapp.comic.viewModel.ComicViewModel
@@ -45,17 +48,21 @@ class SearchComicFragment : Fragment() {
         val manager = GridLayoutManager(_view.context, 2)
         _comic = mutableListOf()
         _listAdapter = ComicListAdapter(_comic) {
-            val bundle = bundleOf(COMIC_ID to it.id,
-                    COMIC_DESCRIPTION to it.description,
-                    COMIC_PRICE to it.prices,
-                    COMIC_CHARACTERS to it.characters?.items,
-                    COMIC_CREATORS to it.creators?.items,
-                    COMIC_IMAGES to it.images,
-                    COMIC_DATES to it.dates,
-                    COMIC_PAGES to it.pageCount,
-                    COMIC_THUMBNAIL to it.thumbnail?.getImagePath("landscape_incredible"),
-                    COMIC_TITLE to it.title)
-            _view.findNavController().navigate(R.id.action_searchComicFragment_to_comicFragment, bundle)
+            val bundle = bundleOf(
+                COMIC_ID to it.id,
+                COMIC_DESCRIPTION to it.description,
+                COMIC_PRICE to it.prices,
+                COMIC_CHARACTERS to it.characters?.items,
+                COMIC_CREATORS to it.creators?.items,
+                COMIC_IMAGES to it.images,
+                COMIC_DATES to it.dates,
+                COMIC_PAGES to it.pageCount,
+                COMIC_THUMBNAIL to it.thumbnail?.getImagePath("landscape_incredible"),
+                COMIC_TITLE to it.title,
+                COMIC_MODEL_JSON to this.objToJson(it)
+            )
+            _view.findNavController()
+                .navigate(R.id.action_searchComicFragment_to_comicFragment, bundle)
         }
 
         _recyclerView = _view.findViewById<RecyclerView>(R.id.listComic)
@@ -66,8 +73,8 @@ class SearchComicFragment : Fragment() {
         }
 
         _viewModel = ViewModelProvider(
-                this,
-                ComicViewModel.ComicViewModelFactory(ComicRepository())
+            this,
+            ComicViewModel.ComicViewModelFactory(ComicRepository())
         ).get(ComicViewModel::class.java)
 
         _viewModel.getList().observe(viewLifecycleOwner, Observer {
@@ -78,6 +85,11 @@ class SearchComicFragment : Fragment() {
         initSearch()
     }
 
+
+    private fun objToJson(comicModel: ComicsModel):String{
+        val gson = Gson()
+        return gson.toJson(comicModel)
+    }
     private fun initSearch() {
         _searchView = _view.findViewById<SearchView>(R.id.searchComic)
         _searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -154,6 +166,7 @@ class SearchComicFragment : Fragment() {
             })
         }
     }
+
     private fun setBackNavigation() {
         _view.findViewById<ImageView>(R.id.imgBackComic).setOnClickListener {
             val navController = findNavController()
@@ -173,6 +186,6 @@ class SearchComicFragment : Fragment() {
         const val COMIC_TITLE = "COMIC_TITLE"
         const val COMIC_CHARACTERS = "COMIC_CHARACTERS"
         const val COMIC_CREATORS = "COMIC_CREATORS"
-
+        const val COMIC_MODEL_JSON="COMIC_MODEL_JSON"
     }
 }
