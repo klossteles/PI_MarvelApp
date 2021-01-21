@@ -164,7 +164,7 @@ class CreatorsFragment : Fragment() {
                     _viewModelFavorite.addFavorite(
                         _idCreators!!,
                         _creatorsModelJson,
-                        1
+                        4
                     ).observe(viewLifecycleOwner, Observer {
                         Snackbar.make(_view, "Criador favoritado", Snackbar.LENGTH_LONG)
                             .show()
