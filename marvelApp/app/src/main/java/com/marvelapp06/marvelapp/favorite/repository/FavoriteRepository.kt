@@ -8,6 +8,9 @@ class FavoriteRepository(private val favoriteDao: FavoriteDao) {
     suspend fun addFavorite(favorite: FavoriteEntity) = favoriteDao.addFavorite(favorite)
 
     suspend fun getFavoritesCharacters():List<FavoriteEntity> = favoriteDao.getFavoritesCharacters()
+    suspend fun getFavoritesSeries():List<FavoriteEntity> = favoriteDao.getFavoritesSeries()
+    suspend fun getFavoritesComics():List<FavoriteEntity> = favoriteDao.getFavoritesComics()
+    suspend fun getFavoritesCreators():List<FavoriteEntity> = favoriteDao.getFavoritesCreators()
 
     suspend fun deleteFavorite(modelId:Int)=favoriteDao.deleteFavorite(modelId)
 

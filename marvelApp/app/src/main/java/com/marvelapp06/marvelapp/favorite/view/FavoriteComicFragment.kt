@@ -10,14 +10,22 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.marvelapp06.marvelapp.R
+import com.marvelapp06.marvelapp.character.model.CharactersModel
+import com.marvelapp06.marvelapp.comic.model.ComicsModel
+import com.marvelapp06.marvelapp.db.AppDatabase
 import com.marvelapp06.marvelapp.favorite.model.ComicFavoriteModel
 import com.marvelapp06.marvelapp.favorite.repository.ComicFavoriteRepository
+import com.marvelapp06.marvelapp.favorite.repository.FavoriteRepository
 import com.marvelapp06.marvelapp.favorite.viewmodel.ComicFavoriteViewModel
+import com.marvelapp06.marvelapp.favorite.viewmodel.FavoriteViewModel
 
 class FavoriteComicFragment : Fragment() {
     private lateinit var _view:View
     private lateinit var _viewModel: ComicFavoriteViewModel
+
+    private lateinit var _viewModelFavorite: FavoriteViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,20 +38,33 @@ class FavoriteComicFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        _viewModel = ViewModelProvider(
+        _viewModelFavorite = ViewModelProvider(
             this,
-            ComicFavoriteViewModel.ComicFavoriteViewModelFactory(ComicFavoriteRepository(_view.context))
-        ).get(ComicFavoriteViewModel::class.java)
+            FavoriteViewModel.FavoriteViewModelFactory(
+                FavoriteRepository(
+                    AppDatabase.getDatabase(
+                        _view.context
+                    ).favoriteDao()
+                )
+            )
+        ).get(FavoriteViewModel::class.java)
 
-        _viewModel.listComicFavoriteData.observe(viewLifecycleOwner, Observer{
-            getList(it)
+        _viewModelFavorite.getFavoritesComics().observe(viewLifecycleOwner, Observer { list ->
+            val listComics: MutableList<ComicsModel> = mutableListOf()
+            list.forEach {
+                listComics.add(jsonToObj(it.favorite))
+            }
+            getList(listComics)
         })
-
-        _viewModel.getComicFavorites()
     }
 
 
-    private fun getList(list:List<ComicFavoriteModel>){
+    fun jsonToObj(json: String): ComicsModel {
+        val gson = Gson()
+        return gson.fromJson(json, ComicsModel::class.java)
+    }
+
+    private fun getList(list:List<ComicsModel>){
         val viewManager= GridLayoutManager(_view.context,2)
         val recyclerView=_view.findViewById<RecyclerView>(R.id.listComicFavorites)
         val menuAdapter = ComicFavoriteAdapter(list){
