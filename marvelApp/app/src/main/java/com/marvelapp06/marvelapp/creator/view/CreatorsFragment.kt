@@ -22,9 +22,12 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.marvelapp06.marvelapp.character.view.CharacterListFragment
 import com.marvelapp06.marvelapp.db.AppDatabase
 import com.marvelapp06.marvelapp.favorite.repository.FavoriteRepository
+import com.marvelapp06.marvelapp.favorite.view.FavoriteCreatorFragment
 import com.marvelapp06.marvelapp.favorite.viewmodel.FavoriteViewModel
 import com.squareup.picasso.Picasso
 
@@ -67,9 +70,30 @@ class CreatorsFragment : Fragment() {
         _idCreators=arguments?.getInt(CreatorsListFragment.CREATORS_ID)
         val thumbnail = arguments?.getString(CreatorsListFragment.CREATORS_THUMBNAIL)
         val fullname = arguments?.getString(CreatorsListFragment.CREATORS_FULLNAME)
-        val series = arguments?.get(CreatorsListFragment.CREATORS_SERIES)
+        var series:Any
+        var comics:Any
+        var events:Any
+        /*val series = arguments?.get(CreatorsListFragment.CREATORS_SERIES)
         val comics = arguments?.get(CreatorsListFragment.CREATORS_COMICS)
-        val events = arguments?.get(CreatorsListFragment.CREATORS_EVENTS)
+        val events = arguments?.get(CreatorsListFragment.CREATORS_EVENTS)*/
+
+        if( arguments?.get(CreatorsListFragment.CREATORS_SERIES) == null) {
+            series = jsonToObjSeries(arguments?.getString("CREATORS_SERIES_JSON")!!)
+        } else {
+            series = arguments?.get(CreatorsListFragment.CREATORS_SERIES)!!
+        }
+
+        if( arguments?.get(CreatorsListFragment.CREATORS_COMICS) == null) {
+            comics = jsonToObjComics(arguments?.getString("CREATORS_COMICS_JSON")!!)
+        } else {
+            comics = arguments?.get(CreatorsListFragment.CREATORS_COMICS)!!
+        }
+
+        if(arguments?.get(CreatorsListFragment.CREATORS_EVENTS) == null) {
+            events = jsonToObjEvents(arguments?.getString("CREATORS_EVENTS_JSON")!!)
+        } else {
+            events = arguments?.get(CreatorsListFragment.CREATORS_EVENTS)!!
+        }
 
         _creatorsModelJson = arguments?.getString(CreatorsListFragment.CREATORS_MODEL_JSON)!!
 
@@ -152,6 +176,28 @@ class CreatorsFragment : Fragment() {
         setBackNavigation()
         setOnFavoriteClick()
     }
+
+    private fun jsonToObjSeries(json: String): Any {
+        val gson = Gson()
+        val arrayTutorialType = object : TypeToken<List<SeriesSummary>>() {}.type
+
+        return gson.fromJson(json, arrayTutorialType)
+    }
+
+    private fun jsonToObjComics(json: String): Any {
+        val gson = Gson()
+        val arrayTutorialType = object : TypeToken<List<ComicSummary>>() {}.type
+
+        return gson.fromJson(json, arrayTutorialType)
+    }
+
+    private fun jsonToObjEvents(json: String): Any {
+        val gson = Gson()
+        val arrayTutorialType = object : TypeToken<List<EventSummary>>() {}.type
+
+        return gson.fromJson(json, arrayTutorialType)
+    }
+
 
     private fun setOnFavoriteClick() {
 

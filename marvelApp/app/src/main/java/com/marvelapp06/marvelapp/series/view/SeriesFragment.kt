@@ -23,6 +23,8 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.marvelapp06.marvelapp.character.view.CharacterListFragment
 import com.marvelapp06.marvelapp.db.AppDatabase
 import com.marvelapp06.marvelapp.favorite.repository.FavoriteRepository
@@ -71,11 +73,32 @@ class SeriesFragment : Fragment() {
         val thumbnail = arguments?.getString(SeriesListFragment.SERIES_THUMBNAIL)
         val description = arguments?.getString(SeriesListFragment.SERIES_DESCRIPTION)
         val title = arguments?.getString(SeriesListFragment.SERIES_TITLE)
-        val characters = arguments?.get(SeriesListFragment.SERIES_CHARACTERS)
+        var characters:Any
+        var creators:Any
+        var comics:Any
+        /*val characters = arguments?.get(SeriesListFragment.SERIES_CHARACTERS)
         val creators = arguments?.get(SeriesListFragment.SERIES_CREATORS)
-        val comics = arguments?.get(SeriesListFragment.SERIES_COMICS)
+        val comics = arguments?.get(SeriesListFragment.SERIES_COMICS)*/
         val startYear = arguments?.getInt(SeriesListFragment.SERIES_START)
         val endYear = arguments?.getInt(SeriesListFragment.SERIES_END)
+
+        if(arguments?.get(SeriesListFragment.SERIES_CHARACTERS)== null) {
+            characters = jsonToObjCharacters(arguments?.getString("SERIES_CHARACTERS_JSON")!!)
+        } else {
+            characters = arguments?.get(SeriesListFragment.SERIES_CHARACTERS)!!
+        }
+
+        if(arguments?.get(SeriesListFragment.SERIES_CREATORS)== null) {
+            creators = jsonToObjCreators(arguments?.getString("SERIES_CREATORS_JSON")!!)
+        } else {
+            creators = arguments?.get(SeriesListFragment.SERIES_CREATORS)!!
+        }
+
+        if(arguments?.get(SeriesListFragment.SERIES_COMICS) == null) {
+            comics = jsonToObjComics(arguments?.getString("SERIES_COMICS_JSON")!!)
+        } else {
+            comics = arguments?.get(SeriesListFragment.SERIES_COMICS)!!
+        }
 
         _seriesModelJson = arguments?.getString(SeriesListFragment.SERIES_MODEL_JSON)!!
 
@@ -87,7 +110,7 @@ class SeriesFragment : Fragment() {
         Picasso.get().load(thumbnail).into(image)
 
         if ((characters as List<CharacterSummary>).size > 0) {
-            for (character in characters as List<CharacterSummary>){
+            for (character in characters){
                 val chip = Chip(_view.context)
                 if (character.role != null) {
                     chip.text = "${character.name} - ${character.role.capitalize()}"
@@ -101,8 +124,8 @@ class SeriesFragment : Fragment() {
         }
 
 
-        if ((characters as List<CreatorSummary>).size > 0) {
-            for (creator in creators as List<CreatorSummary>){
+        if ((creators as List<CreatorSummary>).size > 0) {
+            for (creator in creators ){
                 val chip = Chip(_view.context)
                 if (creator.role != null) {
                     chip.text = "${creator.name} - ${creator.role.capitalize()}"
@@ -115,8 +138,8 @@ class SeriesFragment : Fragment() {
             _view.findViewById<TextView>(R.id.txtCharactersSeries).visibility = View.GONE
         }
 
-        if ((characters as List<ComicSummary>).size > 0) {
-            for (comic in comics as List<ComicSummary>){
+        if ((comics as List<ComicSummary>).size > 0) {
+            for (comic in comics ){
                 val chip = Chip(_view.context)
                 chip.text = comic.name
                 cgComics.addView(chip)
@@ -155,6 +178,27 @@ class SeriesFragment : Fragment() {
         setOnFavoriteClick()
     }
 
+    private fun jsonToObjCharacters(json: String): Any {
+        val gson = Gson()
+        val arrayTutorialType = object : TypeToken<List<CharacterSummary>>() {}.type
+
+        return gson.fromJson(json, arrayTutorialType)
+    }
+
+    private fun jsonToObjCreators(json: String): Any {
+        val gson = Gson()
+        val arrayTutorialType = object : TypeToken<List<CreatorSummary>>() {}.type
+
+        return gson.fromJson(json, arrayTutorialType)
+    }
+
+    private fun jsonToObjComics(json: String): Any {
+        val gson = Gson()
+        val arrayTutorialType = object : TypeToken<List<ComicSummary>>() {}.type
+
+        return gson.fromJson(json, arrayTutorialType)
+    }
+
     private fun setOnFavoriteClick() {
         val seriesFavorites = _view.findViewById<ImageView>(R.id.imgSeriesDetailsFavorite)
         seriesFavorites.setOnClickListener {
@@ -168,7 +212,7 @@ class SeriesFragment : Fragment() {
                         _seriesModelJson,
                         2
                     ).observe(viewLifecycleOwner, Observer {
-                        Snackbar.make(_view, "Personagem favoritado", Snackbar.LENGTH_LONG)
+                        Snackbar.make(_view, "Serie favoritado", Snackbar.LENGTH_LONG)
                             .show()
                     })
                 }
@@ -178,7 +222,7 @@ class SeriesFragment : Fragment() {
                         .observe(viewLifecycleOwner, Observer {
                             Snackbar.make(
                                 _view,
-                                "Personagem removido dos favoritos",
+                                "Serie removida dos favoritos",
                                 Snackbar.LENGTH_LONG
                             ).show()
                         })
