@@ -52,7 +52,7 @@ class CreatorsListFragment : Fragment() {
         _creators = mutableListOf<CreatorsModel>()
         _listAdapter = CreatorsListAdapter(_creators) {
             val bundle = bundleOf(
-                CreatorsListFragment.CREATORS_ID to it.id,
+                CREATORS_ID to it.id,
                 CREATORS_THUMBNAIL to it.thumbnail?.getImagePath("landscape_incredible"),
                 CREATORS_FULLNAME to it.fullName,
                 CREATORS_SERIES to it.series?.items,
