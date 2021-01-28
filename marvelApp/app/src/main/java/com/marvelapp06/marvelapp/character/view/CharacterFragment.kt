@@ -1,6 +1,8 @@
 package com.marvelapp06.marvelapp.character.view
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,10 +18,11 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.marvelapp06.marvelapp.LoginActivity
 import com.marvelapp06.marvelapp.R
-import com.marvelapp06.marvelapp.character.model.CharactersModel
 import com.marvelapp06.marvelapp.character.repository.CharacterRepository
 import com.marvelapp06.marvelapp.character.viewmodel.CharacterViewModel
 import com.marvelapp06.marvelapp.data.model.ComicSummary
@@ -27,18 +30,25 @@ import com.marvelapp06.marvelapp.data.model.SeriesSummary
 import com.marvelapp06.marvelapp.db.AppDatabase
 import com.marvelapp06.marvelapp.favorite.repository.FavoriteRepository
 import com.marvelapp06.marvelapp.favorite.viewmodel.FavoriteViewModel
+import com.marvelapp06.marvelapp.login.view.LoginFragment
 import com.squareup.picasso.Picasso
 
 class CharacterFragment : Fragment() {
     private lateinit var _view: View
     private lateinit var _viewModel: CharacterViewModel
     private lateinit var _viewModelFavorite: FavoriteViewModel
-
+    private lateinit var _auth: FirebaseAuth
     private var _idCharacter: Int? = null
     private lateinit var _characterModelJson: String
     private var isFavorite: Boolean = false
     private var color: Int? = null
     private lateinit var charactersFavorites: ImageView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        _auth = FirebaseAuth.getInstance()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,16 +81,14 @@ class CharacterFragment : Fragment() {
         val description = arguments?.getString(CharacterListFragment.CHARACTER_DESCRIPTION)
         var comics: Any
         var series: Any
-        /*val comics = arguments?.get(CharacterListFragment.CHARACTER_COMIC)
-        val series = arguments?.get(CharacterListFragment.CHARACTER_SERIES)*/
 
-        if(arguments?.get(CharacterListFragment.CHARACTER_COMIC) == null) {
+        if (arguments?.get(CharacterListFragment.CHARACTER_COMIC) == null) {
             comics = jsonToObjComics(arguments?.getString("CHARACTER_COMIC_JSON")!!)
         } else {
             comics = arguments?.get(CharacterListFragment.CHARACTER_COMIC)!!
         }
 
-        if(arguments?.get(CharacterListFragment.CHARACTER_SERIES) == null) {
+        if (arguments?.get(CharacterListFragment.CHARACTER_SERIES) == null) {
             series = jsonToObjSeries(arguments?.getString("CHARACTER_SERIES_JSON")!!)
         } else {
             series = arguments?.get(CharacterListFragment.CHARACTER_SERIES)!!
@@ -92,7 +100,7 @@ class CharacterFragment : Fragment() {
         txtDescription.text = description
         Picasso.get().load(thumbnail).into(image)
 
-       if ((comics as List<ComicSummary>).size > 0) {
+        if ((comics as List<ComicSummary>).size > 0) {
             for (comic in comics as List<ComicSummary>) {
                 val chip = Chip(_view.context)
                 chip.text = comic.name
@@ -123,19 +131,20 @@ class CharacterFragment : Fragment() {
             )
         ).get(FavoriteViewModel::class.java)
 
-        _viewModelFavorite.checkIfIsFavorite(_idCharacter!!).observe(viewLifecycleOwner, Observer {list ->
+        _viewModelFavorite.checkIfIsFavorite(_idCharacter!!)
+            .observe(viewLifecycleOwner, Observer { list ->
 
-            if(list.isEmpty()){
+                if (list.isEmpty()) {
                     color = R.color.color_white
-                }else{
-                    isFavorite=true
+                } else {
+                    isFavorite = true
                     color = R.color.color_red
                 }
-            charactersFavorites.setColorFilter(
-                ContextCompat.getColor(_view.context, color!!),
-                PorterDuff.Mode.SRC_IN
-            );
-        })
+                charactersFavorites.setColorFilter(
+                    ContextCompat.getColor(_view.context, color!!),
+                    PorterDuff.Mode.SRC_IN
+                );
+            })
 
         setBackNavigation()
         setOnFavoriteClick()
@@ -159,36 +168,61 @@ class CharacterFragment : Fragment() {
 
         charactersFavorites.setOnClickListener {
 
-            isFavorite = !isFavorite
+            val currentUser = _auth.currentUser
 
-            if (isFavorite) {
-                color = R.color.color_red
-                if (_idCharacter != null) {
-                    _viewModelFavorite.addFavorite(
-                        _idCharacter!!,
-                        _characterModelJson,
-                        1
-                    ).observe(viewLifecycleOwner, Observer {
-                        Snackbar.make(_view, "Personagem favoritado", Snackbar.LENGTH_LONG).show()
-                    })
-                }
+            if (currentUser != null) {
+                favorite()
+
             } else {
-                _idCharacter?.let { it1 ->
-                    _viewModelFavorite.deleteFavorite(it1)
-                        .observe(viewLifecycleOwner, Observer {
-                            Snackbar.make(_view,"Personagem removido dos favoritos",Snackbar.LENGTH_LONG).show()
-                        })
-                }
-                color = R.color.color_white
+                val intent = Intent(context, LoginActivity::class.java)
+                startActivityForResult(intent, LoginFragment.REQUEST_CODE)
             }
-
-            charactersFavorites.setColorFilter(
-                ContextCompat.getColor(_view.context, color!!),
-                PorterDuff.Mode.SRC_IN
-            );
         }
     }
 
+    private fun favorite() {
+        isFavorite = !isFavorite
+
+        if (isFavorite) {
+            color = R.color.color_red
+            if (_idCharacter != null) {
+                _viewModelFavorite.addFavorite(
+                    _idCharacter!!,
+                    _characterModelJson,
+                    1
+                ).observe(viewLifecycleOwner, Observer {
+                    Snackbar.make(_view, "Personagem favoritado", Snackbar.LENGTH_LONG)
+                        .show()
+                })
+            }
+        } else {
+            _idCharacter?.let { it1 ->
+                _viewModelFavorite.deleteFavorite(it1)
+                    .observe(viewLifecycleOwner, Observer {
+                        Snackbar.make(
+                            _view,
+                            "Personagem removido dos favoritos",
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                    })
+            }
+            color = R.color.color_white
+        }
+
+        charactersFavorites.setColorFilter(
+            ContextCompat.getColor(_view.context, color!!),
+            PorterDuff.Mode.SRC_IN
+        )
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(LoginFragment.REQUEST_CODE==requestCode && Activity.RESULT_OK==resultCode){
+            favorite()
+        }
+
+    }
     private fun setBackNavigation() {
         _view.findViewById<ImageView>(R.id.imgCharactersDetailsBack).setOnClickListener {
             val navController = findNavController()
