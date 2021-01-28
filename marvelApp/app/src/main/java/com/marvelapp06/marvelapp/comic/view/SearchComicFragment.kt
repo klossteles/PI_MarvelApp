@@ -17,11 +17,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.marvelapp06.marvelapp.R
-import com.marvelapp06.marvelapp.character.model.CharactersModel
-import com.marvelapp06.marvelapp.character.view.CharacterListFragment
 import com.marvelapp06.marvelapp.comic.model.ComicsModel
 import com.marvelapp06.marvelapp.comic.repository.ComicRepository
 import com.marvelapp06.marvelapp.comic.viewModel.ComicViewModel
+
 
 class SearchComicFragment : Fragment() {
     private lateinit var _viewModel: ComicViewModel
@@ -44,7 +43,7 @@ class SearchComicFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         _view = view
 
-        val list = _view.findViewById<RecyclerView>(R.id.listComic)
+        //val list = _view.findViewById<RecyclerView>(R.id.listComic)
         val manager = GridLayoutManager(_view.context, 2)
         _comic = mutableListOf()
         _listAdapter = ComicListAdapter(_comic) {
@@ -66,7 +65,7 @@ class SearchComicFragment : Fragment() {
         }
 
         _recyclerView = _view.findViewById<RecyclerView>(R.id.listComic)
-        list.apply {
+        _recyclerView.apply {
             setHasFixedSize(true)
             layoutManager = manager
             adapter = _listAdapter

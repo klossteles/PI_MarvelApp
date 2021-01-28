@@ -1,6 +1,8 @@
 package com.marvelapp06.marvelapp.comic.view
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -24,9 +26,15 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.marvelapp06.marvelapp.LoginActivity
+import com.marvelapp06.marvelapp.character.view.CharacterListFragment
+import com.marvelapp06.marvelapp.data.model.ComicSummary
 import com.marvelapp06.marvelapp.db.AppDatabase
 import com.marvelapp06.marvelapp.favorite.repository.FavoriteRepository
 import com.marvelapp06.marvelapp.favorite.viewmodel.FavoriteViewModel
+import com.marvelapp06.marvelapp.login.view.LoginFragment
 import com.squareup.picasso.Picasso
 import java.util.*
 
@@ -42,6 +50,12 @@ class ComicFragment : Fragment() {
     private var color: Int? = null
     private lateinit var comicFavorites: ImageView
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        _auth = FirebaseAuth.getInstance()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,14 +63,15 @@ class ComicFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_comic, container, false)
     }
+
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _view = view
-        comicFavorites=_view.findViewById(R.id.imgComicDetailsFavorite)
+        comicFavorites = _view.findViewById(R.id.imgComicDetailsFavorite)
         _viewModel = ViewModelProvider(
-                this,
-                ComicViewModel.ComicViewModelFactory(ComicRepository())
+            this,
+            ComicViewModel.ComicViewModelFactory(ComicRepository())
         ).get(ComicViewModel::class.java)
 
 
@@ -74,13 +89,26 @@ class ComicFragment : Fragment() {
         val thumbnailComic = arguments?.getString(SearchComicFragment.COMIC_THUMBNAIL)
         val descriptionComic = arguments?.getString(SearchComicFragment.COMIC_DESCRIPTION)
         val titleComic = arguments?.getString(SearchComicFragment.COMIC_TITLE)
-        val charactersComic = arguments?.get(SearchComicFragment.COMIC_CHARACTERS)
-        val creatorsComic = arguments?.get(SearchComicFragment.COMIC_CREATORS)
+        val charactersComic :Any
+        val creatorsComic:Any
         val datesComic = arguments?.get(SearchComicFragment.COMIC_DATES)
         val pricesComic = arguments?.get(SearchComicFragment.COMIC_PRICE)
         val pagesComic = arguments?.getInt(SearchComicFragment.COMIC_PAGES)
 
-        _comicModelJson =arguments?.getString(SearchComicFragment.COMIC_MODEL_JSON)!!
+        _comicModelJson = arguments?.getString(SearchComicFragment.COMIC_MODEL_JSON)!!
+
+        if (arguments?.get(SearchComicFragment.COMIC_CHARACTERS) == null) {
+            charactersComic = jsonToObjCharacters(arguments?.getString("COMIC_CHARACTERS_JSON")!!)
+        } else {
+            charactersComic = arguments?.get(SearchComicFragment.COMIC_CHARACTERS)!!
+        }
+
+        if (arguments?.get(SearchComicFragment.COMIC_CREATORS) == null) {
+            creatorsComic = jsonToObjCreators(arguments?.getString("COMIC_CREATORS_JSON")!!)
+        } else {
+            creatorsComic = arguments?.get(SearchComicFragment.COMIC_CREATORS)!!
+        }
+
 
         txtDescriptionComic.text = descriptionComic
         txtComicDetailsTitle.text = titleComic
@@ -93,20 +121,20 @@ class ComicFragment : Fragment() {
         }
         if (datesComic != null) {
             for (date in datesComic as List<ComicDate>) {
-                if (date.type?.contains("onsaleDate") == true){
+                if (date.type?.contains("onsaleDate") == true) {
                     val calendar = Calendar.getInstance()
                     calendar.time = date.date!!
                     txtPublishedDate.text = "${calendar.getDisplayName(
-                            Calendar.MONTH,
-                            Calendar.LONG,
-                            Locale.getDefault()
+                        Calendar.MONTH,
+                        Calendar.LONG,
+                        Locale.getDefault()
                     )} ${calendar.get(Calendar.DAY_OF_MONTH)}, ${calendar.get(Calendar.YEAR)}"
                 }
             }
         }
 
         if ((charactersComic as List<CharacterSummary>).size > 0) {
-            for (character in charactersComic as List<CharacterSummary>){
+            for (character in charactersComic as List<CharacterSummary>) {
                 val chip = Chip(_view.context)
                 if (character.role != null) {
                     chip.text = "${character.name} - ${character.role.capitalize()}"
@@ -119,8 +147,8 @@ class ComicFragment : Fragment() {
             _view.findViewById<TextView>(R.id.txtCreatorsComic).visibility = View.GONE
         }
 
-        if ((charactersComic as List<CreatorSummary>).size > 0) {
-            for (creator in creatorsComic as List<CreatorSummary>){
+        if ((creatorsComic as List<CreatorSummary>).size > 0) {
+            for (creator in creatorsComic as List<CreatorSummary>) {
                 val chip = Chip(_view.context)
                 if (creator.role != null) {
                     chip.text = "${creator.name} - ${creator.role.capitalize()}"
@@ -160,47 +188,81 @@ class ComicFragment : Fragment() {
                 )
             })
 
-
-
         setBackNavigation()
         setOnFavoriteClick()
     }
+
+    fun jsonToObjCharacters(json: String): Any {
+        val gson = Gson()
+        val arrayTutorialType = object : TypeToken<List<CharacterSummary>>() {}.type
+
+        return gson.fromJson(json, arrayTutorialType)
+    }
+
+    fun jsonToObjCreators(json: String): Any {
+        val gson = Gson()
+        val arrayTutorialType = object : TypeToken<List<CreatorSummary>>() {}.type
+
+        return gson.fromJson(json, arrayTutorialType)
+    }
+
     private fun setOnFavoriteClick() {
         comicFavorites.setOnClickListener {
-            isFavorite = !isFavorite
+            val currentUser = _auth.currentUser
 
-            if (isFavorite) {
-                color = R.color.color_red
-                if (_idComic != null) {
-                    _viewModelFavorite.addFavorite(
-                        _idComic!!,
-                        _comicModelJson,
-                        3
-                    ).observe(viewLifecycleOwner, Observer {
-                        Snackbar.make(_view, "HQ favoritada", Snackbar.LENGTH_LONG)
-                            .show()
-                    })
-                }
+            if (currentUser != null) {
+                favorite()
+
             } else {
-                _idComic?.let { it1 ->
-                    _viewModelFavorite.deleteFavorite(it1)
-                        .observe(viewLifecycleOwner, Observer {
-                            Snackbar.make(
-                                _view,
-                                "HQ removida dos favoritos",
-                                Snackbar.LENGTH_LONG
-                            ).show()
-                        })
-                }
-                color = R.color.color_white
+                val intent = Intent(context, LoginActivity::class.java)
+                startActivityForResult(intent, LoginFragment.REQUEST_CODE)
             }
-
-            comicFavorites.setColorFilter(
-                ContextCompat.getColor(_view.context, color!!),
-                PorterDuff.Mode.SRC_IN
-            )
         }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (LoginFragment.REQUEST_CODE == requestCode && Activity.RESULT_OK == resultCode) {
+            favorite()
+        }
+    }
+
+    private fun favorite() {
+        isFavorite = !isFavorite
+
+        if (isFavorite) {
+            color = R.color.color_red
+            if (_idComic != null) {
+                _viewModelFavorite.addFavorite(
+                    _idComic!!,
+                    _comicModelJson,
+                    3
+                ).observe(viewLifecycleOwner, Observer {
+                    Snackbar.make(_view, "HQ favoritada", Snackbar.LENGTH_LONG)
+                        .show()
+                })
+            }
+        } else {
+            _idComic?.let { it1 ->
+                _viewModelFavorite.deleteFavorite(it1)
+                    .observe(viewLifecycleOwner, Observer {
+                        Snackbar.make(
+                            _view,
+                            "HQ removida dos favoritos",
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                    })
+            }
+            color = R.color.color_white
+        }
+
+        comicFavorites.setColorFilter(
+            ContextCompat.getColor(_view.context, color!!),
+            PorterDuff.Mode.SRC_IN
+        )
+    }
+
     private fun setBackNavigation() {
         _view.findViewById<ImageView>(R.id.imgComicDetailsBack).setOnClickListener {
             val navController = findNavController()
