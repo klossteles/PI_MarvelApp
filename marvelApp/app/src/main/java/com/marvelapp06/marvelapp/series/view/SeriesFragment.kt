@@ -1,6 +1,8 @@
 package com.marvelapp06.marvelapp.series.view
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -25,10 +27,12 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.marvelapp06.marvelapp.LoginActivity
 import com.marvelapp06.marvelapp.character.view.CharacterListFragment
 import com.marvelapp06.marvelapp.db.AppDatabase
 import com.marvelapp06.marvelapp.favorite.repository.FavoriteRepository
 import com.marvelapp06.marvelapp.favorite.viewmodel.FavoriteViewModel
+import com.marvelapp06.marvelapp.login.view.LoginFragment
 import com.squareup.picasso.Picasso
 
 class SeriesFragment : Fragment() {
@@ -41,6 +45,12 @@ class SeriesFragment : Fragment() {
     private var isFavorite: Boolean = false
     private var color: Int? = null
     private lateinit var seriesFavorites: ImageView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        _auth = FirebaseAuth.getInstance()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,9 +86,6 @@ class SeriesFragment : Fragment() {
         var characters:Any
         var creators:Any
         var comics:Any
-        /*val characters = arguments?.get(SeriesListFragment.SERIES_CHARACTERS)
-        val creators = arguments?.get(SeriesListFragment.SERIES_CREATORS)
-        val comics = arguments?.get(SeriesListFragment.SERIES_COMICS)*/
         val startYear = arguments?.getInt(SeriesListFragment.SERIES_START)
         val endYear = arguments?.getInt(SeriesListFragment.SERIES_END)
 
@@ -202,39 +209,59 @@ class SeriesFragment : Fragment() {
     private fun setOnFavoriteClick() {
         val seriesFavorites = _view.findViewById<ImageView>(R.id.imgSeriesDetailsFavorite)
         seriesFavorites.setOnClickListener {
-            isFavorite = !isFavorite
+            val currentUser = _auth.currentUser
 
-            if (isFavorite) {
-                color = R.color.color_red
-                if (_idSeries != null) {
-                    _viewModelFavorite.addFavorite(
-                        _idSeries!!,
-                        _seriesModelJson,
-                        2
-                    ).observe(viewLifecycleOwner, Observer {
-                        Snackbar.make(_view, "Serie favoritado", Snackbar.LENGTH_LONG)
-                            .show()
-                    })
-                }
+            if (currentUser != null) {
+                favorite()
+
             } else {
-                _idSeries?.let { it1 ->
-                    _viewModelFavorite.deleteFavorite(it1)
-                        .observe(viewLifecycleOwner, Observer {
-                            Snackbar.make(
-                                _view,
-                                "Serie removida dos favoritos",
-                                Snackbar.LENGTH_LONG
-                            ).show()
-                        })
-                }
-                color = R.color.color_white
+                val intent = Intent(context, LoginActivity::class.java)
+                startActivityForResult(intent, LoginFragment.REQUEST_CODE)
             }
-
-            seriesFavorites.setColorFilter(
-                ContextCompat.getColor(_view.context, color!!),
-                PorterDuff.Mode.SRC_IN
-            )
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(LoginFragment.REQUEST_CODE==requestCode && Activity.RESULT_OK==resultCode){
+            favorite()
+        }
+    }
+
+
+    private fun favorite(){
+        isFavorite = !isFavorite
+
+        if (isFavorite) {
+            color = R.color.color_red
+            if (_idSeries != null) {
+                _viewModelFavorite.addFavorite(
+                    _idSeries!!,
+                    _seriesModelJson,
+                    2
+                ).observe(viewLifecycleOwner, Observer {
+                    Snackbar.make(_view, "Serie favoritado", Snackbar.LENGTH_LONG)
+                        .show()
+                })
+            }
+        } else {
+            _idSeries?.let { it1 ->
+                _viewModelFavorite.deleteFavorite(it1)
+                    .observe(viewLifecycleOwner, Observer {
+                        Snackbar.make(
+                            _view,
+                            "Serie removida dos favoritos",
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                    })
+            }
+            color = R.color.color_white
+        }
+
+        seriesFavorites.setColorFilter(
+            ContextCompat.getColor(_view.context, color!!),
+            PorterDuff.Mode.SRC_IN
+        )
     }
 
     private fun setBackNavigation() {

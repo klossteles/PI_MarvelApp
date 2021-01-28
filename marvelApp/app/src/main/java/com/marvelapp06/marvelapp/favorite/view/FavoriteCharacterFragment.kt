@@ -27,8 +27,6 @@ import com.marvelapp06.marvelapp.favorite.viewmodel.FavoriteViewModel
 
 class FavoriteCharacterFragment : Fragment() {
     private lateinit var _view: View
-    private lateinit var _viewModel: CharacterFavoriteViewModel
-    private lateinit var _navController: NavController
     private lateinit var _viewModelFavorite: FavoriteViewModel
 
 

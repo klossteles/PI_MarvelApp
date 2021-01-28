@@ -1,5 +1,7 @@
 package com.marvelapp06.marvelapp.creator.view
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -24,11 +26,13 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.marvelapp06.marvelapp.LoginActivity
 import com.marvelapp06.marvelapp.character.view.CharacterListFragment
 import com.marvelapp06.marvelapp.db.AppDatabase
 import com.marvelapp06.marvelapp.favorite.repository.FavoriteRepository
 import com.marvelapp06.marvelapp.favorite.view.FavoriteCreatorFragment
 import com.marvelapp06.marvelapp.favorite.viewmodel.FavoriteViewModel
+import com.marvelapp06.marvelapp.login.view.LoginFragment
 import com.squareup.picasso.Picasso
 
 class CreatorsFragment : Fragment() {
@@ -42,6 +46,12 @@ class CreatorsFragment : Fragment() {
     private var isFavorite: Boolean = false
     private var color: Int? = null
     private lateinit var creatorsFavorites: ImageView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        _auth = FirebaseAuth.getInstance()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -73,9 +83,6 @@ class CreatorsFragment : Fragment() {
         var series:Any
         var comics:Any
         var events:Any
-        /*val series = arguments?.get(CreatorsListFragment.CREATORS_SERIES)
-        val comics = arguments?.get(CreatorsListFragment.CREATORS_COMICS)
-        val events = arguments?.get(CreatorsListFragment.CREATORS_EVENTS)*/
 
         if( arguments?.get(CreatorsListFragment.CREATORS_SERIES) == null) {
             series = jsonToObjSeries(arguments?.getString("CREATORS_SERIES_JSON")!!)
@@ -202,39 +209,59 @@ class CreatorsFragment : Fragment() {
     private fun setOnFavoriteClick() {
 
         creatorsFavorites.setOnClickListener {
-            isFavorite = !isFavorite
 
-            if (isFavorite) {
-                color = R.color.color_red
-                if (_idCreators != null) {
-                    _viewModelFavorite.addFavorite(
-                        _idCreators!!,
-                        _creatorsModelJson,
-                        4
-                    ).observe(viewLifecycleOwner, Observer {
-                        Snackbar.make(_view, "Criador favoritado", Snackbar.LENGTH_LONG)
-                            .show()
-                    })
-                }
+            val currentUser = _auth.currentUser
+
+            if (currentUser != null) {
+                favorite()
+
             } else {
-                _idCreators?.let { it1 ->
-                    _viewModelFavorite.deleteFavorite(it1)
-                        .observe(viewLifecycleOwner, Observer {
-                            Snackbar.make(
-                                _view,
-                                "Criador removido dos favoritos",
-                                Snackbar.LENGTH_LONG
-                            ).show()
-                        })
-                }
-                color = R.color.color_white
+                val intent = Intent(context, LoginActivity::class.java)
+                startActivityForResult(intent, LoginFragment.REQUEST_CODE)
             }
+        }
+    }
 
-            creatorsFavorites.setColorFilter(
-                ContextCompat.getColor(_view.context, color!!),
-                PorterDuff.Mode.SRC_IN
-            )
+    fun favorite(){
+        isFavorite = !isFavorite
 
+        if (isFavorite) {
+            color = R.color.color_red
+            if (_idCreators != null) {
+                _viewModelFavorite.addFavorite(
+                    _idCreators!!,
+                    _creatorsModelJson,
+                    4
+                ).observe(viewLifecycleOwner, Observer {
+                    Snackbar.make(_view, "Criador favoritado", Snackbar.LENGTH_LONG)
+                        .show()
+                })
+            }
+        } else {
+            _idCreators?.let { it1 ->
+                _viewModelFavorite.deleteFavorite(it1)
+                    .observe(viewLifecycleOwner, Observer {
+                        Snackbar.make(
+                            _view,
+                            "Criador removido dos favoritos",
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                    })
+            }
+            color = R.color.color_white
+        }
+
+        creatorsFavorites.setColorFilter(
+            ContextCompat.getColor(_view.context, color!!),
+            PorterDuff.Mode.SRC_IN
+        )
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(LoginFragment.REQUEST_CODE==requestCode && Activity.RESULT_OK==resultCode){
+            favorite()
         }
     }
 
