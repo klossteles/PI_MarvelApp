@@ -12,24 +12,22 @@ interface FavoriteDao {
     @Insert
     suspend fun addFavorite(favorite:FavoriteEntity)
 
-    @Query("SELECT * FROM Favorite WHERE category=1")
-    suspend fun getFavoritesCharacters():List<FavoriteEntity>
+    @Query("SELECT * FROM Favorite WHERE category=1 and userId=:userId")
+    suspend fun getFavoritesCharacters(userId:String):List<FavoriteEntity>
 
-    @Query("SELECT * FROM Favorite WHERE category=2")
-    suspend fun getFavoritesSeries():List<FavoriteEntity>
+    @Query("SELECT * FROM Favorite WHERE category=2 and userId=:userId")
+    suspend fun getFavoritesSeries(userId:String):List<FavoriteEntity>
 
-    @Query("SELECT * FROM Favorite WHERE category=3")
-    suspend fun getFavoritesComics():List<FavoriteEntity>
+    @Query("SELECT * FROM Favorite WHERE category=3 and userId=:userId ")
+    suspend fun getFavoritesComics(userId:String):List<FavoriteEntity>
 
-    @Query("SELECT * FROM Favorite WHERE category=4")
-    suspend fun getFavoritesCreators():List<FavoriteEntity>
+    @Query("SELECT * FROM Favorite WHERE category=4 and userId=:userId ")
+    suspend fun getFavoritesCreators(userId:String):List<FavoriteEntity>
 
-
-
-    @Query("SELECT * FROM FAVORITE WHERE modelId=:modelId")
-    suspend  fun checkIfIsFavorite(modelId:Int):List<FavoriteEntity>
+    @Query("SELECT * FROM FAVORITE WHERE modelId=:modelId and userId=:userId")
+    suspend  fun checkIfIsFavorite(modelId:Int,userId:String):List<FavoriteEntity>
 
     @Transaction
-    @Query("DELETE FROM Favorite where modelId=:modelId")
-    suspend  fun deleteFavorite(modelId:Int)
+    @Query("DELETE FROM Favorite where modelId=:modelId and userId=:userId")
+    suspend  fun deleteFavorite(modelId:Int, userId:String)
 }

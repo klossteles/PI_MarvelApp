@@ -9,36 +9,36 @@ import kotlinx.coroutines.Dispatchers
 
 class FavoriteViewModel(private val repository: FavoriteRepository) : ViewModel() {
 
-    fun addFavorite(modelId: Int, favorite: String, category: Int) = liveData(Dispatchers.IO) {
-        val f = FavoriteEntity(0, modelId, favorite, category)
-        repository.addFavorite(FavoriteEntity(0, modelId, favorite, category))
+    fun addFavorite(userId: String, modelId: Int, favorite: String, category: Int) = liveData(Dispatchers.IO) {
+        val f = FavoriteEntity(0, userId,modelId, favorite, category)
+        repository.addFavorite(FavoriteEntity(0,userId, modelId, favorite, category))
         emit(f)
     }
 
-    fun getFavoritesCharacters() = liveData(Dispatchers.IO) {
-        emit(repository.getFavoritesCharacters())
+    fun getFavoritesCharacters(userId:String) = liveData(Dispatchers.IO) {
+        emit(repository.getFavoritesCharacters(userId))
     }
 
-    fun getFavoritesSeries() = liveData(Dispatchers.IO) {
-        emit(repository.getFavoritesSeries())
+    fun getFavoritesSeries(userId:String) = liveData(Dispatchers.IO) {
+        emit(repository.getFavoritesSeries(userId))
     }
 
-    fun getFavoritesComics() = liveData(Dispatchers.IO) {
-        emit(repository.getFavoritesComics())
+    fun getFavoritesComics(userId:String) = liveData(Dispatchers.IO) {
+        emit(repository.getFavoritesComics(userId))
     }
 
-    fun getFavoritesCreators() = liveData(Dispatchers.IO) {
-        emit(repository.getFavoritesCreators())
+    fun getFavoritesCreators(userId:String) = liveData(Dispatchers.IO) {
+        emit(repository.getFavoritesCreators(userId))
     }
 
 
-    fun deleteFavorite(modelId: Int) = liveData(Dispatchers.IO) {
-        repository.deleteFavorite(modelId)
+    fun deleteFavorite(userId:String,modelId: Int) = liveData(Dispatchers.IO) {
+        repository.deleteFavorite(modelId,userId)
         emit(true)
     }
 
-    fun checkIfIsFavorite(modelId: Int) = liveData(Dispatchers.IO) {
-        emit(repository.checkIfIsFavorite(modelId))
+    fun checkIfIsFavorite(userId:String,modelId: Int) = liveData(Dispatchers.IO) {
+        emit(repository.checkIfIsFavorite(modelId,userId))
     }
 
     class FavoriteViewModelFactory(private val repository: FavoriteRepository) :

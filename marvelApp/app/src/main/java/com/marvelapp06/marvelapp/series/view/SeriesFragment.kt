@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -28,7 +29,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.marvelapp06.marvelapp.LoginActivity
-import com.marvelapp06.marvelapp.character.view.CharacterListFragment
 import com.marvelapp06.marvelapp.db.AppDatabase
 import com.marvelapp06.marvelapp.favorite.repository.FavoriteRepository
 import com.marvelapp06.marvelapp.favorite.viewmodel.FavoriteViewModel
@@ -45,6 +45,7 @@ class SeriesFragment : Fragment() {
     private var isFavorite: Boolean = false
     private var color: Int? = null
     private lateinit var seriesFavorites: ImageView
+    private  var _user:String? =null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -166,20 +167,23 @@ class SeriesFragment : Fragment() {
             )
         ).get(FavoriteViewModel::class.java)
 
-        _viewModelFavorite.checkIfIsFavorite(_idSeries!!)
-            .observe(viewLifecycleOwner, Observer { list ->
+        val currentUser = _auth.currentUser
+        currentUser?.uid?.let {
+            _viewModelFavorite.checkIfIsFavorite(it,_idSeries!!)
+                .observe(viewLifecycleOwner, Observer { list ->
 
-                if (list.isEmpty()) {
-                    color = R.color.color_white
-                } else {
-                    isFavorite = true
-                    color = R.color.color_red
-                }
-                seriesFavorites.setColorFilter(
-                    ContextCompat.getColor(_view.context, color!!),
-                    PorterDuff.Mode.SRC_IN
-                )
-            })
+                    if (list.isEmpty()) {
+                        color = R.color.color_white
+                    } else {
+                        isFavorite = true
+                        color = R.color.color_red
+                    }
+                    seriesFavorites.setColorFilter(
+                        ContextCompat.getColor(_view.context, color!!),
+                        PorterDuff.Mode.SRC_IN
+                    )
+                })
+        }
 
         setBackNavigation()
         setOnFavoriteClick()
@@ -212,7 +216,8 @@ class SeriesFragment : Fragment() {
             val currentUser = _auth.currentUser
 
             if (currentUser != null) {
-                favorite()
+                _user=currentUser.uid
+                favorite(_user!!)
 
             } else {
                 val intent = Intent(context, LoginActivity::class.java)
@@ -224,18 +229,21 @@ class SeriesFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(LoginFragment.REQUEST_CODE==requestCode && Activity.RESULT_OK==resultCode){
-            favorite()
+            if(_user  != null){
+                favorite(_user!!)
+            }
         }
     }
 
 
-    private fun favorite(){
+    private fun favorite(user:String){
         isFavorite = !isFavorite
 
         if (isFavorite) {
             color = R.color.color_red
             if (_idSeries != null) {
                 _viewModelFavorite.addFavorite(
+                    user,
                     _idSeries!!,
                     _seriesModelJson,
                     2
@@ -246,7 +254,7 @@ class SeriesFragment : Fragment() {
             }
         } else {
             _idSeries?.let { it1 ->
-                _viewModelFavorite.deleteFavorite(it1)
+                _viewModelFavorite.deleteFavorite( _user!!,it1)
                     .observe(viewLifecycleOwner, Observer {
                         Snackbar.make(
                             _view,

@@ -27,10 +27,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.marvelapp06.marvelapp.LoginActivity
-import com.marvelapp06.marvelapp.character.view.CharacterListFragment
 import com.marvelapp06.marvelapp.db.AppDatabase
 import com.marvelapp06.marvelapp.favorite.repository.FavoriteRepository
-import com.marvelapp06.marvelapp.favorite.view.FavoriteCreatorFragment
 import com.marvelapp06.marvelapp.favorite.viewmodel.FavoriteViewModel
 import com.marvelapp06.marvelapp.login.view.LoginFragment
 import com.squareup.picasso.Picasso
@@ -46,6 +44,7 @@ class CreatorsFragment : Fragment() {
     private var isFavorite: Boolean = false
     private var color: Int? = null
     private lateinit var creatorsFavorites: ImageView
+    private  var _user:String? =null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -151,8 +150,6 @@ class CreatorsFragment : Fragment() {
             _view.findViewById<TextView>(R.id.txtEventsCreatorsDetails).visibility = View.GONE
         }
 
-
-
         _viewModelFavorite = ViewModelProvider(
             this,
             FavoriteViewModel.FavoriteViewModelFactory(
@@ -164,20 +161,23 @@ class CreatorsFragment : Fragment() {
             )
         ).get(FavoriteViewModel::class.java)
 
-        _viewModelFavorite.checkIfIsFavorite(_idCreators!!)
-            .observe(viewLifecycleOwner, Observer { list ->
+        val currentUser = _auth.currentUser
+        currentUser?.uid?.let {
+            _viewModelFavorite.checkIfIsFavorite(it,_idCreators!!)
+                .observe(viewLifecycleOwner, Observer { list ->
 
-                if (list.isEmpty()) {
-                    color = R.color.color_white
-                } else {
-                    isFavorite = true
-                    color = R.color.color_red
-                }
-                creatorsFavorites.setColorFilter(
-                    ContextCompat.getColor(_view.context, color!!),
-                    PorterDuff.Mode.SRC_IN
-                )
-            })
+                    if (list.isEmpty()) {
+                        color = R.color.color_white
+                    } else {
+                        isFavorite = true
+                        color = R.color.color_red
+                    }
+                    creatorsFavorites.setColorFilter(
+                        ContextCompat.getColor(_view.context, color!!),
+                        PorterDuff.Mode.SRC_IN
+                    )
+                })
+        }
 
 
         setBackNavigation()
@@ -213,7 +213,8 @@ class CreatorsFragment : Fragment() {
             val currentUser = _auth.currentUser
 
             if (currentUser != null) {
-                favorite()
+                _user=currentUser.uid
+                favorite(_user!!)
 
             } else {
                 val intent = Intent(context, LoginActivity::class.java)
@@ -222,13 +223,14 @@ class CreatorsFragment : Fragment() {
         }
     }
 
-    fun favorite(){
+    fun favorite(user:String){
         isFavorite = !isFavorite
 
         if (isFavorite) {
             color = R.color.color_red
             if (_idCreators != null) {
                 _viewModelFavorite.addFavorite(
+                    user,
                     _idCreators!!,
                     _creatorsModelJson,
                     4
@@ -239,7 +241,7 @@ class CreatorsFragment : Fragment() {
             }
         } else {
             _idCreators?.let { it1 ->
-                _viewModelFavorite.deleteFavorite(it1)
+                _viewModelFavorite.deleteFavorite( _user!!,it1)
                     .observe(viewLifecycleOwner, Observer {
                         Snackbar.make(
                             _view,
@@ -261,7 +263,9 @@ class CreatorsFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if(LoginFragment.REQUEST_CODE==requestCode && Activity.RESULT_OK==resultCode){
-            favorite()
+            if(_user  != null){
+                favorite(_user!!)
+            }
         }
     }
 

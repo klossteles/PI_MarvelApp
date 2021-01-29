@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.marvelapp06.marvelapp.MainActivity
 import com.marvelapp06.marvelapp.R
@@ -32,6 +33,13 @@ class FavoriteSeriesFragment : Fragment() {
 
     private lateinit var _view: View
     private lateinit var _viewModelFavorite: FavoriteViewModel
+    private lateinit var _auth: FirebaseAuth
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        _auth = FirebaseAuth.getInstance()
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,7 +63,8 @@ class FavoriteSeriesFragment : Fragment() {
             )
         ).get(FavoriteViewModel::class.java)
 
-        _viewModelFavorite.getFavoritesSeries().observe(viewLifecycleOwner, Observer { list ->
+        val currentUser = _auth.currentUser
+        _viewModelFavorite.getFavoritesSeries(currentUser!!.uid).observe(viewLifecycleOwner, Observer { list ->
             val listSeries: MutableList<SeriesModel> = mutableListOf()
             list.forEach {
                 listSeries.add(jsonToObj(it.favorite))
