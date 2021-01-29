@@ -179,7 +179,6 @@ class CreatorsFragment : Fragment() {
                 })
         }
 
-
         setBackNavigation()
         setOnFavoriteClick()
     }

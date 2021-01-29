@@ -27,6 +27,7 @@ interface FavoriteDao {
     @Query("SELECT * FROM FAVORITE WHERE modelId=:modelId and userId=:userId")
     suspend  fun checkIfIsFavorite(modelId:Int,userId:String):List<FavoriteEntity>
 
+
     @Transaction
     @Query("DELETE FROM Favorite where modelId=:modelId and userId=:userId")
     suspend  fun deleteFavorite(modelId:Int, userId:String)

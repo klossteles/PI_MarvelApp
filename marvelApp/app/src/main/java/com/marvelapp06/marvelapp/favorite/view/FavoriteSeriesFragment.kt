@@ -63,6 +63,7 @@ class FavoriteSeriesFragment : Fragment() {
             )
         ).get(FavoriteViewModel::class.java)
 
+
         val currentUser = _auth.currentUser
         _viewModelFavorite.getFavoritesSeries(currentUser!!.uid).observe(viewLifecycleOwner, Observer { list ->
             val listSeries: MutableList<SeriesModel> = mutableListOf()
@@ -98,6 +99,7 @@ class FavoriteSeriesFragment : Fragment() {
         val gson = Gson()
         return gson.toJson(array)
     }
+
 
     fun getList(list: List<SeriesModel>) {
         val viewManager = GridLayoutManager(_view.context, 2)

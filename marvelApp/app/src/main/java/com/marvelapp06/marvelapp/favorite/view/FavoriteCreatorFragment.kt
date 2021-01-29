@@ -38,7 +38,6 @@ class FavoriteCreatorFragment : Fragment() {
         _auth = FirebaseAuth.getInstance()
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

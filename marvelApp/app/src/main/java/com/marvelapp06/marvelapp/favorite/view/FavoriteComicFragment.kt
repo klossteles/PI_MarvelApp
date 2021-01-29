@@ -40,6 +40,7 @@ class FavoriteComicFragment : Fragment() {
         _auth = FirebaseAuth.getInstance()
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -85,6 +86,7 @@ class FavoriteComicFragment : Fragment() {
         val gson = Gson()
         return gson.toJson(array)
     }
+
 
     fun jsonToObj(json: String): ComicsModel {
         val gson = Gson()

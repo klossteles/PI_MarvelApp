@@ -19,7 +19,6 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.marvelapp06.marvelapp.LoginActivity
@@ -178,6 +177,7 @@ class CharacterFragment : Fragment() {
             if (currentUser != null) {
                 _user=currentUser.uid
                   favorite(_user!!)
+
             } else {
                 val intent = Intent(context, LoginActivity::class.java)
                 startActivityForResult(intent, LoginFragment.REQUEST_CODE)

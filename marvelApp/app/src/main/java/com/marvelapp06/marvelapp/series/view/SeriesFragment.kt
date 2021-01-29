@@ -185,6 +185,7 @@ class SeriesFragment : Fragment() {
                 })
         }
 
+
         setBackNavigation()
         setOnFavoriteClick()
     }
@@ -229,14 +230,16 @@ class SeriesFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(LoginFragment.REQUEST_CODE==requestCode && Activity.RESULT_OK==resultCode){
+
             if(_user  != null){
                 favorite(_user!!)
             }
+
         }
     }
 
-
     private fun favorite(user:String){
+
         isFavorite = !isFavorite
 
         if (isFavorite) {
@@ -255,6 +258,7 @@ class SeriesFragment : Fragment() {
         } else {
             _idSeries?.let { it1 ->
                 _viewModelFavorite.deleteFavorite( _user!!,it1)
+
                     .observe(viewLifecycleOwner, Observer {
                         Snackbar.make(
                             _view,

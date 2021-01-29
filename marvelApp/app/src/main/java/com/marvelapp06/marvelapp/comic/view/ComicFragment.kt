@@ -189,7 +189,6 @@ class ComicFragment : Fragment() {
                     )
                 })
         }
-
         setBackNavigation()
         setOnFavoriteClick()
     }
@@ -215,6 +214,7 @@ class ComicFragment : Fragment() {
             if (currentUser != null) {
                 _user=currentUser.uid
                 favorite(_user!!)
+
 
             } else {
                 val intent = Intent(context, LoginActivity::class.java)

@@ -12,6 +12,7 @@ class FavoriteViewModel(private val repository: FavoriteRepository) : ViewModel(
     fun addFavorite(userId: String, modelId: Int, favorite: String, category: Int) = liveData(Dispatchers.IO) {
         val f = FavoriteEntity(0, userId,modelId, favorite, category)
         repository.addFavorite(FavoriteEntity(0,userId, modelId, favorite, category))
+
         emit(f)
     }
 
