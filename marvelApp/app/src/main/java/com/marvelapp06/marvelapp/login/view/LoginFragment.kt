@@ -110,6 +110,7 @@ class LoginFragment : Fragment() {
                 _auth.signOut()
                 val intent = Intent(_view.context, MainActivity::class.java)
                 startActivity(intent)
+                activity?.setResult(Activity.RESULT_CANCELED, intent)
                 activity?.finish()
             } else {
                 val intent = Intent()

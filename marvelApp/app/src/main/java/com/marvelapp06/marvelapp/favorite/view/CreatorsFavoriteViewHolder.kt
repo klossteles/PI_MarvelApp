@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.marvelapp06.marvelapp.R
+import com.marvelapp06.marvelapp.creator.model.CreatorsModel
 import com.marvelapp06.marvelapp.favorite.model.CreatorsFavoriteModel
 import com.squareup.picasso.Picasso
 
@@ -12,10 +13,10 @@ class CreatorsFavoriteViewHolder(view: View): RecyclerView.ViewHolder(view) {
     private val _name = view.findViewById<TextView>(R.id.txtCreatorsName)
     private val _image = view.findViewById<ImageView>(R.id.imgCreators)
 
-    fun bind(creator:CreatorsFavoriteModel) {
-        _name.text = creator.name
+    fun bind(creator: CreatorsModel) {
+        _name.text = creator.fullName
         Picasso.get()
-            .load(creator.image)
+            .load(creator.thumbnail?.getImagePath("landscape_incredible"))
             .into(_image)
     }
 }

@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.marvelapp06.marvelapp.MainActivity
 import com.marvelapp06.marvelapp.R
@@ -27,9 +28,13 @@ import com.marvelapp06.marvelapp.favorite.viewmodel.FavoriteViewModel
 
 class FavoriteCharacterFragment : Fragment() {
     private lateinit var _view: View
-    private lateinit var _viewModel: CharacterFavoriteViewModel
-    private lateinit var _navController: NavController
     private lateinit var _viewModelFavorite: FavoriteViewModel
+    private lateinit var _auth: FirebaseAuth
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        _auth = FirebaseAuth.getInstance()
+    }
 
 
     override fun onCreateView(
@@ -54,8 +59,8 @@ class FavoriteCharacterFragment : Fragment() {
             )
         ).get(FavoriteViewModel::class.java)
 
-
-        _viewModelFavorite.getFavoritesCharacters().observe(viewLifecycleOwner, Observer { list ->
+        val currentUser = _auth.currentUser
+        _viewModelFavorite.getFavoritesCharacters(currentUser!!.uid).observe(viewLifecycleOwner, Observer { list ->
             val listCharacters: MutableList<CharactersModel> = mutableListOf()
             list.forEach {
                 listCharacters.add(jsonToObj(it.favorite))
@@ -66,7 +71,6 @@ class FavoriteCharacterFragment : Fragment() {
     }
 
     fun getList(list: List<CharactersModel>) {
-
         val viewManager = GridLayoutManager(_view.context, 2)
         val recyclerView = _view.findViewById<RecyclerView>(R.id.listCharactersFavorites)
         val menuAdapter = CharacterFavoriteAdapter(list) {

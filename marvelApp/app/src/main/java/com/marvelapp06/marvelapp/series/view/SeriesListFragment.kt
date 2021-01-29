@@ -15,7 +15,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.marvelapp06.marvelapp.R
+import com.marvelapp06.marvelapp.character.model.CharactersModel
+import com.marvelapp06.marvelapp.character.view.CharacterListFragment
 import com.marvelapp06.marvelapp.series.model.SeriesModel
 import com.marvelapp06.marvelapp.series.repository.SeriesRepository
 import com.marvelapp06.marvelapp.series.viewmodel.SeriesViewModel
@@ -52,7 +55,8 @@ class SeriesListFragment : Fragment() {
                 SERIES_DESCRIPTION to it.description,
                 SERIES_THUMBNAIL to it.thumbnail?.getImagePath("landscape_incredible"),
                 SERIES_START to it.startYear,
-                SERIES_END to it.endYear)
+                SERIES_END to it.endYear,
+                SERIES_MODEL_JSON to this.objToJson(it))
             _view.findNavController().navigate(R.id.action_seriesListFragment_to_seriesFragment, bundle)
         }
 
@@ -76,6 +80,11 @@ class SeriesListFragment : Fragment() {
         showLoading(true)
         setScrollView()
         initSearch()
+    }
+
+    private fun objToJson(seriesModel: SeriesModel):String{
+        val gson = Gson()
+        return gson.toJson(seriesModel)
     }
 
     private fun setOnBackClicked() {
@@ -170,5 +179,6 @@ class SeriesListFragment : Fragment() {
         const val SERIES_THUMBNAIL = "SERIES_THUMBNAIL"
         const val SERIES_START = "SERIES_START"
         const val SERIES_END = "SERIES_END"
+        const val SERIES_MODEL_JSON="SERIES_MODEL_JSON"
     }
 }
