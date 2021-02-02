@@ -55,7 +55,7 @@
       </androidx.appcompat.widget.Toolbar>
 
       <LinearLayout
-          android:id="@+id/internetNotFound"
+          android:id="@+id/internetNotFoundMain"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:gravity="center"
@@ -71,7 +71,7 @@
              android:gravity="center">
 
             <View
-                android:id="@+id/vwInternetNotFound"
+                android:id="@+id/vwInternetNotFoundMain"
                 android:layout_width="@dimen/dimen_50dp"
                 android:layout_height="@dimen/dimen_50dp"
                 android:background="@drawable/search_circle_shape"
@@ -84,10 +84,10 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/no_internet_error"
                 android:src="@drawable/ic_baseline_error_outline_24"
-                app:layout_constraintBottom_toBottomOf="@id/vwInternetNotFound"
-                app:layout_constraintEnd_toEndOf="@id/vwInternetNotFound"
-                app:layout_constraintStart_toStartOf="@id/vwInternetNotFound"
-                app:layout_constraintTop_toTopOf="@id/vwInternetNotFound"
+                app:layout_constraintBottom_toBottomOf="@id/vwInternetNotFoundMain"
+                app:layout_constraintEnd_toEndOf="@id/vwInternetNotFoundMain"
+                app:layout_constraintStart_toStartOf="@id/vwInternetNotFoundMain"
+                app:layout_constraintTop_toTopOf="@id/vwInternetNotFoundMain"
                 app:tint="@color/color_white" />
          </androidx.constraintlayout.widget.ConstraintLayout>
 
