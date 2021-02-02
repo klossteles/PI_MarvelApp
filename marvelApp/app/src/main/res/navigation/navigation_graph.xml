@@ -65,6 +65,9 @@
         <action
             android:id="@+id/action_homeFragment_to_quizStartFragment2"
             app:destination="@id/quizStartFragment2" />
+        <action
+            android:id="@+id/action_homeFragment_to_noInternetFragment"
+            app:destination="@id/noInternetFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchComicFragment"
@@ -156,5 +159,16 @@
         android:name="com.marvelapp06.marvelapp.quiz.QuizResultFragment"
         android:label="fragment_quiz_result"
         tools:layout="@layout/fragment_quiz_result" />
+    <fragment
+        android:id="@+id/noInternetFragment"
+        android:name="com.marvelapp06.marvelapp.NoInternetFragment"
+        android:label="fragment_no_internet"
+        tools:layout="@layout/fragment_no_internet" >
+        <action
+            android:id="@+id/action_noInternetFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>

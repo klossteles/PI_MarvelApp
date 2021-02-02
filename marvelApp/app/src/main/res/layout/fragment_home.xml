@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:background="@color/color_black"
             android:minHeight="?attr/actionBarSize"
+            android:padding="@dimen/dimen_10dp"
             android:theme="?attr/actionBarTheme"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

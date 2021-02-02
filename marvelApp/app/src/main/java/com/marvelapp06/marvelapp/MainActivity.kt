@@ -3,12 +3,16 @@ package com.marvelapp06.marvelapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.lifecycle.Observer
 import com.marvelapp06.marvelapp.favorite.view.FavoritesActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.marvelapp06.marvelapp.character.view.CharacterFragment
 import com.marvelapp06.marvelapp.comic.view.ComicFragment
 import com.marvelapp06.marvelapp.creator.view.CreatorsFragment
 import com.marvelapp06.marvelapp.series.view.SeriesFragment
+import com.marvelapp06.marvelapp.utils.NetworkConnection
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,6 +85,17 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
+
+        val networkConnection = NetworkConnection(applicationContext)
+        networkConnection.observe(this, Observer { isConnected ->
+            if (isConnected) {
+                nav_host_fragment_container.visibility = View.VISIBLE
+                layoutDisconnected.visibility = View.GONE
+            } else {
+                nav_host_fragment_container.visibility = View.GONE
+                layoutDisconnected.visibility = View.VISIBLE
+            }
+        })
     }
 
     companion object {
