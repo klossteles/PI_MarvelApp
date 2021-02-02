@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.marvelapp06.marvelapp.character.view.CharacterFragment
@@ -43,58 +45,28 @@ class MainActivity : AppCompatActivity() {
         val bundle = intent.extras
         if (bundle != null) {
             when (bundle.getString("KEY_FRAGMENT")) {
-                "CharacterFragment" -> {
-                    val manager = supportFragmentManager
-                    val transaction = manager.beginTransaction()
+                CHARACTER_FRAGMENT -> {
                     val characterFragment = CharacterFragment()
-
-                    characterFragment.arguments = intent.extras
-                    transaction.add(R.id.nav_host_fragment_container, characterFragment)
-                    transaction.commit()
-                    nav_host_fragment_container.visibility = View.VISIBLE
-                    layoutDisconnected.visibility = View.GONE
+                    addTransaction(characterFragment)
                 }
-                "SeriesFragment" -> {
-                    val manager = supportFragmentManager
-                    val transaction = manager.beginTransaction()
+                SERIES_FRAGMENT -> {
                     val seriesFragment = SeriesFragment()
-
-                    seriesFragment.arguments = intent.extras
-                    transaction.add(R.id.nav_host_fragment_container, seriesFragment)
-                    transaction.commit()
-                    nav_host_fragment_container.visibility = View.VISIBLE
-                    layoutDisconnected.visibility = View.GONE
+                    addTransaction(seriesFragment)
                 }
-                "ComicFragment" -> {
-                    val manager = supportFragmentManager
-                    val transaction = manager.beginTransaction()
+                COMIC_FRAGMENT -> {
                     val comicFragment = ComicFragment()
-
-                    comicFragment.arguments = intent.extras
-                    transaction.add(R.id.nav_host_fragment_container, comicFragment)
-                    transaction.commit()
-                    nav_host_fragment_container.visibility = View.VISIBLE
-                    layoutDisconnected.visibility = View.GONE
+                    addTransaction(comicFragment)
                 }
-                "CreatorsFragment" -> {
-                    val manager = supportFragmentManager
-                    val transaction = manager.beginTransaction()
+                CREATORS_FRAGMENT -> {
                     val creatorsFragment = CreatorsFragment()
-
-                    creatorsFragment.arguments = intent.extras
-                    transaction.add(R.id.nav_host_fragment_container, creatorsFragment)
-                    transaction.commit()
-                    nav_host_fragment_container.visibility = View.VISIBLE
-                    layoutDisconnected.visibility = View.GONE
+                    addTransaction(creatorsFragment)
                 }
                 else -> {
                     networkConnection.observe(this, Observer { isConnected ->
                         if (isConnected) {
-                            nav_host_fragment_container.visibility = View.VISIBLE
-                            layoutDisconnected.visibility = View.GONE
+                            setVisible()
                         } else {
-                            nav_host_fragment_container.visibility = View.GONE
-                            layoutDisconnected.visibility = View.VISIBLE
+                            setNoInternetVisible()
                         }
                     })
                 }
@@ -102,13 +74,37 @@ class MainActivity : AppCompatActivity() {
         } else {
             networkConnection.observe(this, Observer { isConnected ->
                 if (isConnected) {
-                    nav_host_fragment_container.visibility = View.VISIBLE
-                    layoutDisconnected.visibility = View.GONE
+                    setVisible()
                 } else {
-                    nav_host_fragment_container.visibility = View.GONE
-                    layoutDisconnected.visibility = View.VISIBLE
+                    setNoInternetVisible()
                 }
             })
         }
+    }
+
+    private fun addTransaction( fragment: Fragment) {
+        val manager = supportFragmentManager
+        val transaction = manager.beginTransaction()
+        fragment.arguments = intent.extras
+        transaction.add(R.id.nav_host_fragment_container, fragment)
+        transaction.commit()
+        setVisible()
+    }
+
+    private fun setNoInternetVisible() {
+        nav_host_fragment_container.visibility = View.GONE
+        layoutDisconnected.visibility = View.VISIBLE
+    }
+
+    private fun setVisible() {
+        nav_host_fragment_container.visibility = View.VISIBLE
+        layoutDisconnected.visibility = View.GONE
+    }
+
+    companion object {
+        const val CHARACTER_FRAGMENT = "CharacterFragment"
+        const val SERIES_FRAGMENT = "SeriesFragment"
+        const val COMIC_FRAGMENT = "ComicFragment"
+        const val CREATORS_FRAGMENT = "CreatorsFragment"
     }
 }
