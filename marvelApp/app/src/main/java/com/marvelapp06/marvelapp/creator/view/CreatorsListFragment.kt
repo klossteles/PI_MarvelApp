@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
@@ -22,6 +23,7 @@ import com.marvelapp06.marvelapp.character.view.CharacterListFragment
 import com.marvelapp06.marvelapp.creator.model.CreatorsModel
 import com.marvelapp06.marvelapp.creator.repository.CreatorsRepository
 import com.marvelapp06.marvelapp.creator.viewmodel.CreatorsViewModel
+import com.marvelapp06.marvelapp.utils.NetworkConnection
 
 class CreatorsListFragment : Fragment() {
 
@@ -30,6 +32,7 @@ class CreatorsListFragment : Fragment() {
     private lateinit var _listAdapter: CreatorsListAdapter
     private lateinit var _recyclerView: RecyclerView
     private lateinit var _searchView: SearchView
+    private var _hasConnection: Boolean = false
 
     private var _creators = mutableListOf<CreatorsModel>()
     private var _name: String? = null
@@ -83,6 +86,18 @@ class CreatorsListFragment : Fragment() {
         setScrollView()
         initSearch()
         setBackNavigation()
+
+        val networkConnection = NetworkConnection(_view.context)
+        networkConnection.observe(viewLifecycleOwner, Observer { isConnected ->
+            _hasConnection = isConnected
+            if (isConnected) {
+                _view.findViewById<LinearLayout>(R.id.internetNotFoundCreatorsList).visibility = View.GONE
+                _recyclerView.visibility = View.VISIBLE
+            } else {
+                _view.findViewById<LinearLayout>(R.id.internetNotFoundCreatorsList).visibility = View.VISIBLE
+                _recyclerView.visibility = View.GONE
+            }
+        })
     }
 
     private fun objToJson(creatorsModel: CreatorsModel):String{
@@ -96,22 +111,24 @@ class CreatorsListFragment : Fragment() {
             override fun onQueryTextSubmit(query: String): Boolean {
                 _searchView.clearFocus()
                 _name = query
-                if (query.isEmpty()) {
-                    _viewModel.getListCreators().observe(viewLifecycleOwner, Observer {
-                        _creators.clear()
-                        showResults(it)
-                    })
-                } else {
-                    _viewModel.searchCreator(query).observe(viewLifecycleOwner, Observer {
-                        _creators.clear()
-                        showResults(it)
-                    })
+                if (_hasConnection) {
+                    if (query.isEmpty()) {
+                        _viewModel.getListCreators().observe(viewLifecycleOwner, Observer {
+                            _creators.clear()
+                            showResults(it)
+                        })
+                    } else {
+                        _viewModel.searchCreator(query).observe(viewLifecycleOwner, Observer {
+                            _creators.clear()
+                            showResults(it)
+                        })
+                    }
                 }
                 return false
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                if (newText.isBlank()) {
+                if (newText.isBlank() && _hasConnection) {
                     _name = null
                     showResults(_viewModel.returnFirstListCreators())
                 }
