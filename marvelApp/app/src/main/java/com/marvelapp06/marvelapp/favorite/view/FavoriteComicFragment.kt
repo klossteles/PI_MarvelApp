@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -16,18 +15,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.marvelapp06.marvelapp.MainActivity
 import com.marvelapp06.marvelapp.R
-import com.marvelapp06.marvelapp.character.model.CharactersModel
 import com.marvelapp06.marvelapp.comic.model.ComicsModel
-import com.marvelapp06.marvelapp.comic.view.SearchComicFragment
 import com.marvelapp06.marvelapp.data.model.CharacterSummary
-import com.marvelapp06.marvelapp.data.model.ComicSummary
 import com.marvelapp06.marvelapp.data.model.CreatorSummary
-import com.marvelapp06.marvelapp.data.model.SeriesSummary
 import com.marvelapp06.marvelapp.db.AppDatabase
-import com.marvelapp06.marvelapp.favorite.model.ComicFavoriteModel
-import com.marvelapp06.marvelapp.favorite.repository.ComicFavoriteRepository
+import com.marvelapp06.marvelapp.favorite.adapter.ComicFavoriteAdapter
 import com.marvelapp06.marvelapp.favorite.repository.FavoriteRepository
-import com.marvelapp06.marvelapp.favorite.viewmodel.ComicFavoriteViewModel
 import com.marvelapp06.marvelapp.favorite.viewmodel.FavoriteViewModel
 
 class FavoriteComicFragment : Fragment() {
@@ -73,22 +66,22 @@ class FavoriteComicFragment : Fragment() {
         })
     }
 
-    fun objToJson(comicsModel: ComicsModel):String{
+    private fun objToJson(comicsModel: ComicsModel):String{
         val gson = Gson()
         return gson.toJson(comicsModel)
     }
 
-    fun characterListToJson(array: List<CharacterSummary>): String {
+    private fun characterListToJson(array: List<CharacterSummary>): String {
         val gson = Gson()
         return gson.toJson(array)
     }
-    fun creatorListToJson(array: List<CreatorSummary>): String {
+    private fun creatorListToJson(array: List<CreatorSummary>): String {
         val gson = Gson()
         return gson.toJson(array)
     }
 
 
-    fun jsonToObj(json: String): ComicsModel {
+    private fun jsonToObj(json: String): ComicsModel {
         val gson = Gson()
         return gson.fromJson(json, ComicsModel::class.java)
     }
@@ -96,26 +89,35 @@ class FavoriteComicFragment : Fragment() {
     private fun getList(list:List<ComicsModel>){
         val viewManager= GridLayoutManager(_view.context,2)
         val recyclerView=_view.findViewById<RecyclerView>(R.id.listComicFavorites)
-        val menuAdapter = ComicFavoriteAdapter(list){
-            val bundle = bundleOf(
-                COMIC_ID to it.id,
-                COMIC_DESCRIPTION to it.description,
-                COMIC_PRICE to it.prices,
-                COMIC_CHARACTERS_JSON to it.characters?.items?.let { character ->characterListToJson(character) },
-                COMIC_CREATORS_JSON to it.creators?.items?.let { creator -> creatorListToJson(creator) },
-                COMIC_IMAGES to it.images,
-                COMIC_DATES to it.dates,
-                COMIC_PAGES to it.pageCount,
-                COMIC_THUMBNAIL to it.thumbnail?.getImagePath("landscape_incredible"),
-                COMIC_TITLE to it.title,
-                COMIC_MODEL_JSON to this.objToJson(it),
-                KEY_FRAGMENT to "ComicFragment"
+        val menuAdapter =
+            ComicFavoriteAdapter(list) {
+                val bundle = bundleOf(
+                    COMIC_ID to it.id,
+                    COMIC_DESCRIPTION to it.description,
+                    COMIC_PRICE to it.prices,
+                    COMIC_CHARACTERS_JSON to it.characters?.items?.let { character ->
+                        characterListToJson(
+                            character
+                        )
+                    },
+                    COMIC_CREATORS_JSON to it.creators?.items?.let { creator ->
+                        creatorListToJson(
+                            creator
+                        )
+                    },
+                    COMIC_IMAGES to it.images,
+                    COMIC_DATES to it.dates,
+                    COMIC_PAGES to it.pageCount,
+                    COMIC_THUMBNAIL to it.thumbnail?.getImagePath("landscape_incredible"),
+                    COMIC_TITLE to it.title,
+                    COMIC_MODEL_JSON to this.objToJson(it),
+                    KEY_FRAGMENT to "ComicFragment"
 
-            )
-            val intent = Intent(context, MainActivity::class.java)
-            intent.putExtras(bundle)
-            startActivity(intent)
-        }
+                )
+                val intent = Intent(context, MainActivity::class.java)
+                intent.putExtras(bundle)
+                startActivity(intent)
+            }
 
         recyclerView.apply {
             layoutManager=viewManager
