@@ -1,7 +1,6 @@
 package com.marvelapp06.marvelapp.login.view
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -29,6 +28,8 @@ import com.marvelapp06.marvelapp.R
 class ProfileFragment : Fragment() {
     private lateinit var _view: View
     private lateinit var _auth: FirebaseAuth
+    private lateinit var _initialName: String
+    private lateinit var _initialEmail: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +46,8 @@ class ProfileFragment : Fragment() {
         onSignOut()
         val user = _auth.currentUser
         if (user != null) {
+            _initialEmail = user.email.toString()
+            _initialName = user.displayName.toString()
             setUser(user)
             onUpdate(user)
         }
@@ -69,6 +72,7 @@ class ProfileFragment : Fragment() {
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    _view.findViewById<Button>(R.id.containedButtonSaveProfile).visibility = View.VISIBLE
                     _view.findViewById<TextInputLayout>(R.id.textEmailProfile).error = ""
                 }
             })
@@ -89,6 +93,7 @@ class ProfileFragment : Fragment() {
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    _view.findViewById<Button>(R.id.containedButtonSaveProfile).visibility = View.VISIBLE
                     _view.findViewById<TextInputLayout>(R.id.textFullnameProfile).error = ""
                 }
             })
@@ -111,6 +116,7 @@ class ProfileFragment : Fragment() {
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    _view.findViewById<Button>(R.id.containedButtonSaveProfile).visibility = View.VISIBLE
                     _view.findViewById<TextInputLayout>(R.id.textPasswordProfile).error = ""
                 }
             })
@@ -152,16 +158,14 @@ class ProfileFragment : Fragment() {
                 return@setOnClickListener
             }
             val password = _view.findViewById<TextInputEditText>(R.id.edtPasswordProfile)?.text.toString()
-            if (password.isEmpty()) {
-                _view.findViewById<TextInputLayout>(R.id.textPasswordProfile).error = getString(R.string.insert_password)
-                return@setOnClickListener
-            }
-            if (password.length < 6) {
+            if (password.isNotEmpty() && password.length < 6) {
                 _view.findViewById<TextInputLayout>(R.id.textPasswordProfile).error = getString(R.string.must_contain_at_least_6_characters)
                 return@setOnClickListener
             }
 
-            addConfirmDialog(user, fullName, email, password)
+            if (_view.findViewById<Button>(R.id.containedButtonSaveProfile).visibility == View.VISIBLE) {
+                addConfirmDialog(user, fullName, email, password)
+            }
         }
     }
 
@@ -300,21 +304,44 @@ class ProfileFragment : Fragment() {
             _auth.signInWithEmailAndPassword(emailConfirm, passwordConfirm)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        val profileUpdates = UserProfileChangeRequest.Builder()
-                            .setDisplayName(
-                                fullName
-                            )
-                            .build()
-                        user.updateProfile(profileUpdates).addOnCompleteListener {
-                            user.updateEmail(email)
-                            user.updatePassword(password)
-                            dialog.dismiss()
-                            signOut()
+                        var reloadUserInfo = false
+                        if (fullName != _initialName) {
+                            reloadUserInfo = true
+                            val profileUpdates = UserProfileChangeRequest.Builder()
+                                .setDisplayName(
+                                    fullName
+                                )
+                                .build()
+                            user.updateProfile(profileUpdates)
+                        }
+
+                        if (email.isNotEmpty() && email != _initialEmail) {
+                            user.updateEmail(email).addOnSuccessListener {
+                                reloadUserInfo = true
+                            }
+                        }
+                        if (password.isNotEmpty()) {
+                            user.updatePassword(password).addOnCompleteListener {
+                                signOut()
+                            }
+                        }
+                        dialog.dismiss()
+                        _view.findViewById<Button>(R.id.containedButtonSaveProfile).visibility = View.GONE
+                        if (reloadUserInfo) {
+                            reloadUser()
                         }
                     } else {
                         Toast.makeText(_view.context, getString(R.string.invalid_email_or_password), Toast.LENGTH_LONG).show()
                     }
                 }
+        }
+    }
+
+    private fun reloadUser () {
+        var user = _auth.currentUser
+        user?.reload()?.addOnCompleteListener {
+            user = _auth.currentUser
+            setUser(user)
         }
     }
 }

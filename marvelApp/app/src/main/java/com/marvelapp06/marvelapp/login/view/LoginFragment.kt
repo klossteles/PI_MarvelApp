@@ -105,7 +105,8 @@ class LoginFragment : Fragment() {
 
     private fun updateUI(currentUser: FirebaseUser?) {
         if (currentUser != null) {
-            if (currentUser.providerData.get(1).providerId == EmailAuthProvider.PROVIDER_ID && currentUser.isEmailVerified) {
+            if (currentUser.providerData.get(1).providerId == EmailAuthProvider.PROVIDER_ID && !currentUser.isEmailVerified) {
+                currentUser.sendEmailVerification()
                 Toast.makeText(_view.context, getString(R.string.validate_your_email), Toast.LENGTH_LONG).show()
                 _auth.signOut()
                 val intent = Intent(_view.context, MainActivity::class.java)
