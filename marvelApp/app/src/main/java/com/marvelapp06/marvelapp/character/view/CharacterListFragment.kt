@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
@@ -20,6 +21,7 @@ import com.marvelapp06.marvelapp.R
 import com.marvelapp06.marvelapp.character.model.CharactersModel
 import com.marvelapp06.marvelapp.character.repository.CharacterRepository
 import com.marvelapp06.marvelapp.character.viewmodel.CharacterViewModel
+import com.marvelapp06.marvelapp.utils.NetworkConnection
 
 class CharacterListFragment : Fragment() {
     private lateinit var _viewModel: CharacterViewModel
@@ -30,6 +32,7 @@ class CharacterListFragment : Fragment() {
 
     private var _characters = mutableListOf<CharactersModel>()
     private var _nameCharacter: String? = null
+    private var _hasConnection: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,6 +82,18 @@ class CharacterListFragment : Fragment() {
         showLoading(true)
         setScrollView()
         initSearch()
+
+        val networkConnection = NetworkConnection(_view.context)
+        networkConnection.observe(viewLifecycleOwner, Observer { isConnected ->
+            _hasConnection = isConnected
+            if (isConnected) {
+                _view.findViewById<LinearLayout>(R.id.internetNotFoundCharacterList).visibility = View.GONE
+                _recyclerView.visibility = View.VISIBLE
+            } else {
+                _view.findViewById<LinearLayout>(R.id.internetNotFoundCharacterList).visibility = View.VISIBLE
+                _recyclerView.visibility = View.GONE
+            }
+        })
     }
 
     fun objToJson(charactersModel: CharactersModel):String{
@@ -106,23 +121,25 @@ class CharacterListFragment : Fragment() {
                 _searchView.clearFocus()
                 _nameCharacter = query
 
-                if (query.isEmpty()) {
-                    _viewModel.getListCharacters().observe(viewLifecycleOwner, Observer {
-                        _characters.clear()
-                        showResults(it)
-                    })
-                } else {
-                    _viewModel.searchCharacter(query).observe(viewLifecycleOwner, Observer {
-                        _characters.clear()
-                        showResults(it)
-                    })
+                if (_hasConnection) {
+                    if (query.isEmpty()) {
+                        _viewModel.getListCharacters().observe(viewLifecycleOwner, Observer {
+                            _characters.clear()
+                            showResults(it)
+                        })
+                    } else {
+                        _viewModel.searchCharacter(query).observe(viewLifecycleOwner, Observer {
+                            _characters.clear()
+                            showResults(it)
+                        })
+                    }
                 }
 
                 return false
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                if (newText.isBlank()) {
+                if (newText.isBlank() && _hasConnection) {
                     _nameCharacter = null
                     showResults(_viewModel.returnFirstListCharacters())
                 }
