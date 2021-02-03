@@ -193,7 +193,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun onRegister(navController: NavController) {
-        _view.findViewById<Button>(R.id.textButtonRegisterLogin).setOnClickListener {
+        _view.findViewById<Button>(R.id.containedButtonRegister).setOnClickListener {
             navController.navigate(R.id.action_loginFragment2_to_registerFragment3)
         }
     }
