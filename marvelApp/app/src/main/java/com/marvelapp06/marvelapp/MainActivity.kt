@@ -41,7 +41,6 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-        val networkConnection = NetworkConnection(applicationContext)
         val bundle = intent.extras
         if (bundle != null) {
             when (bundle.getString("KEY_FRAGMENT")) {
@@ -61,24 +60,7 @@ class MainActivity : AppCompatActivity() {
                     val creatorsFragment = CreatorsFragment()
                     addTransaction(creatorsFragment)
                 }
-                else -> {
-                    networkConnection.observe(this, Observer { isConnected ->
-                        if (isConnected) {
-                            setVisible()
-                        } else {
-                            setNoInternetVisible()
-                        }
-                    })
-                }
             }
-        } else {
-            networkConnection.observe(this, Observer { isConnected ->
-                if (isConnected) {
-                    setVisible()
-                } else {
-                    setNoInternetVisible()
-                }
-            })
         }
     }
 
@@ -88,17 +70,6 @@ class MainActivity : AppCompatActivity() {
         fragment.arguments = intent.extras
         transaction.add(R.id.nav_host_fragment_container, fragment)
         transaction.commit()
-        setVisible()
-    }
-
-    private fun setNoInternetVisible() {
-        nav_host_fragment_container.visibility = View.GONE
-        layoutDisconnected.visibility = View.VISIBLE
-    }
-
-    private fun setVisible() {
-        nav_host_fragment_container.visibility = View.VISIBLE
-        layoutDisconnected.visibility = View.GONE
     }
 
     companion object {
