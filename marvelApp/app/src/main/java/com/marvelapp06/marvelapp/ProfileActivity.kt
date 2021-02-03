@@ -3,13 +3,17 @@ package com.marvelapp06.marvelapp
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.marvelapp06.marvelapp.favorite.view.FavoritesActivity
 import com.marvelapp06.marvelapp.login.view.LoginFragment
 import com.marvelapp06.marvelapp.login.view.ProfileFragment
+import com.marvelapp06.marvelapp.utils.NetworkConnection
+import kotlinx.android.synthetic.main.activity_profile.*
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var _auth: FirebaseAuth
@@ -18,6 +22,20 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
+        setFields()
+        val networkConnection = NetworkConnection(applicationContext)
+        networkConnection.observe(this, Observer { isConnected ->
+            if (isConnected) {
+                profile_nav_host_fragment.visibility = View.VISIBLE
+                layoutDisconnectedProfile.visibility = View.GONE
+            } else {
+                profile_nav_host_fragment.visibility = View.GONE
+                layoutDisconnectedProfile.visibility = View.VISIBLE
+            }
+        })
+    }
+
+    private fun setFields() {
         _auth = FirebaseAuth.getInstance()
         val currentUser = _auth.currentUser
 

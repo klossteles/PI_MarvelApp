@@ -198,7 +198,6 @@
                 android:text="@string/please_check_your_search_and_try_again"
                 android:textAlignment="center" />
         </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

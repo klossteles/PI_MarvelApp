@@ -1,14 +1,20 @@
 package com.marvelapp06.marvelapp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.marvelapp06.marvelapp.favorite.view.FavoritesActivity
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.marvelapp06.marvelapp.character.view.CharacterFragment
 import com.marvelapp06.marvelapp.comic.view.ComicFragment
 import com.marvelapp06.marvelapp.creator.view.CreatorsFragment
+import com.marvelapp06.marvelapp.favorite.view.FavoritesActivity
 import com.marvelapp06.marvelapp.series.view.SeriesFragment
+import com.marvelapp06.marvelapp.utils.NetworkConnection
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,56 +41,41 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
         val bundle = intent.extras
         if (bundle != null) {
-            val frag = bundle.getString("KEY_FRAGMENT")
-            if (frag.toString() == "CharacterFragment") {
-
-                val manager = supportFragmentManager
-                val transaction = manager.beginTransaction()
-                val characterFragment = CharacterFragment()
-
-                characterFragment.arguments = intent.extras
-                transaction.add(R.id.nav_host_fragment_container, characterFragment)
-                transaction.commit()
-
-            } else if (frag.toString() == "SeriesFragment") {
-
-                val manager = supportFragmentManager
-                val transaction = manager.beginTransaction()
-                val seriesFragment = SeriesFragment()
-
-                seriesFragment.arguments = intent.extras
-                transaction.add(R.id.nav_host_fragment_container, seriesFragment)
-                transaction.commit()
-
-            } else if (frag.toString() == "ComicFragment") {
-
-                val manager = supportFragmentManager
-                val transaction = manager.beginTransaction()
-                val comicFragment = ComicFragment()
-
-                comicFragment.arguments = intent.extras
-                transaction.add(R.id.nav_host_fragment_container, comicFragment)
-                transaction.commit()
-
-            } else if (frag.toString() == "CreatorsFragment") {
-
-                val manager = supportFragmentManager
-                val transaction = manager.beginTransaction()
-                val creatorsFragment = CreatorsFragment()
-
-                creatorsFragment.arguments = intent.extras
-                transaction.add(R.id.nav_host_fragment_container, creatorsFragment)
-                transaction.commit()
-
+            when (bundle.getString("KEY_FRAGMENT")) {
+                CHARACTER_FRAGMENT -> {
+                    val characterFragment = CharacterFragment()
+                    addTransaction(characterFragment)
+                }
+                SERIES_FRAGMENT -> {
+                    val seriesFragment = SeriesFragment()
+                    addTransaction(seriesFragment)
+                }
+                COMIC_FRAGMENT -> {
+                    val comicFragment = ComicFragment()
+                    addTransaction(comicFragment)
+                }
+                CREATORS_FRAGMENT -> {
+                    val creatorsFragment = CreatorsFragment()
+                    addTransaction(creatorsFragment)
+                }
             }
         }
     }
 
+    private fun addTransaction( fragment: Fragment) {
+        val manager = supportFragmentManager
+        val transaction = manager.beginTransaction()
+        fragment.arguments = intent.extras
+        transaction.add(R.id.nav_host_fragment_container, fragment)
+        transaction.commit()
+    }
+
     companion object {
-        const val MARVEL_APP = "MarvelApp"
-        const val KEEP_LOGGED = "KeepLogged"
+        const val CHARACTER_FRAGMENT = "CharacterFragment"
+        const val SERIES_FRAGMENT = "SeriesFragment"
+        const val COMIC_FRAGMENT = "ComicFragment"
+        const val CREATORS_FRAGMENT = "CreatorsFragment"
     }
 }

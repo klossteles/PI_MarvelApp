@@ -97,5 +97,8 @@
     <string name="america_capitan">america_capitan</string>
     <string name="trophy">trophy</string>
     <string name="prize">prize</string>
+    <string name="no_internet_found">No internet found</string>
+    <string name="please_check_your_internet_and_try_again">Please check your internet and try again</string>
+    <string name="no_internet_error">No internet error</string>
 </resources>
 
