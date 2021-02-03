@@ -56,9 +56,9 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/dimen_150dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/cover"
+                android:src="@drawable/character_home"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

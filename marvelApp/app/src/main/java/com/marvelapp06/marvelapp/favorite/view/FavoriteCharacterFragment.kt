@@ -5,12 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -18,12 +16,11 @@ import com.google.gson.Gson
 import com.marvelapp06.marvelapp.MainActivity
 import com.marvelapp06.marvelapp.R
 import com.marvelapp06.marvelapp.character.model.CharactersModel
-import com.marvelapp06.marvelapp.character.view.CharacterListFragment
 import com.marvelapp06.marvelapp.data.model.ComicSummary
 import com.marvelapp06.marvelapp.data.model.SeriesSummary
 import com.marvelapp06.marvelapp.db.AppDatabase
+import com.marvelapp06.marvelapp.favorite.adapter.CharacterFavoriteAdapter
 import com.marvelapp06.marvelapp.favorite.repository.FavoriteRepository
-import com.marvelapp06.marvelapp.favorite.viewmodel.CharacterFavoriteViewModel
 import com.marvelapp06.marvelapp.favorite.viewmodel.FavoriteViewModel
 
 class FavoriteCharacterFragment : Fragment() {
@@ -70,25 +67,28 @@ class FavoriteCharacterFragment : Fragment() {
 
     }
 
-    fun getList(list: List<CharactersModel>) {
+    private fun getList(list: List<CharactersModel>) {
         val viewManager = GridLayoutManager(_view.context, 2)
         val recyclerView = _view.findViewById<RecyclerView>(R.id.listCharactersFavorites)
-        val menuAdapter = CharacterFavoriteAdapter(list) {
-            val bundle = bundleOf(
-                CHARACTER_ID to it.id,
-                CHARACTER_NAME to it.name,
-                CHARACTER_DESCRIPTION to it.description,
-                CHARACTER_COMIC_JSON to it.comics?.items?.let { comic -> comicListToJson(comic) },
-                CHARACTER_SERIES_JSON to it.series?.items?.let { serie -> serieListToJson(serie) },
-                CHARACTER_THUMBNAIL to it.thumbnail?.getImagePath("landscape_incredible"),
-                KEY_FRAGMENT to "CharacterFragment",
-                CHARACTER_MODEL_JSON to this.objToJson(it)
-            )
+        val menuAdapter =
+            CharacterFavoriteAdapter(
+                list
+            ) {
+                val bundle = bundleOf(
+                    CHARACTER_ID to it.id,
+                    CHARACTER_NAME to it.name,
+                    CHARACTER_DESCRIPTION to it.description,
+                    CHARACTER_COMIC_JSON to it.comics?.items?.let { comic -> comicListToJson(comic) },
+                    CHARACTER_SERIES_JSON to it.series?.items?.let { serie -> serieListToJson(serie) },
+                    CHARACTER_THUMBNAIL to it.thumbnail?.getImagePath("landscape_incredible"),
+                    KEY_FRAGMENT to "CharacterFragment",
+                    CHARACTER_MODEL_JSON to this.objToJson(it)
+                )
 
-            val intent = Intent(context, MainActivity::class.java)
-            intent.putExtras(bundle)
-            startActivity(intent)
-        }
+                val intent = Intent(context, MainActivity::class.java)
+                intent.putExtras(bundle)
+                startActivity(intent)
+            }
 
         recyclerView.apply {
             setHasFixedSize(true)
@@ -97,21 +97,21 @@ class FavoriteCharacterFragment : Fragment() {
         }
     }
 
-    fun objToJson(charactersModel: CharactersModel):String{
+    private fun objToJson(charactersModel: CharactersModel):String{
         val gson = Gson()
         return gson.toJson(charactersModel)
     }
 
-    fun comicListToJson(array: List<ComicSummary>): String {
+    private fun comicListToJson(array: List<ComicSummary>): String {
         val gson = Gson()
         return gson.toJson(array)
     }
-    fun serieListToJson(array: List<SeriesSummary>): String {
+    private fun serieListToJson(array: List<SeriesSummary>): String {
         val gson = Gson()
         return gson.toJson(array)
     }
 
-    fun jsonToObj(json: String): CharactersModel {
+    private fun jsonToObj(json: String): CharactersModel {
         val gson = Gson()
         return gson.fromJson(json, CharactersModel::class.java)
     }
