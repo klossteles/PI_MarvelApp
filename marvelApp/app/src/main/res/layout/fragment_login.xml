@@ -73,32 +73,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textViewMessageLogin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_30dp"
-                android:text="@string/message_login"
-                android:textColor="@color/mainTitles"
-                android:textSize="@dimen/dimen_24sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="00"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTitleLogin" />
-
-            <Button
-                android:id="@+id/textButtonRegisterLogin"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dimen_22dp"
-                android:text="@string/register"
-                android:textAllCaps="false"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/dimen_16sp"
-                app:layout_constraintBottom_toTopOf="@+id/textEmailLogin"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textViewMessageLogin" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textEmailLogin"
@@ -110,7 +84,7 @@
                 app:hintTextColor="@color/color_red"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewMessageLogin">
+                app:layout_constraintTop_toBottomOf="@+id/textViewTitleLogin">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edtEmailLogin"
@@ -203,29 +177,45 @@
                     android:layout_centerVertical="true"
                     android:layout_toStartOf="@id/txtOr"
                     android:background="@color/color_gray" />
+
             </RelativeLayout>
+
+            <Button
+                android:id="@+id/containedButtonRegister"
+                android:layout_width="@dimen/dimen_390dp"
+                android:layout_height="@dimen/dimen_62dp"
+                android:layout_marginStart="@dimen/dimen_25dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
+                android:layout_marginEnd="@dimen/dimen_25dp"
+                android:backgroundTint="@color/colorAccent"
+                android:text="@string/register"
+                android:textAllCaps="false"
+                android:textColor="@color/mainTitles"
+                android:textSize="@dimen/dimen_16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/relativeLayoutLogin" />
 
             <com.google.android.gms.common.SignInButton
                 android:id="@+id/containedButtonLoginGoogle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/dimen_390dp"
+                android:layout_height="@dimen/dimen_55dp"
                 android:layout_marginTop="@dimen/dimen_15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/relativeLayoutLogin"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/containedButtonRegister" />
 
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/containedButtonLoginFacebook"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/containedButtonLoginGoogle"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/dimen_362dp"
+                android:layout_height="@dimen/dimen_29dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/dimen_15dp"
-                android:layout_marginBottom="@dimen/dimen_30dp"/>
+                android:layout_marginBottom="@dimen/dimen_30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/containedButtonLoginGoogle" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

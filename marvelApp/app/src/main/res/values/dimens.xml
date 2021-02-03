@@ -38,4 +38,10 @@
     <dimen name="dimen_180dp">180dp</dimen>
     <dimen name="dimen_250dp">250dp</dimen>
     <dimen name="dimen_300dp">300dp</dimen>
+    <dimen name="dimen_390dp">390dp</dimen>
+    <dimen name="dimen_62dp">62dp</dimen>
+    <dimen name="dimen_55dp">55dp</dimen>
+    <dimen name="dimen_362dp">362dp</dimen>
+    <dimen name="dimen_29dp">29dp</dimen>
+
 </resources>
