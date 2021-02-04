@@ -148,6 +148,8 @@ class SeriesListFragment : Fragment() {
         showLoading(false)
         if (list != null) {
             notFound(list.isEmpty())
+        } else {
+            notFound(true)
         }
         list?.let { _series.addAll(it) }
         _listAdapter.notifyDataSetChanged()

@@ -142,7 +142,7 @@ class CreatorsListFragment : Fragment() {
 
     private fun showResults(list: List<CreatorsModel>) {
         showLoading(false)
-        list?.isNotEmpty()?.let { notFound(it) }
+        notFound(list.isEmpty())
         list?.let { _creators.addAll(it) }
         _listAdapter.notifyDataSetChanged()
     }
@@ -159,9 +159,9 @@ class CreatorsListFragment : Fragment() {
 
     private fun notFound(notFound: Boolean) {
         if (notFound) {
-            _view.findViewById<View>(R.id.notFoundLayout).visibility = View.GONE
-        } else {
             _view.findViewById<View>(R.id.notFoundLayout).visibility = View.VISIBLE
+        } else {
+            _view.findViewById<View>(R.id.notFoundLayout).visibility = View.GONE
         }
     }
 

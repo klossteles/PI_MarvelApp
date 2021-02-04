@@ -43,7 +43,7 @@ class ComicViewModel (
     fun returnFirstList() = _previousComic.toMutableList()
 
     fun nextPage(title: String? = null) = liveData(Dispatchers.IO) {
-        if (_offset.plus(_count) <= _totalPages) {
+        if (_offset.plus(_count) < _totalPages) {
             _offset = _offset.plus(_count)
             val response = _repository.getComic(title, _offset)
             emit(response.data.results)

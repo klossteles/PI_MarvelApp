@@ -43,7 +43,7 @@ class CreatorsViewModel(private val _repository : CreatorsRepository) : ViewMode
     fun returnFirstListCreators() = _previousCreators.toMutableList()
 
     fun nextPage(name: String? = null) = liveData(Dispatchers.IO) {
-        if (_offset.plus(_count) <= _totalPages) {
+        if (_offset.plus(_count) < _totalPages) {
             _offset = _offset.plus(_count)
             val response = _repository.getCreators(name, _offset)
             emit(response.data.results)
