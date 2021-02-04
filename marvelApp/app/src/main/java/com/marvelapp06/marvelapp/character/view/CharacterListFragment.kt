@@ -109,7 +109,9 @@ class CharacterListFragment : Fragment() {
     private fun showResults(list: List<CharactersModel>?) {
         showLoading(false)
         if (list != null) {
-            notFound(list.isNotEmpty())
+            notFound(list.isEmpty())
+        } else {
+            notFound(true)
         }
         list?.let { _characters.addAll(it) }
         _listAdapter.notifyDataSetChanged()
@@ -167,9 +169,9 @@ class CharacterListFragment : Fragment() {
 
     private fun notFound(notFound: Boolean) {
         if (notFound) {
-            _view.findViewById<View>(R.id.notFoundLayout).visibility = View.GONE
-        } else {
             _view.findViewById<View>(R.id.notFoundLayout).visibility = View.VISIBLE
+        } else {
+            _view.findViewById<View>(R.id.notFoundLayout).visibility = View.GONE
         }
     }
 

@@ -142,7 +142,7 @@ class SearchComicFragment : Fragment() {
 
     private fun showResults(list: List<ComicsModel>) {
         showLoading(false)
-        notFound(list.isNotEmpty())
+        notFound(list.isEmpty())
         list.let { _comic.addAll(it) }
         _listAdapter.notifyDataSetChanged()
     }
@@ -159,9 +159,9 @@ class SearchComicFragment : Fragment() {
 
     private fun notFound(notFound: Boolean) {
         if (notFound) {
-            _view.findViewById<View>(R.id.notFoundLayoutComic).visibility = View.GONE
-        } else {
             _view.findViewById<View>(R.id.notFoundLayoutComic).visibility = View.VISIBLE
+        } else {
+            _view.findViewById<View>(R.id.notFoundLayoutComic).visibility = View.GONE
         }
 
         setBackNavigation()
