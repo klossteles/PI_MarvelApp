@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_60dp"
-            android:text="@string/acess_and_security"
+            android:text="@string/access_and_security"
             android:textColor="@color/mainTitles"
             android:textSize="@dimen/dimen_24sp"
             android:layout_marginHorizontal="@dimen/dimen_32dp"
@@ -87,7 +87,7 @@
             app:hintTextColor="@color/color_red"
             android:layout_marginTop="@dimen/dimen_30dp"
             android:layout_marginHorizontal="@dimen/dimen_32dp"
-            android:hint="@string/fullname"
+            android:hint="@string/full_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewAccessAndSecurity">

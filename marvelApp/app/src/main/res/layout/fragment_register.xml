@@ -69,7 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_30dp"
-        android:hint="@string/fullname"
+        android:hint="@string/full_name"
         android:textColorHint="@color/color_red"
         app:hintTextColor="@color/color_red"
         app:layout_constraintEnd_toEndOf="parent"

@@ -29,7 +29,7 @@
             android:layout_marginTop="@dimen/dimen_10dp"
             android:layout_marginBottom="@dimen/dimen_15dp"
             android:fontFamily="@font/quicksand"
-            android:text="@string/capitao_america"
+            android:text="@string/captain_america"
             android:textAlignment="center"
             android:textColor="@color/color_white"
             app:layout_constraintBottom_toBottomOf="parent"
