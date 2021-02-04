@@ -1,7 +1,6 @@
 package com.marvelapp06.marvelapp.character.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +8,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.SearchView
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -45,9 +45,7 @@ class CharacterListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         _view = view
 
-
         val manager = GridLayoutManager(_view.context, 2)
-
         _characters = mutableListOf<CharactersModel>()
         _listAdapter = CharacterListAdapter(_characters) {
             val bundle = bundleOf(
@@ -62,7 +60,7 @@ class CharacterListFragment : Fragment() {
             _view.findNavController()
                 .navigate(R.id.action_characterListFragment_to_characterFragment, bundle)
         }
-        _recyclerView= _view.findViewById<RecyclerView>(R.id.listCharacters)
+        _recyclerView = _view.findViewById<RecyclerView>(R.id.listCharacters)
         _recyclerView.apply {
             setHasFixedSize(true)
             layoutManager = manager
@@ -75,6 +73,7 @@ class CharacterListFragment : Fragment() {
         ).get(CharacterViewModel::class.java)
 
         _viewModel.getListCharacters().observe(viewLifecycleOwner, Observer {
+            _characters.clear()
             showResults(it)
         })
 
@@ -96,7 +95,7 @@ class CharacterListFragment : Fragment() {
         })
     }
 
-    fun objToJson(charactersModel: CharactersModel):String{
+    private fun objToJson(charactersModel: CharactersModel):String{
         val gson = Gson()
         return gson.toJson(charactersModel)
     }
@@ -109,13 +108,19 @@ class CharacterListFragment : Fragment() {
     }
     private fun showResults(list: List<CharactersModel>?) {
         showLoading(false)
-        list?.isNotEmpty()?.let { notFound(it) }
+        if (list != null) {
+            notFound(list.isEmpty())
+        } else {
+            notFound(true)
+        }
         list?.let { _characters.addAll(it) }
         _listAdapter.notifyDataSetChanged()
     }
 
     private fun initSearch() {
         _searchView = _view.findViewById<SearchView>(R.id.searchCharacters)
+        _searchView.setQuery("", false)
+        _nameCharacter = null
         _searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 _searchView.clearFocus()
@@ -141,6 +146,7 @@ class CharacterListFragment : Fragment() {
             override fun onQueryTextChange(newText: String): Boolean {
                 if (newText.isBlank() && _hasConnection) {
                     _nameCharacter = null
+                    _characters.clear()
                     showResults(_viewModel.returnFirstListCharacters())
                 }
                 return true
@@ -163,9 +169,9 @@ class CharacterListFragment : Fragment() {
 
     private fun notFound(notFound: Boolean) {
         if (notFound) {
-            _view.findViewById<View>(R.id.notFoundLayout).visibility = View.GONE
-        } else {
             _view.findViewById<View>(R.id.notFoundLayout).visibility = View.VISIBLE
+        } else {
+            _view.findViewById<View>(R.id.notFoundLayout).visibility = View.GONE
         }
     }
 
@@ -186,6 +192,12 @@ class CharacterListFragment : Fragment() {
                 }
             })
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showLoading(true)
+        initSearch()
     }
 
     companion object {

@@ -1,7 +1,6 @@
 package com.marvelapp06.marvelapp.creator.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +8,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.SearchView
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -18,8 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.marvelapp06.marvelapp.R
-import com.marvelapp06.marvelapp.character.model.CharactersModel
-import com.marvelapp06.marvelapp.character.view.CharacterListFragment
 import com.marvelapp06.marvelapp.creator.model.CreatorsModel
 import com.marvelapp06.marvelapp.creator.repository.CreatorsRepository
 import com.marvelapp06.marvelapp.creator.viewmodel.CreatorsViewModel
@@ -80,6 +78,7 @@ class CreatorsListFragment : Fragment() {
         ).get(CreatorsViewModel::class.java)
 
         _viewModel.getListCreators().observe(viewLifecycleOwner, Observer {
+            _creators.clear()
             showResults(it)
         })
         showLoading(true)
@@ -107,6 +106,8 @@ class CreatorsListFragment : Fragment() {
 
     private fun initSearch() {
         _searchView = _view.findViewById<SearchView>(R.id.searchCreators)
+        _searchView.setQuery("", false)
+        _name = null
         _searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 _searchView.clearFocus()
@@ -130,6 +131,7 @@ class CreatorsListFragment : Fragment() {
             override fun onQueryTextChange(newText: String): Boolean {
                 if (newText.isBlank() && _hasConnection) {
                     _name = null
+                    _creators.clear()
                     showResults(_viewModel.returnFirstListCreators())
                 }
                 return true
@@ -140,7 +142,7 @@ class CreatorsListFragment : Fragment() {
 
     private fun showResults(list: List<CreatorsModel>) {
         showLoading(false)
-        list?.isNotEmpty()?.let { notFound(it) }
+        notFound(list.isEmpty())
         list?.let { _creators.addAll(it) }
         _listAdapter.notifyDataSetChanged()
     }
@@ -157,9 +159,9 @@ class CreatorsListFragment : Fragment() {
 
     private fun notFound(notFound: Boolean) {
         if (notFound) {
-            _view.findViewById<View>(R.id.notFoundLayout).visibility = View.GONE
-        } else {
             _view.findViewById<View>(R.id.notFoundLayout).visibility = View.VISIBLE
+        } else {
+            _view.findViewById<View>(R.id.notFoundLayout).visibility = View.GONE
         }
     }
 
@@ -182,7 +184,11 @@ class CreatorsListFragment : Fragment() {
         }
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        showLoading(true)
+        initSearch()
+    }
 
     private fun setBackNavigation() {
         _view.findViewById<ImageView>(R.id.imgBackCreatorsList).setOnClickListener {

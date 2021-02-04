@@ -1,7 +1,6 @@
 package com.marvelapp06.marvelapp.comic.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +8,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.SearchView
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -22,7 +22,6 @@ import com.marvelapp06.marvelapp.comic.model.ComicsModel
 import com.marvelapp06.marvelapp.comic.repository.ComicRepository
 import com.marvelapp06.marvelapp.comic.viewModel.ComicViewModel
 import com.marvelapp06.marvelapp.utils.NetworkConnection
-
 
 class SearchComicFragment : Fragment() {
     private lateinit var _viewModel: ComicViewModel
@@ -99,13 +98,15 @@ class SearchComicFragment : Fragment() {
         })
     }
 
-
     private fun objToJson(comicModel: ComicsModel):String{
         val gson = Gson()
         return gson.toJson(comicModel)
     }
+
     private fun initSearch() {
         _searchView = _view.findViewById<SearchView>(R.id.searchComic)
+        _searchView.setQuery("", false)
+        _title = null
         _searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 _searchView.clearFocus()
@@ -130,6 +131,7 @@ class SearchComicFragment : Fragment() {
             override fun onQueryTextChange(newText: String): Boolean {
                 if (newText.isBlank() && _hasConnection) {
                     _title = null
+                    _comic.clear()
                     showResults(_viewModel.returnFirstList())
                 }
                 return true
@@ -140,8 +142,8 @@ class SearchComicFragment : Fragment() {
 
     private fun showResults(list: List<ComicsModel>) {
         showLoading(false)
-        list?.isNotEmpty()?.let { notFound(it) }
-        list?.let { _comic.addAll(it) }
+        notFound(list.isEmpty())
+        list.let { _comic.addAll(it) }
         _listAdapter.notifyDataSetChanged()
     }
 
@@ -157,9 +159,9 @@ class SearchComicFragment : Fragment() {
 
     private fun notFound(notFound: Boolean) {
         if (notFound) {
-            _view.findViewById<View>(R.id.notFoundLayoutComic).visibility = View.GONE
-        } else {
             _view.findViewById<View>(R.id.notFoundLayoutComic).visibility = View.VISIBLE
+        } else {
+            _view.findViewById<View>(R.id.notFoundLayoutComic).visibility = View.GONE
         }
 
         setBackNavigation()
@@ -191,6 +193,11 @@ class SearchComicFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        showLoading(true)
+        initSearch()
+    }
 
     companion object {
         const val COMIC_ID = "COMIC_ID"
