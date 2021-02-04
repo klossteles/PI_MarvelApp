@@ -18,37 +18,31 @@ class CreatorsViewModel(private val _repository : CreatorsRepository) : ViewMode
 
     fun getListCreators(name: String? = null) = liveData(Dispatchers.IO) {
         val response = _repository.getCreators(null)
-
         _count = response.data.count
-        if (response.data.total != 0) {
-            _totalPages = response.data.total / _count
+        _totalPages = if (response.data.total != 0) {
+            response.data.total / _count
         } else {
-            _totalPages = 0
+            0
         }
         _creators = response.data.results
         emit(response.data.results)
     }
 
     fun searchCreator(name: String? = null) = liveData(Dispatchers.IO) {
-        if (_previousCreators.isEmpty()) {
-            _previousCreators = _creators
-        }
+        _previousCreators = _creators
         val response = _repository.getCreators(name)
         _count = response.data.count
-        if (response.data.total != 0) {
-            _totalPages = response.data.total / _count
+        _totalPages = if (response.data.total != 0) {
+            response.data.total / _count
         } else {
-            _totalPages = 0
+            0
         }
-        _offset = 0
-        _creators = response.data.results
         emit(response.data.results)
     }
 
     fun returnFirstListCreators() = _previousCreators.toMutableList()
 
     fun nextPage(name: String? = null) = liveData(Dispatchers.IO) {
-        _previousCreators = _creators
         if (_offset.plus(_count) <= _totalPages) {
             _offset = _offset.plus(_count)
             val response = _repository.getCreators(name, _offset)

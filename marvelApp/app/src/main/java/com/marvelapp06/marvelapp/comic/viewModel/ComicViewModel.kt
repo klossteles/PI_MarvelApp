@@ -18,37 +18,31 @@ class ComicViewModel (
 
     fun getList(title: String? = null) = liveData(Dispatchers.IO) {
         val response = _repository.getComic(null)
-
         _count = response.data.count
-        if (response.data.total != 0) {
-            _totalPages = response.data.total / _count
+        _totalPages = if (response.data.total != 0) {
+            response.data.total / _count
         } else {
-            _totalPages = 0
+            0
         }
         _comic = response.data.results
         emit(response.data.results)
     }
 
     fun search(title: String? = null) = liveData(Dispatchers.IO) {
-        if (_previousComic.isEmpty()) {
-            _previousComic = _comic
-        }
+        _previousComic = _comic
         val response = _repository.getComic(title)
         _count = response.data.count
-        if (response.data.total != 0) {
-            _totalPages = response.data.total / _count
+        _totalPages = if (response.data.total != 0) {
+            response.data.total / _count
         } else {
-            _totalPages = 0
+            0
         }
-        _offset = 0
-        _comic = response.data.results
         emit(response.data.results)
     }
 
     fun returnFirstList() = _previousComic.toMutableList()
 
     fun nextPage(title: String? = null) = liveData(Dispatchers.IO) {
-        _previousComic = _comic
         if (_offset.plus(_count) <= _totalPages) {
             _offset = _offset.plus(_count)
             val response = _repository.getComic(title, _offset)

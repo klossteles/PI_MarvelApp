@@ -17,38 +17,31 @@ class CharacterViewModel(
 
     fun getListCharacters(name: String? = null) = liveData(Dispatchers.IO) {
         val response = _repository.getCharacters(null)
-
         _count = response.data.count
-        if (response.data.total != 0) {
-            _totalPages = response.data.total / _count
+        _totalPages = if (response.data.total != 0) {
+            response.data.total / _count
         } else {
-            _totalPages = 0
+            0
         }
         _characters = response.data.results
         emit(response.data.results)
     }
 
     fun searchCharacter(name: String? = null) = liveData(Dispatchers.IO) {
-        if (_previousCharacters.isEmpty()) {
-            _previousCharacters = _characters
-        }
-
+        _previousCharacters = _characters
         val response = _repository.getCharacters(name)
         _count = response.data.count
-        if (response.data.total != 0) {
-            _totalPages = response.data.total / _count
+        _totalPages = if (response.data.total != 0) {
+            response.data.total / _count
         } else {
-            _totalPages = 0
+            0
         }
-        _offset = 0
-        _characters = response.data.results
         emit(response.data.results)
     }
 
     fun returnFirstListCharacters() = _previousCharacters.toMutableList()
 
     fun nextPage(name: String? = null) = liveData(Dispatchers.IO) {
-        _previousCharacters = _characters
         if (_offset.plus(_count) <= _totalPages) {
             _offset = _offset.plus(_count)
             val response = _repository.getCharacters(name, _offset)
