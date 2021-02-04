@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
@@ -22,6 +23,7 @@ import com.marvelapp06.marvelapp.character.view.CharacterListFragment
 import com.marvelapp06.marvelapp.series.model.SeriesModel
 import com.marvelapp06.marvelapp.series.repository.SeriesRepository
 import com.marvelapp06.marvelapp.series.viewmodel.SeriesViewModel
+import com.marvelapp06.marvelapp.utils.NetworkConnection
 
 class SeriesListFragment : Fragment() {
     private lateinit var _viewModel: SeriesViewModel
@@ -30,6 +32,7 @@ class SeriesListFragment : Fragment() {
     private lateinit var _recyclerView: RecyclerView
     private lateinit var _searchView: SearchView
 
+    private var _hasConnection: Boolean = false
     private var _series = mutableListOf<SeriesModel>()
     private var _title: String? = null
     override fun onCreateView(
@@ -80,6 +83,18 @@ class SeriesListFragment : Fragment() {
         showLoading(true)
         setScrollView()
         initSearch()
+
+        val networkConnection = NetworkConnection(_view.context)
+        networkConnection.observe(viewLifecycleOwner, Observer { isConnected ->
+            _hasConnection = isConnected
+            if (isConnected) {
+                _view.findViewById<LinearLayout>(R.id.internetNotFoundSeriesList).visibility = View.GONE
+                _recyclerView.visibility = View.VISIBLE
+            } else {
+                _view.findViewById<LinearLayout>(R.id.internetNotFoundSeriesList).visibility = View.VISIBLE
+                _recyclerView.visibility = View.GONE
+            }
+        })
     }
 
     private fun objToJson(seriesModel: SeriesModel):String{
@@ -100,22 +115,24 @@ class SeriesListFragment : Fragment() {
             override fun onQueryTextSubmit(query: String): Boolean {
                 _searchView.clearFocus()
                 _title = query
-                if (query.isEmpty()) {
-                    _viewModel.getList().observe(viewLifecycleOwner, Observer {
-                        _series.clear()
-                        showResults(it)
-                    })
-                } else {
-                    _viewModel.search(query).observe(viewLifecycleOwner, Observer {
-                        _series.clear()
-                        showResults(it)
-                    })
+                if (_hasConnection) {
+                    if (query.isEmpty()) {
+                        _viewModel.getList().observe(viewLifecycleOwner, Observer {
+                            _series.clear()
+                            showResults(it)
+                        })
+                    } else {
+                        _viewModel.search(query).observe(viewLifecycleOwner, Observer {
+                            _series.clear()
+                            showResults(it)
+                        })
+                    }
                 }
                 return false
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                if (newText.isBlank()) {
+                if (newText.isBlank() && _hasConnection) {
                     _title = null
                     showResults(_viewModel.returnFirstList())
                 }

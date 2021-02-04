@@ -202,6 +202,67 @@
                 android:textAlignment="center" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/internetNotFoundCreatorsList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <View
+                    android:id="@+id/vwInternetNotFoundCreatorsList"
+                    android:layout_width="@dimen/dimen_50dp"
+                    android:layout_height="@dimen/dimen_50dp"
+                    android:background="@drawable/search_circle_shape"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/no_internet_error"
+                    android:src="@drawable/ic_baseline_error_outline_24"
+                    app:layout_constraintBottom_toBottomOf="@id/vwInternetNotFoundCreatorsList"
+                    app:layout_constraintEnd_toEndOf="@id/vwInternetNotFoundCreatorsList"
+                    app:layout_constraintStart_toStartOf="@id/vwInternetNotFoundCreatorsList"
+                    app:layout_constraintTop_toTopOf="@id/vwInternetNotFoundCreatorsList"
+                    app:tint="@color/color_white" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/dimen_50dp"
+                android:layout_marginTop="@dimen/dimen_15dp"
+                android:text="@string/no_internet_found"
+                android:textAlignment="center"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/dimen_20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/dimen_50dp"
+                android:textColor="@color/color_white"
+                android:layout_marginTop="@dimen/dimen_15dp"
+                android:text="@string/please_check_your_internet_and_try_again"
+                android:textAlignment="center" />
+        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
