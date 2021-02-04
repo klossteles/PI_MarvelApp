@@ -53,6 +53,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@color/color_black"
         app:layout_constraintTop_toBottomOf="@+id/characterToolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
