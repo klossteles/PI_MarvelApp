@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.card.MaterialCardView
 import com.marvelapp06.marvelapp.character.view.CharacterFragment
 import com.marvelapp06.marvelapp.comic.view.ComicFragment
 import com.marvelapp06.marvelapp.creator.view.CreatorsFragment
@@ -61,7 +62,9 @@ class MainActivity : AppCompatActivity() {
                     addTransaction(creatorsFragment)
                 }
             }
+
         }
+
     }
 
     private fun addTransaction( fragment: Fragment) {

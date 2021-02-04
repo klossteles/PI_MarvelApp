@@ -139,23 +139,23 @@
         android:label="fragment_quiz_start"
         tools:layout="@layout/fragment_quiz_start" >
         <action
-            android:id="@+id/action_quizStartFragment2_to_homeFragment"
-            app:destination="@id/characterFragment" />
-        <action
-            android:id="@+id/action_quizStartFragment2_to_quizQuestionFragment"
-            app:destination="@id/quizQuestionFragment" />
+            android:id="@+id/action_quizStartFragment2_to_quizQuestionFragment2"
+            app:destination="@id/quizQuestionFragment2" />
     </fragment>
     <fragment
-        android:id="@+id/quizQuestionFragment"
+        android:id="@+id/quizQuestionFragment2"
         android:name="com.marvelapp06.marvelapp.quiz.QuizQuestionFragment"
         android:label="fragment_quiz_question"
         tools:layout="@layout/fragment_quiz_question" >
         <action
-            android:id="@+id/action_quizQuestionFragment_to_quizResultFragment"
-            app:destination="@id/quizResultFragment" />
+            android:id="@+id/action_quizQuestionFragment2_self"
+            app:destination="@id/quizQuestionFragment2" />
+        <action
+            android:id="@+id/action_quizQuestionFragment2_to_quizResultFragment2"
+            app:destination="@id/quizResultFragment2" />
     </fragment>
     <fragment
-        android:id="@+id/quizResultFragment"
+        android:id="@+id/quizResultFragment2"
         android:name="com.marvelapp06.marvelapp.quiz.QuizResultFragment"
         android:label="fragment_quiz_result"
         tools:layout="@layout/fragment_quiz_result" />
