@@ -1,6 +1,8 @@
 package com.marvelapp06.marvelapp.series.viewmodel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.liveData
 import com.marvelapp06.marvelapp.series.model.SeriesModel
 import com.marvelapp06.marvelapp.series.repository.SeriesRepository
 import kotlinx.coroutines.Dispatchers
@@ -15,32 +17,27 @@ class SeriesViewModel (
     private var _offset: Int = 0
     private var _count: Int = 0
 
-    fun getList(title: String? = null) = liveData(Dispatchers.IO) {
+    fun getList() = liveData(Dispatchers.IO) {
         val response = _repository.getSeries(null)
-
         _count = response.data.count
-        if (response.data.total != 0) {
-            _totalPages = response.data.total / _count
+        _totalPages = if (response.data.total != 0) {
+            response.data.total / _count
         } else {
-            _totalPages = 0
+            0
         }
         _series = response.data.results
         emit(response.data.results)
     }
 
     fun search(title: String? = null) = liveData(Dispatchers.IO) {
-        if (_previousSeries.isEmpty()) {
-            _previousSeries = _series
-        }
-
+        _previousSeries = _series
         val response = _repository.getSeries(title)
         _count = response.data.count
-        if (response.data.total != 0) {
-            _totalPages = response.data.total / _count
+        _totalPages = if (response.data.total != 0) {
+            response.data.total / _count
         } else {
-            _totalPages = 0
+            0
         }
-        _offset = 0
         _series = response.data.results
         emit(response.data.results)
     }
