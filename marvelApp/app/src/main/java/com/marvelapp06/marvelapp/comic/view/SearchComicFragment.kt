@@ -116,11 +116,13 @@ class SearchComicFragment : Fragment() {
                     if (query.isEmpty()) {
                         _viewModel.getList().observe(viewLifecycleOwner, Observer {
                             _comic.clear()
+                            showLoading(true)
                             showResults(it)
                         })
                     } else {
                         _viewModel.search(query).observe(viewLifecycleOwner, Observer {
                             _comic.clear()
+                            showLoading(true)
                             showResults(it)
                         })
                     }
@@ -132,6 +134,7 @@ class SearchComicFragment : Fragment() {
                 if (newText.isBlank() && _hasConnection) {
                     _title = null
                     _comic.clear()
+                    showLoading(true)
                     showResults(_viewModel.returnFirstList())
                 }
                 return true
@@ -195,7 +198,6 @@ class SearchComicFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        showLoading(true)
         initSearch()
     }
 

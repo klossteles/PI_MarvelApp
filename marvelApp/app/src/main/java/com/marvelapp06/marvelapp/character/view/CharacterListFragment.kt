@@ -128,11 +128,13 @@ class CharacterListFragment : Fragment() {
 
                 if (_hasConnection) {
                     if (query.isEmpty()) {
+                        showLoading(true)
                         _viewModel.getListCharacters().observe(viewLifecycleOwner, Observer {
                             _characters.clear()
                             showResults(it)
                         })
                     } else {
+                        showLoading(true)
                         _viewModel.searchCharacter(query).observe(viewLifecycleOwner, Observer {
                             _characters.clear()
                             showResults(it)
@@ -147,6 +149,7 @@ class CharacterListFragment : Fragment() {
                 if (newText.isBlank() && _hasConnection) {
                     _nameCharacter = null
                     _characters.clear()
+                    showLoading(true)
                     showResults(_viewModel.returnFirstListCharacters())
                 }
                 return true
@@ -196,7 +199,6 @@ class CharacterListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        showLoading(true)
         initSearch()
     }
 

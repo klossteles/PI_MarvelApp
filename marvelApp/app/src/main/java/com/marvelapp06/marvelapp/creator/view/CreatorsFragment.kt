@@ -78,7 +78,7 @@ class CreatorsFragment : Fragment() {
 
         _idCreators=arguments?.getInt(CreatorsListFragment.CREATORS_ID)
         val thumbnail = arguments?.getString(CreatorsListFragment.CREATORS_THUMBNAIL)
-        val fullname = arguments?.getString(CreatorsListFragment.CREATORS_FULLNAME)
+        val fullname = arguments?.getString(CreatorsListFragment.CREATORS_FULL_NAME)
         var series:Any
         var comics:Any
         var events:Any

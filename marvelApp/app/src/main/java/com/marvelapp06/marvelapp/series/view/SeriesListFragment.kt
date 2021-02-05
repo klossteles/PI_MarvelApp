@@ -118,11 +118,13 @@ class SeriesListFragment : Fragment() {
                 _title = query
                 if (_hasConnection) {
                     if (query.isEmpty()) {
+                        showLoading(true)
                         _viewModel.getList().observe(viewLifecycleOwner, Observer {
                             _series.clear()
                             showResults(it)
                         })
                     } else {
+                        showLoading(true)
                         _viewModel.search(query).observe(viewLifecycleOwner, Observer {
                             _series.clear()
                             showResults(it)
@@ -136,6 +138,7 @@ class SeriesListFragment : Fragment() {
                 if (newText.isBlank() && _hasConnection) {
                     _title = null
                     _series.clear()
+                    showLoading(true)
                     showResults(_viewModel.returnFirstList())
                 }
                 return true
@@ -194,7 +197,6 @@ class SeriesListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        showLoading(true)
         initSearch()
     }
 
