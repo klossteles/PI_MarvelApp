@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -26,10 +27,12 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.marvelapp06.marvelapp.LoginActivity
+import com.marvelapp06.marvelapp.character.view.CharacterListFragment
+import com.marvelapp06.marvelapp.login.view.LoginActivity
 import com.marvelapp06.marvelapp.db.AppDatabase
 import com.marvelapp06.marvelapp.favorite.repository.FavoriteRepository
 import com.marvelapp06.marvelapp.favorite.viewmodel.FavoriteViewModel
+import com.marvelapp06.marvelapp.fullscreen.view.FullscreenImageFragment
 import com.marvelapp06.marvelapp.login.view.LoginFragment
 import com.squareup.picasso.Picasso
 
@@ -78,7 +81,9 @@ class CreatorsFragment : Fragment() {
 
         _idCreators=arguments?.getInt(CreatorsListFragment.CREATORS_ID)
         val thumbnail = arguments?.getString(CreatorsListFragment.CREATORS_THUMBNAIL)
-        val fullname = arguments?.getString(CreatorsListFragment.CREATORS_FULL_NAME)
+        val thumbnailPortrait = arguments?.getString(CreatorsListFragment.CREATORS_THUMBNAIL_PORTRAIT, "")
+        val fullname = arguments?.getString(CreatorsListFragment.CREATORS_FULLNAME)
+
         var series:Any
         var comics:Any
         var events:Any
@@ -179,8 +184,19 @@ class CreatorsFragment : Fragment() {
                 })
         }
 
+        if (thumbnailPortrait != null && thumbnailPortrait.isNotBlank()) {
+            onImageClick(image, thumbnailPortrait)
+        }
         setBackNavigation()
         setOnFavoriteClick()
+    }
+
+    private fun onImageClick(imageComic: ImageView, thumbnailPortrait: String?) {
+        imageComic.setOnClickListener {
+            val navController = findNavController()
+            val bundle = bundleOf(FullscreenImageFragment.THUMBNAIL to thumbnailPortrait)
+            navController.navigate(R.id.action_creatorsFragment_to_fullscreenImageFragment, bundle)
+        }
     }
 
     private fun jsonToObjSeries(json: String): Any {

@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -28,10 +29,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.marvelapp06.marvelapp.LoginActivity
+import com.marvelapp06.marvelapp.login.view.LoginActivity
 import com.marvelapp06.marvelapp.db.AppDatabase
 import com.marvelapp06.marvelapp.favorite.repository.FavoriteRepository
 import com.marvelapp06.marvelapp.favorite.viewmodel.FavoriteViewModel
+import com.marvelapp06.marvelapp.fullscreen.view.FullscreenImageFragment
 import com.marvelapp06.marvelapp.login.view.LoginFragment
 import com.squareup.picasso.Picasso
 import java.util.*
@@ -86,6 +88,7 @@ class ComicFragment : Fragment() {
 
         _idComic = arguments?.getInt(SearchComicFragment.COMIC_ID)
         val thumbnailComic = arguments?.getString(SearchComicFragment.COMIC_THUMBNAIL)
+        val thumbnailPortrait = arguments?.getString(SearchComicFragment.COMIC_THUMBNAIL_PORTRAIT, "")
         val descriptionComic = arguments?.getString(SearchComicFragment.COMIC_DESCRIPTION)
         val titleComic = arguments?.getString(SearchComicFragment.COMIC_TITLE)
         val charactersComic :Any
@@ -189,8 +192,20 @@ class ComicFragment : Fragment() {
                     )
                 })
         }
+
+        if (thumbnailPortrait != null && thumbnailPortrait.isNotBlank()) {
+            onImageClick(imageComic, thumbnailPortrait)
+        }
         setBackNavigation()
         setOnFavoriteClick()
+    }
+
+    private fun onImageClick(imageComic: ImageView, thumbnailPortrait: String?) {
+        imageComic.setOnClickListener {
+            val navController = findNavController()
+            val bundle = bundleOf(FullscreenImageFragment.THUMBNAIL to thumbnailPortrait)
+            navController.navigate(R.id.action_comicFragment_to_fullscreenImageFragment, bundle)
+        }
     }
 
     fun jsonToObjCharacters(json: String): Any {

@@ -10,8 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -28,10 +28,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.marvelapp06.marvelapp.LoginActivity
+import com.marvelapp06.marvelapp.login.view.LoginActivity
 import com.marvelapp06.marvelapp.db.AppDatabase
 import com.marvelapp06.marvelapp.favorite.repository.FavoriteRepository
 import com.marvelapp06.marvelapp.favorite.viewmodel.FavoriteViewModel
+import com.marvelapp06.marvelapp.fullscreen.view.FullscreenImageFragment.Companion.THUMBNAIL
 import com.marvelapp06.marvelapp.login.view.LoginFragment
 import com.squareup.picasso.Picasso
 
@@ -82,6 +83,7 @@ class SeriesFragment : Fragment() {
 
         _idSeries=arguments?.getInt(SeriesListFragment.SERIES_ID)
         val thumbnail = arguments?.getString(SeriesListFragment.SERIES_THUMBNAIL)
+        val thumbnailPortrait = arguments?.getString(SeriesListFragment.SERIES_THUMBNAIL_FULLSCREEN, "")
         val description = arguments?.getString(SeriesListFragment.SERIES_DESCRIPTION)
         val title = arguments?.getString(SeriesListFragment.SERIES_TITLE)
         var characters:Any
@@ -185,9 +187,19 @@ class SeriesFragment : Fragment() {
                 })
         }
 
-
+        if (thumbnailPortrait != null && thumbnailPortrait.isNotBlank()) {
+            onImageClick(image, thumbnailPortrait)
+        }
         setBackNavigation()
         setOnFavoriteClick()
+    }
+
+    private fun onImageClick(image: ImageView, thumbnailPortrait: String?) {
+        image.setOnClickListener {
+            val navController = findNavController()
+            val bundle = bundleOf(THUMBNAIL to thumbnailPortrait)
+            navController.navigate(R.id.action_seriesFragment_to_fullscreenImageFragment, bundle)
+        }
     }
 
     private fun jsonToObjCharacters(json: String): Any {

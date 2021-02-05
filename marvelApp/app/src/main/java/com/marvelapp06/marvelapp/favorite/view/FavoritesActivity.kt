@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.marvelapp06.marvelapp.LoginActivity
+import com.marvelapp06.marvelapp.login.view.LoginActivity
 import com.marvelapp06.marvelapp.MainActivity
 import com.marvelapp06.marvelapp.ProfileActivity
 import com.marvelapp06.marvelapp.R

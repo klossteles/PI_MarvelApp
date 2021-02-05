@@ -92,5 +92,8 @@
     <string name="please_check_your_internet_and_try_again">Please check your internet and try again</string>
     <string name="no_internet_error">No internet error</string>
     <string name="new_password">New password</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="close_icon">Close icon</string>
+    <string name="fullscreen_image_dialog">Fullscreen image dialog</string>
 </resources>
 
