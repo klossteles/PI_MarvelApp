@@ -12,7 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.marvelapp06.marvelapp.R
 import com.google.android.material.card.MaterialCardView
-import com.marvelapp06.marvelapp.QuizActivity
+import com.marvelapp06.marvelapp.quiz.QuizStartActivity
 import com.marvelapp06.marvelapp.utils.NetworkConnection
 
 class HomeFragment : Fragment() {
@@ -57,7 +57,7 @@ class HomeFragment : Fragment() {
         }
 
         _view.findViewById<MaterialCardView>(R.id.crdQuiz).setOnClickListener {
-            val intent = Intent(activity, QuizActivity::class.java)
+            val intent = Intent(activity, QuizStartActivity::class.java)
             startActivity(intent)
         }
     }

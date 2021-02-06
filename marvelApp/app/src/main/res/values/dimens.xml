@@ -38,8 +38,8 @@
     <dimen name="dimen_55dp">55dp</dimen>
     <dimen name="dimen_362dp">362dp</dimen>
     <dimen name="dimen_29dp">29dp</dimen>
-
     <dimen name="dimen_190dp">190dp</dimen>
     <dimen name="dimen_350dp">350dp</dimen>
     <dimen name="dimen_550dp">550dp</dimen>
+    <dimen name="dimen_220dp">220dp</dimen>
 </resources>

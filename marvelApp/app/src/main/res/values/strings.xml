@@ -116,5 +116,9 @@
     <string name="creator_removed_from_favorites">Creator removed from favorites</string>
     <string name="serie_added_to_favorites">Serie added to favorites</string>
     <string name="serie_removed_from_favories">Serie removed from favorites</string>
+    <string name="button_next_question">button next question</string>
+    <string name="submit">Submit</string>
+    <string name="finish">FINISH</string>
+    <string name="next_question">NEXT QUESTION</string>
 </resources>
 

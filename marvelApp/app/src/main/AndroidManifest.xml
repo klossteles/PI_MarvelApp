@@ -12,8 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_marvel_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".QuizActivity" />
+        <activity android:name=".quiz.QuizResultActivity"/>
+        <activity android:name=".quiz.QuizStartActivity" />
+        <activity android:name=".quiz.QuizQuestionActivity" />
         <activity android:name=".login.view.LoginActivity" />
         <activity android:name=".favorite.view.FavoritesActivity" />
         <activity android:name=".ProfileActivity" />
