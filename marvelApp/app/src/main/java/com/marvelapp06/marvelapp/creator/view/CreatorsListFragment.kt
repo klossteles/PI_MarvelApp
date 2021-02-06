@@ -48,14 +48,14 @@ class CreatorsListFragment : Fragment() {
 
         _view = view
 
-        val list = _view.findViewById<RecyclerView>(R.id.listCreators)
+        _recyclerView = _view.findViewById<RecyclerView>(R.id.listCreators)
         val manager = GridLayoutManager(_view.context, 2)
         _creators = mutableListOf<CreatorsModel>()
         _listAdapter = CreatorsListAdapter(_creators) {
             val bundle = bundleOf(
                 CREATORS_ID to it.id,
                 CREATORS_THUMBNAIL to it.thumbnail?.getImagePath("landscape_incredible"),
-                CREATORS_FULLNAME to it.fullName,
+                CREATORS_FULL_NAME to it.fullName,
                 CREATORS_SERIES to it.series?.items,
                 CREATORS_COMICS to it.comics?.items,
                 CREATORS_EVENTS to it.events?.items,
@@ -65,8 +65,7 @@ class CreatorsListFragment : Fragment() {
                 .navigate(R.id.action_creatorsListFragment_to_creatorsFragment, bundle)
         }
 
-        _recyclerView = _view.findViewById<RecyclerView>(R.id.listCreators)
-        list.apply {
+        _recyclerView.apply {
             setHasFixedSize(true)
             layoutManager = manager
             adapter = _listAdapter
@@ -114,11 +113,13 @@ class CreatorsListFragment : Fragment() {
                 _name = query
                 if (_hasConnection) {
                     if (query.isEmpty()) {
+                        showLoading(true)
                         _viewModel.getListCreators().observe(viewLifecycleOwner, Observer {
                             _creators.clear()
                             showResults(it)
                         })
                     } else {
+                        showLoading(true)
                         _viewModel.searchCreator(query).observe(viewLifecycleOwner, Observer {
                             _creators.clear()
                             showResults(it)
@@ -132,6 +133,7 @@ class CreatorsListFragment : Fragment() {
                 if (newText.isBlank() && _hasConnection) {
                     _name = null
                     _creators.clear()
+                    showLoading(true)
                     showResults(_viewModel.returnFirstListCreators())
                 }
                 return true
@@ -186,7 +188,6 @@ class CreatorsListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        showLoading(true)
         initSearch()
     }
 
@@ -201,7 +202,7 @@ class CreatorsListFragment : Fragment() {
 
         const val CREATORS_ID = "CREATORS_ID"
         const val CREATORS_THUMBNAIL = "CREATORS_THUMBNAIL"
-        const val CREATORS_FULLNAME = "CREATORS_FULLNAME"
+        const val CREATORS_FULL_NAME = "CREATORS_FULL_NAME"
         const val CREATORS_SERIES = "CREATORS_SERIES"
         const val CREATORS_COMICS = "CREATORS_COMICS"
         const val CREATORS_EVENTS = "CREATORS_EVENTS"

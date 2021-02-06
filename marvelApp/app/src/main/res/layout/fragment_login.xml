@@ -183,11 +183,9 @@
 
             <Button
                 android:id="@+id/containedButtonRegister"
-                android:layout_width="@dimen/dimen_390dp"
-                android:layout_height="@dimen/dimen_62dp"
-                android:layout_marginStart="@dimen/dimen_25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_55dp"
                 android:layout_marginTop="@dimen/dimen_20dp"
-                android:layout_marginEnd="@dimen/dimen_25dp"
                 android:backgroundTint="@color/colorAccent"
                 android:text="@string/register"
                 android:textAllCaps="false"
@@ -199,7 +197,7 @@
 
             <com.google.android.gms.common.SignInButton
                 android:id="@+id/containedButtonLoginGoogle"
-                android:layout_width="@dimen/dimen_390dp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_55dp"
                 android:layout_marginTop="@dimen/dimen_15dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -208,8 +206,8 @@
 
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/containedButtonLoginFacebook"
-                android:layout_width="@dimen/dimen_362dp"
-                android:layout_height="@dimen/dimen_29dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_55dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/dimen_15dp"
                 android:layout_marginBottom="@dimen/dimen_30dp"
