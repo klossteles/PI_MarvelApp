@@ -5,23 +5,15 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
-import com.marvelapp06.marvelapp.R
-import com.marvelapp06.marvelapp.comic.model.ComicDate
-import com.marvelapp06.marvelapp.comic.model.ComicPrice
-import com.marvelapp06.marvelapp.comic.repository.ComicRepository
-import com.marvelapp06.marvelapp.comic.viewModel.ComicViewModel
-import com.marvelapp06.marvelapp.data.model.CharacterSummary
-import com.marvelapp06.marvelapp.data.model.CreatorSummary
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.snackbar.Snackbar
@@ -29,6 +21,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.marvelapp06.marvelapp.LoginActivity
+import com.marvelapp06.marvelapp.R
+import com.marvelapp06.marvelapp.comic.model.ComicDate
+import com.marvelapp06.marvelapp.comic.model.ComicPrice
+import com.marvelapp06.marvelapp.comic.repository.ComicRepository
+import com.marvelapp06.marvelapp.comic.viewModel.ComicViewModel
+import com.marvelapp06.marvelapp.data.model.CharacterSummary
+import com.marvelapp06.marvelapp.data.model.CreatorSummary
 import com.marvelapp06.marvelapp.db.AppDatabase
 import com.marvelapp06.marvelapp.favorite.repository.FavoriteRepository
 import com.marvelapp06.marvelapp.favorite.viewmodel.FavoriteViewModel
@@ -47,7 +46,7 @@ class ComicFragment : Fragment() {
     private var isFavorite: Boolean = false
     private var color: Int? = null
     private lateinit var comicFavorites: ImageView
-    private  var _user:String? =null
+    private var _user: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,8 +87,8 @@ class ComicFragment : Fragment() {
         val thumbnailComic = arguments?.getString(SearchComicFragment.COMIC_THUMBNAIL)
         val descriptionComic = arguments?.getString(SearchComicFragment.COMIC_DESCRIPTION)
         val titleComic = arguments?.getString(SearchComicFragment.COMIC_TITLE)
-        val charactersComic :Any
-        val creatorsComic:Any
+        val charactersComic: Any
+        val creatorsComic: Any
         val datesComic = arguments?.get(SearchComicFragment.COMIC_DATES)
         val pricesComic = arguments?.get(SearchComicFragment.COMIC_PRICE)
         val pagesComic = arguments?.getInt(SearchComicFragment.COMIC_PAGES)
@@ -174,7 +173,7 @@ class ComicFragment : Fragment() {
 
         val currentUser = _auth.currentUser
         currentUser?.uid?.let {
-            _viewModelFavorite.checkIfIsFavorite(it,_idComic!!)
+            _viewModelFavorite.checkIfIsFavorite(it, _idComic!!)
                 .observe(viewLifecycleOwner, Observer { list ->
 
                     if (list.isEmpty()) {
@@ -212,7 +211,7 @@ class ComicFragment : Fragment() {
             val currentUser = _auth.currentUser
 
             if (currentUser != null) {
-                _user=currentUser.uid
+                _user = currentUser.uid
                 favorite(_user!!)
             } else {
                 val intent = Intent(context, LoginActivity::class.java)
@@ -228,13 +227,30 @@ class ComicFragment : Fragment() {
             val currentUser = _auth.currentUser
 
             if (currentUser != null) {
-                _user=currentUser.uid
-                favorite(_user!!)
+
+                _viewModelFavorite.checkIfIsFavorite(currentUser.uid, _idComic!!)
+                    .observe(viewLifecycleOwner, Observer { list ->
+
+                        if (list.isEmpty()) {
+                            color = R.color.color_white
+                        } else {
+                            isFavorite = true
+                            color = R.color.color_red
+                        }
+                        comicFavorites.setColorFilter(
+                            ContextCompat.getColor(_view.context, color!!),
+                            PorterDuff.Mode.SRC_IN
+                        );
+
+                        _user = currentUser.uid
+
+                        if (!isFavorite) favorite(_user!!)
+                    })
             }
         }
     }
 
-    private fun favorite(user:String) {
+    private fun favorite(user: String) {
         isFavorite = !isFavorite
 
         if (isFavorite) {
@@ -252,7 +268,7 @@ class ComicFragment : Fragment() {
             }
         } else {
             _idComic?.let { it1 ->
-                _viewModelFavorite.deleteFavorite( _user!!,it1)
+                _viewModelFavorite.deleteFavorite(_user!!, it1)
                     .observe(viewLifecycleOwner, Observer {
                         Snackbar.make(
                             _view,
