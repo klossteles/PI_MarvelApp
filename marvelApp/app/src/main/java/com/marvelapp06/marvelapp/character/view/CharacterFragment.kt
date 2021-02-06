@@ -22,7 +22,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.marvelapp06.marvelapp.login.view.LoginActivity
 import com.marvelapp06.marvelapp.R
 import com.marvelapp06.marvelapp.character.repository.CharacterRepository
 import com.marvelapp06.marvelapp.character.viewmodel.CharacterViewModel
@@ -32,6 +31,7 @@ import com.marvelapp06.marvelapp.db.AppDatabase
 import com.marvelapp06.marvelapp.favorite.repository.FavoriteRepository
 import com.marvelapp06.marvelapp.favorite.viewmodel.FavoriteViewModel
 import com.marvelapp06.marvelapp.fullscreen.view.FullscreenImageFragment
+import com.marvelapp06.marvelapp.login.view.LoginActivity
 import com.marvelapp06.marvelapp.login.view.LoginFragment
 import com.squareup.picasso.Picasso
 
@@ -211,7 +211,7 @@ class CharacterFragment : Fragment() {
                     _characterModelJson,
                     1
                 ).observe(viewLifecycleOwner, Observer {
-                    Snackbar.make(_view, "Personagem favoritado", Snackbar.LENGTH_LONG)
+                    Snackbar.make(_view, getString(R.string.character_added_to_favorites), Snackbar.LENGTH_LONG)
                         .show()
                 })
             }
@@ -221,7 +221,7 @@ class CharacterFragment : Fragment() {
                     .observe(viewLifecycleOwner, Observer {
                         Snackbar.make(
                             _view,
-                            "Personagem removido dos favoritos",
+                            getString(R.string.character_removed_from_favorites),
                             Snackbar.LENGTH_LONG
                         ).show()
                     })

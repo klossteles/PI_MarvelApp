@@ -260,7 +260,7 @@ class ComicFragment : Fragment() {
                     _comicModelJson,
                     3
                 ).observe(viewLifecycleOwner, Observer {
-                    Snackbar.make(_view, "HQ favoritada", Snackbar.LENGTH_LONG)
+                    Snackbar.make(_view, getString(R.string.comic_added_to_favorites), Snackbar.LENGTH_LONG)
                         .show()
                 })
             }
@@ -270,7 +270,7 @@ class ComicFragment : Fragment() {
                     .observe(viewLifecycleOwner, Observer {
                         Snackbar.make(
                             _view,
-                            "HQ removida dos favoritos",
+                            getString(R.string.comic_removed_from_favorites),
                             Snackbar.LENGTH_LONG
                         ).show()
                     })

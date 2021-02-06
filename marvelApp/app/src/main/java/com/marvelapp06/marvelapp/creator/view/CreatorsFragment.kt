@@ -250,7 +250,7 @@ class CreatorsFragment : Fragment() {
                     _creatorsModelJson,
                     4
                 ).observe(viewLifecycleOwner, Observer {
-                    Snackbar.make(_view, "Criador favoritado", Snackbar.LENGTH_LONG)
+                    Snackbar.make(_view, getString(R.string.creator_added_to_favorites), Snackbar.LENGTH_LONG)
                         .show()
                 })
             }
@@ -260,7 +260,7 @@ class CreatorsFragment : Fragment() {
                     .observe(viewLifecycleOwner, Observer {
                         Snackbar.make(
                             _view,
-                            "Criador removido dos favoritos",
+                            getString(R.string.creator_removed_from_favorites),
                             Snackbar.LENGTH_LONG
                         ).show()
                     })

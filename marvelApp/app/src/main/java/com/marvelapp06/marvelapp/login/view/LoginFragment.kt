@@ -136,7 +136,7 @@ class LoginFragment : Fragment() {
             }
 
             override fun onCancel() {
-                Toast.makeText(context, "Cancelado!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.canceled), Toast.LENGTH_SHORT).show()
             }
 
             override fun onError(error: FacebookException) {

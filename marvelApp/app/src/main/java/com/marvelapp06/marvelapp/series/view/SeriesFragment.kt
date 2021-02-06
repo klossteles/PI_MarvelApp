@@ -263,7 +263,7 @@ class SeriesFragment : Fragment() {
                     _seriesModelJson,
                     2
                 ).observe(viewLifecycleOwner, Observer {
-                    Snackbar.make(_view, "Serie favoritado", Snackbar.LENGTH_LONG)
+                    Snackbar.make(_view, getString(R.string.serie_added_to_favorites), Snackbar.LENGTH_LONG)
                         .show()
                 })
             }
@@ -274,7 +274,7 @@ class SeriesFragment : Fragment() {
                     .observe(viewLifecycleOwner, Observer {
                         Snackbar.make(
                             _view,
-                            "Serie removida dos favoritos",
+                            getString(R.string.serie_removed_from_favories),
                             Snackbar.LENGTH_LONG
                         ).show()
                     })
