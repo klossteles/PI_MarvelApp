@@ -119,6 +119,7 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun selectedOptionView(tv: TextView, selectedOptionNum: Int) {
+
         defaultOptionsView()
         mSelectedOptionPosition = selectedOptionNum
         tv.setTextColor(ContextCompat.getColor(this, R.color.colorAccent))
