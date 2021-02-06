@@ -188,6 +188,7 @@ class SeriesFragment : Fragment() {
 
         setBackNavigation()
         setOnFavoriteClick()
+        shareSeries(title,description,thumbnail)
     }
 
     private fun jsonToObjCharacters(json: String): Any {
@@ -280,6 +281,30 @@ class SeriesFragment : Fragment() {
         _view.findViewById<ImageView>(R.id.imgSeriesDetailsBack).setOnClickListener {
             val navController = findNavController()
             navController.navigateUp()
+        }
+    }
+
+    private fun shareSeries(title:String? = null,description:String? = null,image:String? = null){
+        val btnShare=_view.findViewById<ImageView>(R.id.imgSeriesDetailsShare)
+        btnShare.setOnClickListener {
+            var descrip = description
+            if(descrip==null)  descrip=""
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, "Hey, here is a series that you might like:\n" +
+                        "\n" +
+                        "Title: $title\n" +
+                        "\n" +
+                        "Description: $descrip\n" +
+                        "\n" +
+                        "Image: $image \n"+
+                        "\n" +
+                        "To learn more about this series download the Marvel App")
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
         }
     }
 }
