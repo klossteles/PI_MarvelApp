@@ -239,11 +239,13 @@ class CharacterFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if(LoginFragment.REQUEST_CODE==requestCode && Activity.RESULT_OK==resultCode){
-            if(_user  != null){
+            val currentUser = _auth.currentUser
+
+            if (currentUser != null) {
+                _user=currentUser.uid
                 favorite(_user!!)
             }
         }
-
     }
     private fun setBackNavigation() {
         _view.findViewById<ImageView>(R.id.imgCharactersDetailsBack).setOnClickListener {
