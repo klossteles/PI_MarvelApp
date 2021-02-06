@@ -271,8 +271,7 @@ class ComicFragment : Fragment() {
 
     private fun setBackNavigation() {
         _view.findViewById<ImageView>(R.id.imgComicDetailsBack).setOnClickListener {
-            val navController = findNavController()
-            navController.navigateUp()
+            requireActivity().onBackPressed()
         }
 
     }

@@ -233,8 +233,7 @@ class CharacterFragment : Fragment() {
     }
     private fun setBackNavigation() {
         _view.findViewById<ImageView>(R.id.imgCharactersDetailsBack).setOnClickListener {
-            val navController = findNavController()
-            navController.navigateUp()
+            requireActivity().onBackPressed()
         }
     }
 }
