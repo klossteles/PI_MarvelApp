@@ -48,7 +48,7 @@
                 android:src="@drawable/marvel_logo"/>
 
             <ImageView
-                android:id="@+id/imgSeriesDetailsShare"
+                android:id="@+id/imgComicDetailsShare"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toStartOf="@id/imgComicDetailsFavorite"
