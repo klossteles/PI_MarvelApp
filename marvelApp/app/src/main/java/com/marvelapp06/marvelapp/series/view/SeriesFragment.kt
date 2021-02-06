@@ -230,11 +230,12 @@ class SeriesFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(LoginFragment.REQUEST_CODE==requestCode && Activity.RESULT_OK==resultCode){
+            val currentUser = _auth.currentUser
 
-            if(_user  != null){
+            if (currentUser != null) {
+                _user=currentUser.uid
                 favorite(_user!!)
             }
-
         }
     }
 

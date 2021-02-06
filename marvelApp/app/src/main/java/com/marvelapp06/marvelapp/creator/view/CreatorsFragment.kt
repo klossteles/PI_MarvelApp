@@ -262,7 +262,10 @@ class CreatorsFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if(LoginFragment.REQUEST_CODE==requestCode && Activity.RESULT_OK==resultCode){
-            if(_user  != null){
+            val currentUser = _auth.currentUser
+
+            if (currentUser != null) {
+                _user=currentUser.uid
                 favorite(_user!!)
             }
         }
