@@ -286,8 +286,7 @@ class CreatorsFragment : Fragment() {
 
     private fun setBackNavigation() {
         _view.findViewById<ImageView>(R.id.imgCreatorsDetailsBack).setOnClickListener {
-            val navController = findNavController()
-            navController.navigateUp()
+            requireActivity().onBackPressed()
         }
     }
 }
