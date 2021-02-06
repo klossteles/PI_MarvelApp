@@ -181,6 +181,7 @@ class CreatorsFragment : Fragment() {
 
         setBackNavigation()
         setOnFavoriteClick()
+        shareCreator(fullname!!)
     }
 
     private fun jsonToObjSeries(json: String): Any {
@@ -272,6 +273,24 @@ class CreatorsFragment : Fragment() {
         _view.findViewById<ImageView>(R.id.imgCreatorsDetailsBack).setOnClickListener {
             val navController = findNavController()
             navController.navigateUp()
+        }
+    }
+
+    private fun shareCreator(name:String){
+        val btnShare=_view.findViewById<ImageView>(R.id.imgCreatorsDetailsShare)
+        btnShare.setOnClickListener {
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, "Hey, here is a creator you might like:\n" +
+                        "\n" +
+                        "Name: $name\n" +
+                        "\n" +
+                        "To learn more about the works of this creator download Marvel App")
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
         }
     }
 }
