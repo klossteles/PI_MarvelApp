@@ -1,9 +1,10 @@
-package com.marvelapp06.marvelapp
+package com.marvelapp06.marvelapp.login.view
 
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.marvelapp06.marvelapp.R
 import com.marvelapp06.marvelapp.utils.NetworkConnection
 import kotlinx.android.synthetic.main.activity_login.*
 

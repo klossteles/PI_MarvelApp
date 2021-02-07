@@ -29,6 +29,9 @@
             app:destination="@id/seriesListFragment"
             app:popUpTo="@id/seriesListFragment"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_seriesFragment_to_fullscreenImageFragment"
+            app:destination="@id/fullscreenImageFragment" />
     </fragment>
     <fragment
         android:id="@+id/characterListFragment"
@@ -93,6 +96,9 @@
             app:destination="@id/searchComicFragment"
             app:popUpTo="@id/searchComicFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_comicFragment_to_fullscreenImageFragment"
+            app:destination="@id/fullscreenImageFragment" />
     </fragment>
     <fragment
         android:id="@+id/characterFragment"
@@ -102,6 +108,9 @@
         <action
             android:id="@+id/action_characterFragment_to_characterListFragment"
             app:destination="@id/characterListFragment" />
+        <action
+            android:id="@+id/action_characterFragment_to_fullscreenImageFragment"
+            app:destination="@id/fullscreenImageFragment" />
     </fragment>
     <fragment
         android:id="@+id/creatorsListFragment"
@@ -127,6 +136,9 @@
             app:destination="@id/creatorsListFragment"
             app:popUpTo="@id/creatorsListFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_creatorsFragment_to_fullscreenImageFragment"
+            app:destination="@id/fullscreenImageFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
@@ -161,7 +173,7 @@
         tools:layout="@layout/fragment_quiz_result" />
     <fragment
         android:id="@+id/noInternetFragment"
-        android:name="com.marvelapp06.marvelapp.NoInternetFragment"
+        android:name="com.marvelapp06.marvelapp.network.view.NoInternetFragment"
         android:label="fragment_no_internet"
         tools:layout="@layout/fragment_no_internet" >
         <action
@@ -170,5 +182,10 @@
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/fullscreenImageFragment"
+        android:name="com.marvelapp06.marvelapp.fullscreen.view.FullscreenImageFragment"
+        android:label="fragment_fullscreen_image"
+        tools:layout="@layout/fragment_fullscreen_image" />
 
 </navigation>

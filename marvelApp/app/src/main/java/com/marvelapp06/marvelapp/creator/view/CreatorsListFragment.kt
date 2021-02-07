@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.marvelapp06.marvelapp.R
+import com.marvelapp06.marvelapp.character.view.CharacterListFragment
 import com.marvelapp06.marvelapp.creator.model.CreatorsModel
 import com.marvelapp06.marvelapp.creator.repository.CreatorsRepository
 import com.marvelapp06.marvelapp.creator.viewmodel.CreatorsViewModel
@@ -55,7 +56,8 @@ class CreatorsListFragment : Fragment() {
             val bundle = bundleOf(
                 CREATORS_ID to it.id,
                 CREATORS_THUMBNAIL to it.thumbnail?.getImagePath("landscape_incredible"),
-                CREATORS_FULL_NAME to it.fullName,
+                CREATORS_THUMBNAIL_PORTRAIT to it.thumbnail?.getImagePath("portrait_incredible"),
+                CREATORS_FULLNAME to it.fullName,
                 CREATORS_SERIES to it.series?.items,
                 CREATORS_COMICS to it.comics?.items,
                 CREATORS_EVENTS to it.events?.items,
@@ -202,7 +204,8 @@ class CreatorsListFragment : Fragment() {
 
         const val CREATORS_ID = "CREATORS_ID"
         const val CREATORS_THUMBNAIL = "CREATORS_THUMBNAIL"
-        const val CREATORS_FULL_NAME = "CREATORS_FULL_NAME"
+        const val CREATORS_THUMBNAIL_PORTRAIT = "CREATORS_THUMBNAIL_PORTRAIT"
+        const val CREATORS_FULLNAME = "CREATORS_FULLNAME"
         const val CREATORS_SERIES = "CREATORS_SERIES"
         const val CREATORS_COMICS = "CREATORS_COMICS"
         const val CREATORS_EVENTS = "CREATORS_EVENTS"

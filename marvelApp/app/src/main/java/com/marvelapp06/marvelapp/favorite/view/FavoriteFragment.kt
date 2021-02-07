@@ -39,7 +39,7 @@ class FavoriteFragment : Fragment() {
 
         val fragmentFavorites = mutableListOf<Fragment>()
 
-        val titles = listOf("Personagens", "Séries", "HQs", "Criadores")
+        val titles = listOf(getString(R.string.characters), getString(R.string.series), getString(R.string.comic), getString(R.string.creators))
 
 
         fragmentFavorites.add(FavoriteCharacterFragment())

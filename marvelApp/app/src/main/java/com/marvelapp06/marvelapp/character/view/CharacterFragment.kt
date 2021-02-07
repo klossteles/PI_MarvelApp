@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -21,7 +22,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.marvelapp06.marvelapp.LoginActivity
 import com.marvelapp06.marvelapp.R
 import com.marvelapp06.marvelapp.character.repository.CharacterRepository
 import com.marvelapp06.marvelapp.character.viewmodel.CharacterViewModel
@@ -30,6 +30,8 @@ import com.marvelapp06.marvelapp.data.model.SeriesSummary
 import com.marvelapp06.marvelapp.db.AppDatabase
 import com.marvelapp06.marvelapp.favorite.repository.FavoriteRepository
 import com.marvelapp06.marvelapp.favorite.viewmodel.FavoriteViewModel
+import com.marvelapp06.marvelapp.fullscreen.view.FullscreenImageFragment
+import com.marvelapp06.marvelapp.login.view.LoginActivity
 import com.marvelapp06.marvelapp.login.view.LoginFragment
 import com.squareup.picasso.Picasso
 
@@ -79,6 +81,7 @@ class CharacterFragment : Fragment() {
         _idCharacter = arguments?.getInt(CharacterListFragment.CHARACTER_ID)
         val name = arguments?.getString(CharacterListFragment.CHARACTER_NAME)
         val thumbnail = arguments?.getString(CharacterListFragment.CHARACTER_THUMBNAIL)
+        val thumbnailPortrait = arguments?.getString(CharacterListFragment.CHARACTER_THUMBNAIL_PORTRAIT, "")
         val description = arguments?.getString(CharacterListFragment.CHARACTER_DESCRIPTION)
         var comics: Any
         var series: Any
@@ -150,10 +153,21 @@ class CharacterFragment : Fragment() {
                 })
         }
 
+        if (thumbnailPortrait != null && thumbnailPortrait.isNotBlank()) {
+            onImageClick(image, thumbnailPortrait)
+        }
         setBackNavigation()
         setOnFavoriteClick()
         shareCharacter(name!!,description!!,thumbnail!!)
 
+    }
+
+    private fun onImageClick(imageComic: ImageView, thumbnailPortrait: String?) {
+        imageComic.setOnClickListener {
+            val navController = findNavController()
+            val bundle = bundleOf(FullscreenImageFragment.THUMBNAIL to thumbnailPortrait)
+            navController.navigate(R.id.action_characterFragment_to_fullscreenImageFragment, bundle)
+        }
     }
 
     fun jsonToObjComics(json: String): Any {
@@ -199,7 +213,7 @@ class CharacterFragment : Fragment() {
                     _characterModelJson,
                     1
                 ).observe(viewLifecycleOwner, Observer {
-                    Snackbar.make(_view, "Personagem favoritado", Snackbar.LENGTH_LONG)
+                    Snackbar.make(_view, getString(R.string.character_added_to_favorites), Snackbar.LENGTH_LONG)
                         .show()
                 })
             }
@@ -209,7 +223,7 @@ class CharacterFragment : Fragment() {
                     .observe(viewLifecycleOwner, Observer {
                         Snackbar.make(
                             _view,
-                            "Personagem removido dos favoritos",
+                            getString(R.string.character_removed_from_favorites),
                             Snackbar.LENGTH_LONG
                         ).show()
                     })

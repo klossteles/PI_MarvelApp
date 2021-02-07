@@ -55,6 +55,7 @@ class SeriesListFragment : Fragment() {
                 SERIES_CREATORS to it.creators?.items,
                 SERIES_DESCRIPTION to it.description,
                 SERIES_THUMBNAIL to it.thumbnail?.getImagePath("landscape_incredible"),
+                SERIES_THUMBNAIL_FULLSCREEN to it.thumbnail?.getImagePath("portrait_incredible"),
                 SERIES_START to it.startYear,
                 SERIES_END to it.endYear,
                 SERIES_MODEL_JSON to this.objToJson(it))
@@ -211,5 +212,6 @@ class SeriesListFragment : Fragment() {
         const val SERIES_START = "SERIES_START"
         const val SERIES_END = "SERIES_END"
         const val SERIES_MODEL_JSON="SERIES_MODEL_JSON"
+        const val SERIES_THUMBNAIL_FULLSCREEN = "SERIES_THUMBNAIL_FULLSCREEN"
     }
 }
