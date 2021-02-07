@@ -187,6 +187,7 @@ class CreatorsFragment : Fragment() {
         }
         setBackNavigation()
         setOnFavoriteClick()
+        shareCreator(fullname!!)
     }
 
     private fun onImageClick(imageComic: ImageView, thumbnailPortrait: String?) {
@@ -305,6 +306,24 @@ class CreatorsFragment : Fragment() {
     private fun setBackNavigation() {
         _view.findViewById<ImageView>(R.id.imgCreatorsDetailsBack).setOnClickListener {
             requireActivity().onBackPressed()
+        }
+    }
+
+    private fun shareCreator(name:String){
+        val btnShare=_view.findViewById<ImageView>(R.id.imgCreatorsDetailsShare)
+        btnShare.setOnClickListener {
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, getString(R.string.share_creators_1) +
+                        "\n\n" +
+                        getString(R.string.name) + name +
+                        "\n \n" +
+                        getString(R.string.share_creator_2))
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
         }
     }
 }

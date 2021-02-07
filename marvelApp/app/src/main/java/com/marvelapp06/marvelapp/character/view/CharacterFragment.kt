@@ -158,6 +158,8 @@ class CharacterFragment : Fragment() {
         }
         setBackNavigation()
         setOnFavoriteClick()
+        shareCharacter(name!!,description!!,thumbnail!!)
+
     }
 
     private fun onImageClick(imageComic: ImageView, thumbnailPortrait: String?) {
@@ -267,6 +269,30 @@ class CharacterFragment : Fragment() {
     private fun setBackNavigation() {
         _view.findViewById<ImageView>(R.id.imgCharactersDetailsBack).setOnClickListener {
             requireActivity().onBackPressed()
+        }
+    }
+
+    private fun shareCharacter(name:String,description:String,image:String){
+        val btnShare=_view.findViewById<ImageView>(R.id.imgCharactersDetailsShare)
+        btnShare.setOnClickListener {
+            val nameCharacter = name
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, getString(R.string.share_characters_1) +
+                        "\n\n" +
+                        getString(R.string.name) + name +
+                        "\n\n" +
+                        getString(R.string.description)+ description +
+                        "\n\n" +
+                        getString(R.string.image) + image +
+                        "\n\n" +
+                        getString(R.string.share_characters_2))
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
+
         }
     }
 }

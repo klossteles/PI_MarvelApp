@@ -198,6 +198,7 @@ class ComicFragment : Fragment() {
         }
         setBackNavigation()
         setOnFavoriteClick()
+        shareComic(titleComic,descriptionComic,thumbnailComic)
     }
 
     private fun onImageClick(imageComic: ImageView, thumbnailPortrait: String?) {
@@ -306,7 +307,30 @@ class ComicFragment : Fragment() {
         _view.findViewById<ImageView>(R.id.imgComicDetailsBack).setOnClickListener {
             requireActivity().onBackPressed()
         }
+    }
 
+    private fun shareComic(title:String? = null,description:String? = null,image:String? = null){
+        val btnShare=_view.findViewById<ImageView>(R.id.imgComicDetailsShare)
+        btnShare.setOnClickListener {
+            var descrip = description
+            if(descrip==null)  descrip=""
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, getString(R.string.share_comic_1) +
+                        "\n \n" +
+                        getString(R.string.title) + title +
+                        "\n \n" +
+                        getString(R.string.description)+ descrip +
+                        "\n \n" +
+                        getString(R.string.image)+image+
+                        "\n \n" +
+                        getString(R.string.share_comic_2))
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
+        }
     }
 
 }

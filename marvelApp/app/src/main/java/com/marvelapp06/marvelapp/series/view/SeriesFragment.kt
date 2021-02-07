@@ -192,6 +192,7 @@ class SeriesFragment : Fragment() {
         }
         setBackNavigation()
         setOnFavoriteClick()
+        shareSeries(title,description,thumbnail)
     }
 
     private fun onImageClick(image: ImageView, thumbnailPortrait: String?) {
@@ -307,6 +308,30 @@ class SeriesFragment : Fragment() {
     private fun setBackNavigation() {
         _view.findViewById<ImageView>(R.id.imgSeriesDetailsBack).setOnClickListener {
             requireActivity().onBackPressed()
+        }
+    }
+
+    private fun shareSeries(title:String? = null,description:String? = null,image:String? = null){
+        val btnShare=_view.findViewById<ImageView>(R.id.imgSeriesDetailsShare)
+        btnShare.setOnClickListener {
+            var descrip = description
+            if(descrip==null)  descrip=""
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, getString(R.string.share_series_1º) +
+                        "\n \n" +
+                        getString(R.string.title)+title +
+                        "\n \n" +
+                        getString(R.string.description)+ descrip+
+                        "\n \n" +
+                        getString(R.string.image)+image+
+                        "\n \n" +
+                        getString(R.string.share_series_2))
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
         }
     }
 }
