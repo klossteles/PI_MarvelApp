@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,23 +11,23 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.marvelapp06.marvelapp.R
-import com.marvelapp06.marvelapp.creator.repository.CreatorsRepository
-import com.marvelapp06.marvelapp.creator.viewmodel.CreatorsViewModel
-import com.marvelapp06.marvelapp.data.model.ComicSummary
-import com.marvelapp06.marvelapp.data.model.EventSummary
-import com.marvelapp06.marvelapp.data.model.SeriesSummary
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.marvelapp06.marvelapp.character.view.CharacterListFragment
 import com.marvelapp06.marvelapp.login.view.LoginActivity
+import com.marvelapp06.marvelapp.R
+import com.marvelapp06.marvelapp.creator.repository.CreatorsRepository
+import com.marvelapp06.marvelapp.creator.viewmodel.CreatorsViewModel
+import com.marvelapp06.marvelapp.data.model.ComicSummary
+import com.marvelapp06.marvelapp.data.model.EventSummary
+import com.marvelapp06.marvelapp.data.model.SeriesSummary
 import com.marvelapp06.marvelapp.db.AppDatabase
 import com.marvelapp06.marvelapp.favorite.repository.FavoriteRepository
 import com.marvelapp06.marvelapp.favorite.viewmodel.FavoriteViewModel
@@ -47,7 +46,7 @@ class CreatorsFragment : Fragment() {
     private var isFavorite: Boolean = false
     private var color: Int? = null
     private lateinit var creatorsFavorites: ImageView
-    private  var _user:String? =null
+    private var _user: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,28 +78,27 @@ class CreatorsFragment : Fragment() {
         val cgComicsCreators = _view.findViewById<ChipGroup>(R.id.cgComicsCreators)
         val cgEventsCreators = _view.findViewById<ChipGroup>(R.id.cgEventsCreators)
 
-        _idCreators=arguments?.getInt(CreatorsListFragment.CREATORS_ID)
+        _idCreators = arguments?.getInt(CreatorsListFragment.CREATORS_ID)
         val thumbnail = arguments?.getString(CreatorsListFragment.CREATORS_THUMBNAIL)
         val thumbnailPortrait = arguments?.getString(CreatorsListFragment.CREATORS_THUMBNAIL_PORTRAIT, "")
         val fullname = arguments?.getString(CreatorsListFragment.CREATORS_FULLNAME)
+        var series: Any
+        var comics: Any
+        var events: Any
 
-        var series:Any
-        var comics:Any
-        var events:Any
-
-        if( arguments?.get(CreatorsListFragment.CREATORS_SERIES) == null) {
+        if (arguments?.get(CreatorsListFragment.CREATORS_SERIES) == null) {
             series = jsonToObjSeries(arguments?.getString("CREATORS_SERIES_JSON")!!)
         } else {
             series = arguments?.get(CreatorsListFragment.CREATORS_SERIES)!!
         }
 
-        if( arguments?.get(CreatorsListFragment.CREATORS_COMICS) == null) {
+        if (arguments?.get(CreatorsListFragment.CREATORS_COMICS) == null) {
             comics = jsonToObjComics(arguments?.getString("CREATORS_COMICS_JSON")!!)
         } else {
             comics = arguments?.get(CreatorsListFragment.CREATORS_COMICS)!!
         }
 
-        if(arguments?.get(CreatorsListFragment.CREATORS_EVENTS) == null) {
+        if (arguments?.get(CreatorsListFragment.CREATORS_EVENTS) == null) {
             events = jsonToObjEvents(arguments?.getString("CREATORS_EVENTS_JSON")!!)
         } else {
             events = arguments?.get(CreatorsListFragment.CREATORS_EVENTS)!!
@@ -112,8 +110,8 @@ class CreatorsFragment : Fragment() {
 
         Picasso.get().load(thumbnail).into(image)
 
-        if ((series as List<SeriesSummary>).size >0){
-            for (serie in series as List<SeriesSummary>){
+        if ((series as List<SeriesSummary>).size > 0) {
+            for (serie in series as List<SeriesSummary>) {
                 val chip = Chip(_view.context)
                 if (serie.name != null) {
                     chip.text = "${serie.name}"
@@ -127,8 +125,8 @@ class CreatorsFragment : Fragment() {
         }
 
 
-        if ((comics as List<ComicSummary>).size >0){
-            for (comic in comics as List<ComicSummary>){
+        if ((comics as List<ComicSummary>).size > 0) {
+            for (comic in comics as List<ComicSummary>) {
                 val chip = Chip(_view.context)
                 if (comic.name != null) {
                     chip.text = "${comic.name}"
@@ -141,8 +139,8 @@ class CreatorsFragment : Fragment() {
             _view.findViewById<TextView>(R.id.txtComicsCreatorsDetails).visibility = View.GONE
         }
 
-        if ((events as List<EventSummary>).size >0){
-            for (event in events as List<EventSummary>){
+        if ((events as List<EventSummary>).size > 0) {
+            for (event in events as List<EventSummary>) {
                 val chip = Chip(_view.context)
                 if (event.name != null) {
                     chip.text = "${event.name}"
@@ -168,7 +166,7 @@ class CreatorsFragment : Fragment() {
 
         val currentUser = _auth.currentUser
         currentUser?.uid?.let {
-            _viewModelFavorite.checkIfIsFavorite(it,_idCreators!!)
+            _viewModelFavorite.checkIfIsFavorite(it, _idCreators!!)
                 .observe(viewLifecycleOwner, Observer { list ->
 
                     if (list.isEmpty()) {
@@ -228,7 +226,7 @@ class CreatorsFragment : Fragment() {
             val currentUser = _auth.currentUser
 
             if (currentUser != null) {
-                _user=currentUser.uid
+                _user = currentUser.uid
                 favorite(_user!!)
 
             } else {
@@ -238,7 +236,7 @@ class CreatorsFragment : Fragment() {
         }
     }
 
-    fun favorite(user:String){
+    fun favorite(user: String) {
         isFavorite = !isFavorite
 
         if (isFavorite) {
@@ -256,7 +254,7 @@ class CreatorsFragment : Fragment() {
             }
         } else {
             _idCreators?.let { it1 ->
-                _viewModelFavorite.deleteFavorite( _user!!,it1)
+                _viewModelFavorite.deleteFavorite(_user!!, it1)
                     .observe(viewLifecycleOwner, Observer {
                         Snackbar.make(
                             _view,
@@ -277,12 +275,29 @@ class CreatorsFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(LoginFragment.REQUEST_CODE==requestCode && Activity.RESULT_OK==resultCode){
+        if (LoginFragment.REQUEST_CODE == requestCode && Activity.RESULT_OK == resultCode) {
             val currentUser = _auth.currentUser
 
             if (currentUser != null) {
-                _user=currentUser.uid
-                favorite(_user!!)
+
+                _viewModelFavorite.checkIfIsFavorite(currentUser.uid, _idCreators!!)
+                    .observe(viewLifecycleOwner, Observer { list ->
+
+                        if (list.isEmpty()) {
+                            color = R.color.color_white
+                        } else {
+                            isFavorite = true
+                            color = R.color.color_red
+                        }
+                        creatorsFavorites.setColorFilter(
+                            ContextCompat.getColor(_view.context, color!!),
+                            PorterDuff.Mode.SRC_IN
+                        );
+
+                        _user = currentUser.uid
+
+                        if (!isFavorite) favorite(_user!!)
+                    })
             }
         }
     }

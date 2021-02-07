@@ -242,8 +242,25 @@ class CharacterFragment : Fragment() {
             val currentUser = _auth.currentUser
 
             if (currentUser != null) {
-                _user=currentUser.uid
-                favorite(_user!!)
+
+                _viewModelFavorite.checkIfIsFavorite(currentUser.uid, _idCharacter!!)
+                    .observe(viewLifecycleOwner, Observer { list ->
+
+                        if (list.isEmpty()) {
+                            color = R.color.color_white
+                        } else {
+                            isFavorite = true
+                            color = R.color.color_red
+                        }
+                        charactersFavorites.setColorFilter(
+                            ContextCompat.getColor(_view.context, color!!),
+                            PorterDuff.Mode.SRC_IN
+                        );
+
+                        _user=currentUser.uid
+
+                        if(!isFavorite)  favorite(_user!!)
+                    })
             }
         }
     }
