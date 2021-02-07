@@ -242,11 +242,27 @@ class SeriesFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(LoginFragment.REQUEST_CODE==requestCode && Activity.RESULT_OK==resultCode){
+            val currentUser = _auth.currentUser
 
-            if(_user  != null){
-                favorite(_user!!)
+            if (currentUser != null) {
+
+                _viewModelFavorite.checkIfIsFavorite(currentUser.uid, _idSeries!!)
+                    .observe(viewLifecycleOwner, Observer { list ->
+                        if (list.isEmpty()) {
+                            color = R.color.color_white
+                        } else {
+                            isFavorite = true
+                            color = R.color.color_red
+                        }
+                        seriesFavorites.setColorFilter(
+                            ContextCompat.getColor(_view.context, color!!),
+                            PorterDuff.Mode.SRC_IN
+                        );
+                        _user=currentUser.uid
+
+                        if(!isFavorite)  favorite(_user!!)
+                    })
             }
-
         }
     }
 
@@ -290,8 +306,7 @@ class SeriesFragment : Fragment() {
 
     private fun setBackNavigation() {
         _view.findViewById<ImageView>(R.id.imgSeriesDetailsBack).setOnClickListener {
-            val navController = findNavController()
-            navController.navigateUp()
+            requireActivity().onBackPressed()
         }
     }
 }

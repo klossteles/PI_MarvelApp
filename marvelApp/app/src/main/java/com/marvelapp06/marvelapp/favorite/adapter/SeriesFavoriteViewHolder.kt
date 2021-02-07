@@ -1,11 +1,10 @@
-package com.marvelapp06.marvelapp.favorite.view
+package com.marvelapp06.marvelapp.favorite.adapter
 
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.marvelapp06.marvelapp.R
-import com.marvelapp06.marvelapp.favorite.model.SeriesFavoriteModel
 import com.marvelapp06.marvelapp.series.model.SeriesModel
 import com.squareup.picasso.Picasso
 

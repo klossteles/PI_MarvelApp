@@ -1,11 +1,10 @@
-package com.marvelapp06.marvelapp.favorite.view
+package com.marvelapp06.marvelapp.favorite.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.marvelapp06.marvelapp.R
 import com.marvelapp06.marvelapp.character.model.CharactersModel
-import com.marvelapp06.marvelapp.favorite.model.CharacterFavoriteModel
 
 class CharacterFavoriteAdapter(
     private val _dataset: List<CharactersModel>,
@@ -14,7 +13,9 @@ class CharacterFavoriteAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterFavoriteViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_character_list_item,parent,false)
 
-        return CharacterFavoriteViewHolder(view)
+        return CharacterFavoriteViewHolder(
+            view
+        )
     }
 
     override fun getItemCount()=_dataset.size

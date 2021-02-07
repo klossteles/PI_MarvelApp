@@ -239,16 +239,34 @@ class CharacterFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if(LoginFragment.REQUEST_CODE==requestCode && Activity.RESULT_OK==resultCode){
-            if(_user  != null){
-                favorite(_user!!)
+            val currentUser = _auth.currentUser
+
+            if (currentUser != null) {
+
+                _viewModelFavorite.checkIfIsFavorite(currentUser.uid, _idCharacter!!)
+                    .observe(viewLifecycleOwner, Observer { list ->
+
+                        if (list.isEmpty()) {
+                            color = R.color.color_white
+                        } else {
+                            isFavorite = true
+                            color = R.color.color_red
+                        }
+                        charactersFavorites.setColorFilter(
+                            ContextCompat.getColor(_view.context, color!!),
+                            PorterDuff.Mode.SRC_IN
+                        );
+
+                        _user=currentUser.uid
+
+                        if(!isFavorite)  favorite(_user!!)
+                    })
             }
         }
-
     }
     private fun setBackNavigation() {
         _view.findViewById<ImageView>(R.id.imgCharactersDetailsBack).setOnClickListener {
-            val navController = findNavController()
-            navController.navigateUp()
+            requireActivity().onBackPressed()
         }
     }
 }

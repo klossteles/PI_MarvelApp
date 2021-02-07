@@ -2,12 +2,10 @@ package com.marvelapp06.marvelapp.favorite.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -22,10 +20,8 @@ import com.marvelapp06.marvelapp.data.model.ComicSummary
 import com.marvelapp06.marvelapp.data.model.EventSummary
 import com.marvelapp06.marvelapp.data.model.SeriesSummary
 import com.marvelapp06.marvelapp.db.AppDatabase
-import com.marvelapp06.marvelapp.favorite.model.CreatorsFavoriteModel
-import com.marvelapp06.marvelapp.favorite.repository.CreatorsFavoriteRepository
+import com.marvelapp06.marvelapp.favorite.adapter.CreatorsFavoriteAdapter
 import com.marvelapp06.marvelapp.favorite.repository.FavoriteRepository
-import com.marvelapp06.marvelapp.favorite.viewmodel.CreatorsFavoriteViewModel
 import com.marvelapp06.marvelapp.favorite.viewmodel.FavoriteViewModel
 
 class FavoriteCreatorFragment : Fragment() {
@@ -74,22 +70,25 @@ class FavoriteCreatorFragment : Fragment() {
     private fun getList(list: List<CreatorsModel>) {
         val viewManager = GridLayoutManager(_view.context, 2)
         val recyclerView = _view.findViewById<RecyclerView>(R.id.listComicFavorites)
-        val menuAdapter = CreatorsFavoriteAdapter(list) {
-            val bundle = bundleOf(
-                CREATORS_ID to it.id,
-                CREATORS_THUMBNAIL to it.thumbnail?.getImagePath("landscape_incredible"),
-                CREATORS_FULLNAME to it.fullName,
-                CREATORS_SERIES_JSON to it.series?.items?.let { serie -> serieListToJson(serie) },
-                CREATORS_COMICS_JSON to it.comics?.items?.let { comic -> comicListToJson(comic) },
-                CREATORS_EVENTS_JSON to it.events?.items?.let { event -> eventListToJson(event) },
-                KEY_FRAGMENT to "CreatorsFragment",
-                CREATORS_MODEL_JSON to this.objToJson(it)
-            )
+        val menuAdapter =
+            CreatorsFavoriteAdapter(
+                list
+            ) {
+                val bundle = bundleOf(
+                    CREATORS_ID to it.id,
+                    CREATORS_THUMBNAIL to it.thumbnail?.getImagePath("landscape_incredible"),
+                    CREATORS_FULLNAME to it.fullName,
+                    CREATORS_SERIES_JSON to it.series?.items?.let { serie -> serieListToJson(serie) },
+                    CREATORS_COMICS_JSON to it.comics?.items?.let { comic -> comicListToJson(comic) },
+                    CREATORS_EVENTS_JSON to it.events?.items?.let { event -> eventListToJson(event) },
+                    KEY_FRAGMENT to "CreatorsFragment",
+                    CREATORS_MODEL_JSON to this.objToJson(it)
+                )
 
-            val intent = Intent(context, MainActivity::class.java)
-            intent.putExtras(bundle)
-            startActivity(intent)
-        }
+                val intent = Intent(context, MainActivity::class.java)
+                intent.putExtras(bundle)
+                startActivity(intent)
+            }
 
         recyclerView.apply {
             layoutManager = viewManager
@@ -97,22 +96,22 @@ class FavoriteCreatorFragment : Fragment() {
         }
     }
 
-    fun jsonToObj(json: String): CreatorsModel {
+    private fun jsonToObj(json: String): CreatorsModel {
         val gson = Gson()
         return gson.fromJson(json, CreatorsModel::class.java)
     }
 
-    fun objToJson(creatorsModel: CreatorsModel): String {
+    private fun objToJson(creatorsModel: CreatorsModel): String {
         val gson = Gson()
         return gson.toJson(creatorsModel)
     }
 
-    fun comicListToJson(array: List<ComicSummary>): String {
+    private fun comicListToJson(array: List<ComicSummary>): String {
         val gson = Gson()
         return gson.toJson(array)
     }
 
-    fun serieListToJson(array: List<SeriesSummary>): String {
+    private fun serieListToJson(array: List<SeriesSummary>): String {
         val gson = Gson()
         return gson.toJson(array)
     }
