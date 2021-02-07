@@ -55,6 +55,7 @@ class CharacterListFragment : Fragment() {
                 CHARACTER_COMIC to it.comics?.items,
                 CHARACTER_SERIES to  it.series?.items,
                 CHARACTER_THUMBNAIL to it.thumbnail?.getImagePath("landscape_incredible"),
+                CHARACTER_THUMBNAIL_PORTRAIT to it.thumbnail?.getImagePath("portrait_incredible"),
                 CHARACTER_MODEL_JSON to this.objToJson(it)
             )
             _view.findNavController()
@@ -203,6 +204,7 @@ class CharacterListFragment : Fragment() {
     }
 
     companion object {
+        const val CHARACTER_THUMBNAIL_PORTRAIT = "CHARACTER_THUMBNAIL_PORTRAIT"
         const val CHARACTER_ID = "CHARACTER_ID"
         const val CHARACTER_NAME = "CHARACTER_NAME"
         const val CHARACTER_DESCRIPTION = "CHARACTER_DESCRIPTION"

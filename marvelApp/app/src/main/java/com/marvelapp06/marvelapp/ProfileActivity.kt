@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.marvelapp06.marvelapp.favorite.view.FavoritesActivity
+import com.marvelapp06.marvelapp.login.view.LoginActivity
 import com.marvelapp06.marvelapp.login.view.LoginFragment
 import com.marvelapp06.marvelapp.login.view.ProfileFragment
 import com.marvelapp06.marvelapp.utils.NetworkConnection

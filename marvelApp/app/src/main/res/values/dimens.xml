@@ -40,4 +40,6 @@
     <dimen name="dimen_29dp">29dp</dimen>
 
     <dimen name="dimen_190dp">190dp</dimen>
+    <dimen name="dimen_350dp">350dp</dimen>
+    <dimen name="dimen_550dp">550dp</dimen>
 </resources>

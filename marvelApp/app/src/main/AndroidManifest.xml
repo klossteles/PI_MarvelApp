@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".QuizActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".login.view.LoginActivity" />
         <activity android:name=".favorite.view.FavoritesActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".SplashActivity">

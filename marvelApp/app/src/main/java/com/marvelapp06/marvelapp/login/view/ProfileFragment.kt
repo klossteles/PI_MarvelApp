@@ -21,7 +21,6 @@ import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
-import com.marvelapp06.marvelapp.LoginActivity
 import com.marvelapp06.marvelapp.MainActivity
 import com.marvelapp06.marvelapp.R
 

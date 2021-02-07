@@ -92,5 +92,17 @@
     <string name="please_check_your_internet_and_try_again">Please check your internet and try again</string>
     <string name="no_internet_error">No internet error</string>
     <string name="new_password">New password</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="close_icon">Close icon</string>
+    <string name="fullscreen_image_dialog">Fullscreen image dialog</string>
+    <string name="canceled">Canceled</string>
+    <string name="character_added_to_favorites">Character added to favorites</string>
+    <string name="character_removed_from_favorites">Character removed from favorites</string>
+    <string name="comic_added_to_favorites">Comic added to favorites</string>
+    <string name="comic_removed_from_favorites">Comic removed from favorites</string>
+    <string name="creator_added_to_favorites">Creator added to favorites</string>
+    <string name="creator_removed_from_favorites">Creator removed from favorites</string>
+    <string name="serie_added_to_favorites">Serie added to favorites</string>
+    <string name="serie_removed_from_favories">Serie removed from favorites</string>
 </resources>
 

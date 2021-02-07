@@ -1,4 +1,4 @@
-package com.marvelapp06.marvelapp
+package com.marvelapp06.marvelapp.network.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.marvelapp06.marvelapp.R
 
 class NoInternetFragment : Fragment() {
     private lateinit var _view: View
