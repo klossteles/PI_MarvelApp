@@ -246,15 +246,15 @@ class CharacterFragment : Fragment() {
             val nameCharacter = name
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, "Hey here is a character you might like:\n" +
-                        "\n" +
-                        "Name: $name\n" +
-                        "\n" +
-                        "Description: $description\n" +
-                        "\n" +
-                        "Image: $image \n"+
-                        "\n" +
-                        "To learn more about this character download the Marvel App")
+                putExtra(Intent.EXTRA_TEXT, getString(R.string.share_characters_1) +
+                        "\n\n" +
+                        getString(R.string.name) + name +
+                        "\n\n" +
+                        getString(R.string.description)+ description +
+                        "\n\n" +
+                        getString(R.string.image) + image +
+                        "\n\n" +
+                        getString(R.string.share_characters_2))
                 type = "text/plain"
             }
 

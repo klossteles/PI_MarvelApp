@@ -281,11 +281,11 @@ class CreatorsFragment : Fragment() {
         btnShare.setOnClickListener {
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, "Hey, here is a creator you might like:\n" +
-                        "\n" +
-                        "Name: $name\n" +
-                        "\n" +
-                        "To learn more about the works of this creator download Marvel App")
+                putExtra(Intent.EXTRA_TEXT, getString(R.string.share_creators_1) +
+                        "\n\n" +
+                        getString(R.string.name) + name +
+                        "\n \n" +
+                        getString(R.string.share_creator_2))
                 type = "text/plain"
             }
 

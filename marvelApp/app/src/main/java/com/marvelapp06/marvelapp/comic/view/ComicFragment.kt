@@ -191,7 +191,7 @@ class ComicFragment : Fragment() {
         }
         setBackNavigation()
         setOnFavoriteClick()
-        shareComic(titleComic!!,descriptionComic!!,thumbnailComic!!)
+        shareComic(titleComic,descriptionComic,thumbnailComic)
     }
 
     fun jsonToObjCharacters(json: String): Any {
@@ -277,20 +277,22 @@ class ComicFragment : Fragment() {
         }
     }
 
-    private fun shareComic(title:String,description:String,image:String){
+    private fun shareComic(title:String? = null,description:String? = null,image:String? = null){
         val btnShare=_view.findViewById<ImageView>(R.id.imgComicDetailsShare)
         btnShare.setOnClickListener {
+            var descrip = description
+            if(descrip==null)  descrip=""
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, "Hey, here is a comic you might like:\n" +
-                        "\n" +
-                        "Title: $title\n" +
-                        "\n" +
-                        "Description: $description\n" +
-                        "\n" +
-                        "Image: $image \n"+
-                        "\n" +
-                        "To learn more about this comic download the Marvel App")
+                putExtra(Intent.EXTRA_TEXT, getString(R.string.share_comic_1) +
+                        "\n \n" +
+                        getString(R.string.title) + title +
+                        "\n \n" +
+                        getString(R.string.description)+ descrip +
+                        "\n \n" +
+                        getString(R.string.image)+image+
+                        "\n \n" +
+                        getString(R.string.share_comic_2))
                 type = "text/plain"
             }
 

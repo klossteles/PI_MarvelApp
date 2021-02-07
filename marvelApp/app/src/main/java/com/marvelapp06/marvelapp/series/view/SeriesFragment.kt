@@ -291,15 +291,15 @@ class SeriesFragment : Fragment() {
             if(descrip==null)  descrip=""
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, "Hey, here is a series that you might like:\n" +
-                        "\n" +
-                        "Title: $title\n" +
-                        "\n" +
-                        "Description: $descrip\n" +
-                        "\n" +
-                        "Image: $image \n"+
-                        "\n" +
-                        "To learn more about this series download the Marvel App")
+                putExtra(Intent.EXTRA_TEXT, getString(R.string.share_series_1º) +
+                        "\n \n" +
+                        getString(R.string.title)+title +
+                        "\n \n" +
+                        getString(R.string.description)+ descrip+
+                        "\n \n" +
+                        getString(R.string.image)+image+
+                        "\n \n" +
+                        getString(R.string.share_series_2))
                 type = "text/plain"
             }
 
