@@ -248,7 +248,6 @@ class SeriesFragment : Fragment() {
 
                 _viewModelFavorite.checkIfIsFavorite(currentUser.uid, _idSeries!!)
                     .observe(viewLifecycleOwner, Observer { list ->
-
                         if (list.isEmpty()) {
                             color = R.color.color_white
                         } else {
@@ -259,7 +258,6 @@ class SeriesFragment : Fragment() {
                             ContextCompat.getColor(_view.context, color!!),
                             PorterDuff.Mode.SRC_IN
                         );
-
                         _user=currentUser.uid
 
                         if(!isFavorite)  favorite(_user!!)
