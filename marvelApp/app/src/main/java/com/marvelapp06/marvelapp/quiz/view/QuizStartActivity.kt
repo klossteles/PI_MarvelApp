@@ -1,4 +1,4 @@
-package com.marvelapp06.marvelapp.quiz
+package com.marvelapp06.marvelapp.quiz.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

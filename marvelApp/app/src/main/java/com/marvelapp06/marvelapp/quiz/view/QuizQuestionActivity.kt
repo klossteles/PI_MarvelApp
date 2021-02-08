@@ -1,4 +1,4 @@
-package com.marvelapp06.marvelapp.quiz
+package com.marvelapp06.marvelapp.quiz.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -9,6 +9,8 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.marvelapp06.marvelapp.R
+import com.marvelapp06.marvelapp.quiz.model.Constants
+import com.marvelapp06.marvelapp.quiz.model.Question
 import kotlinx.android.synthetic.main.activity_quiz_question.*
 
 //onBackPressed()

@@ -1,4 +1,4 @@
-package com.marvelapp06.marvelapp.quiz
+package com.marvelapp06.marvelapp.quiz.model
 
 import com.marvelapp06.marvelapp.R
 

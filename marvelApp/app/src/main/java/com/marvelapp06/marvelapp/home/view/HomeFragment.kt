@@ -12,7 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.marvelapp06.marvelapp.R
 import com.google.android.material.card.MaterialCardView
-import com.marvelapp06.marvelapp.quiz.QuizStartActivity
+import com.marvelapp06.marvelapp.quiz.view.QuizStartActivity
 import com.marvelapp06.marvelapp.utils.NetworkConnection
 
 class HomeFragment : Fragment() {
