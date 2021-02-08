@@ -120,5 +120,6 @@
     <string name="submit">Submit</string>
     <string name="finish">FINISH</string>
     <string name="next_question">GO TO NEXT QUESTION</string>
+    <string name="your_score_is_out_of">Your score is %1$d out of %2$d</string>
 </resources>
 
