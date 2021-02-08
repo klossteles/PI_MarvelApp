@@ -64,6 +64,7 @@
             tools:text="@string/question"
             android:textColor="@color/color_white"
             android:textSize="@dimen/dimen_22sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/quizStartToolbar"
             app:layout_constraintStart_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/quizStartToolbar" />
@@ -73,23 +74,24 @@
             android:id="@+id/card_iv_image"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_150dp"
-            android:layout_marginTop="@dimen/dimen_15dp"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:layout_marginTop="@dimen/dimen_50dp"
+            android:padding="@dimen/dimen_10dp"
             android:src="@drawable/marvel_logo"
             app:cardCornerRadius="@dimen/dimen_8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_question"
-            android:layout_margin="@dimen/dimen_10dp"
-            android:padding="@dimen/dimen_10dp">
+            app:layout_constraintTop_toBottomOf="@+id/tv_question">
 
             <ImageView
                 android:id="@+id/iv_image"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_100dp"
                 android:layout_gravity="center"
-                tools:src="@drawable/marvel_logo"
-                android:contentDescription="@string/image_question">
+                android:contentDescription="@string/image_question"
+                tools:src="@drawable/marvel_logo">
             </ImageView>
+
         </androidx.cardview.widget.CardView>
 
 
@@ -151,6 +153,7 @@
             tools:text="@string/marvel"
             android:textColor="@color/color_black"
             android:textSize="@dimen/dimen_18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/quizStartToolbar"
             app:layout_constraintStart_toEndOf="@+id/quizStartToolbar"
             app:layout_constraintTop_toBottomOf="@+id/tv_option_one" />
@@ -167,6 +170,7 @@
             tools:text="@string/marvel"
             android:textColor="@color/color_black"
             android:textSize="@dimen/dimen_18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/quizStartToolbar"
             app:layout_constraintStart_toEndOf="@+id/quizStartToolbar"
             app:layout_constraintTop_toBottomOf="@+id/tv_option_two" />
@@ -185,6 +189,7 @@
             tools:text="@string/marvel"
             android:textColor="@color/color_black"
             android:textSize="@dimen/dimen_18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_option_three" />
@@ -201,6 +206,7 @@
             tools:text="@string/marvel"
             android:textColor="@color/color_black"
             android:textSize="@dimen/dimen_18sp"
+            android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@+id/tv_option_four" />
 
 

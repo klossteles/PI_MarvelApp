@@ -121,6 +121,7 @@
         </ImageView>
 
         <TextView
+            android:id="@+id/tv_score"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/quiz_result_message"

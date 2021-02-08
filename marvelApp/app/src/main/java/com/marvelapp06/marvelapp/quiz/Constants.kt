@@ -14,12 +14,12 @@ object Constants {
         // 1
         val que1 = Question(
                 1,
-                "Qual o nome desse personagem?",
+                "What is the name of this character?",
                 R.drawable.image1_quiz,
-                "Homem-aranha",
-                "Homem-formiga",
-                "Homem de ferro",
-                "Capitão aço",
+                "Spider-man",
+                "Ant-man",
+                "Iron-man",
+                "Steel Captain",
                 "Hulk",
                 3
         )
@@ -28,7 +28,8 @@ object Constants {
 
         // 2
         val que2 = Question(
-                2, "Qual o criador/escritor da seguinte HQ:",
+                2,
+                    "What the creator of HQ:",
                 R.drawable.image2_quiz,
                 "Henry Abrams", "Oliver Coipel",
                 "Pelé", "Christopher Cantwell","Pat Davidson", 4
@@ -38,7 +39,7 @@ object Constants {
 
         // 3
         val que3 = Question(
-                3, "Quando ocorreu o lançamento da série “Thor & Hulk”?",
+                3, "when the “Thor & Hulk” series was launched ",
                 R.drawable.image3_quiz,
                 "1990", "2030",
                 "2017", "2015","1987", 3
@@ -48,21 +49,23 @@ object Constants {
 
         // 4
         val que4 = Question(
-                4, "Como o Hulk adquiriu a forma “gigante esmeralda”?",
+                4, "How did the Hulk acquire the “emerald giant” shape?",
                 R.drawable.image4_quiz,
-                "Foi atingido por raios gama", "Usou anabolizantes",
-                "Foi atingido por raios grama",
-                "Foi atingindo por raios beta",
-                "Tomou pílulas de crescimento", 1
+                "Got hit by gamma rays", "Used anabolic steroids",
+                        "Was struck by grass rays",
+                "It was reaching by beta rays",
+                "Took growth pills", 1
         )
 
         questionsList.add(que4)
 
         // 5
         val que5 = Question(
-                5, "Qual o nome do martelo Thor?",
+                5,
+                    "What is the name of the Thor hammer?",
+
                 R.drawable.image5_quiz,
-                "Vanir", "Martelo do Thor",
+                "Vanir", "Thor's Hammer",
                 "Mjolnir", "Norn","Argos", 3
         )
 
@@ -70,27 +73,28 @@ object Constants {
 
         // 6
         val que6 = Question(
-                6, "Qual o verdadeiro nome do Deadpool?",
+                6,
+                    "What is the real name of Deadpool?",
                 R.drawable.image6_quiz,
                 "Wade Robson", "Wade Williams",
-                "Wade da Silva", "Wade Wilson","Wade Johnson", 4
+                "Wade James", "Wade Wilson","Wade Johnson", 4
         )
 
         questionsList.add(que6)
 
         // 7
         val que7 = Question(
-                7, "Do que é feito o escudo do Capitão América?",
+                7, "What Captain America's shield is made of?",
                 R.drawable.image7_quiz,
                 "Adamantium", "Vibranium",
-                "Promécio", "Dolomite","Hemalite", 2
+                "Pomethium", "Dolomite","Hemalite", 2
         )
 
         questionsList.add(que7)
 
         // 8
         val que8 = Question(
-                8, "Qual é o verdadeiro nome da Pantera Negra?",
+                8, "What is the real name of Pantera Negra?",
                 R.drawable.image8_quiz,
                 "T'Challa", "M'Baku",
                 "N'Jadaka", "N'Jobu","Nyong'o",1
@@ -100,20 +104,22 @@ object Constants {
 
         // 9
         val que9 = Question(
-                9, "Que tipo de médico é Stephen Strange?",
+                9,
+                    "What kind of doctor is Stephen Strange?",
                 R.drawable.image9_quiz,
-                "Neurocirurgião", "Cirurgião cardiotorácico",
-                "Cirurgião de trauma", "Cirurgião Plástico","Ginecologista", 1
+                "Neurosurgeon", "Cardiothoracic surgeon",
+                "Trauma surgeon", "Plastic surgeon","Gynecologist", 1
         )
 
         questionsList.add(que9)
 
         // 10
         val que10 = Question(
-                10, "Qual é o nome do universo microscópico que o Homem-Formiga viaja quando se torna subatômico?",
+                10,
+                    "What is the name of the microscopic universe that Ant-Man travels when he becomes subatomic?",
                 R.drawable.image10_quiz,
-                "Submundo", "Reino Quântico",
-                "Universo paralelo", "Universo Quântico","Reino Sculptor", 2
+                "Underworld", "Quantum Realm",
+                "Parallel universe", "Quantum universe","Kingdom Sculptor", 2
         )
 
         questionsList.add(que10)
