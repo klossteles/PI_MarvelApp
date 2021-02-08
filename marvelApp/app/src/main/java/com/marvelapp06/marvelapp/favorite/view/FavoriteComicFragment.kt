@@ -56,14 +56,24 @@ class FavoriteComicFragment : Fragment() {
             )
         ).get(FavoriteViewModel::class.java)
 
+        getComicFavorites()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getComicFavorites()
+    }
+
+    private fun getComicFavorites() {
         val currentUser = _auth.currentUser
-        _viewModelFavorite.getFavoritesComics(currentUser!!.uid).observe(viewLifecycleOwner, Observer { list ->
-            val listComics: MutableList<ComicsModel> = mutableListOf()
-            list.forEach {
-                listComics.add(jsonToObj(it.favorite))
-            }
-            getList(listComics)
-        })
+        _viewModelFavorite.getFavoritesComics(currentUser!!.uid)
+            .observe(viewLifecycleOwner, Observer { list ->
+                val listComics: MutableList<ComicsModel> = mutableListOf()
+                list.forEach {
+                    listComics.add(jsonToObj(it.favorite))
+                }
+                getList(listComics)
+            })
     }
 
     private fun objToJson(comicsModel: ComicsModel):String{

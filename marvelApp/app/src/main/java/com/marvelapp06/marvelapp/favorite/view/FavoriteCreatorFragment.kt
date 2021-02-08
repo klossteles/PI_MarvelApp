@@ -56,15 +56,24 @@ class FavoriteCreatorFragment : Fragment() {
             )
         ).get(FavoriteViewModel::class.java)
 
-        val currentUser = _auth.currentUser
-        _viewModelFavorite.getFavoritesCreators(currentUser!!.uid).observe(viewLifecycleOwner, Observer { list ->
-            val listCreators: MutableList<CreatorsModel> = mutableListOf()
-            list.forEach {
-                listCreators.add(jsonToObj(it.favorite))
-            }
-            getList(listCreators)
-        })
+        getCreatorsFavorites()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        getCreatorsFavorites()
+    }
+
+    private fun getCreatorsFavorites() {
+        val currentUser = _auth.currentUser
+        _viewModelFavorite.getFavoritesCreators(currentUser!!.uid)
+            .observe(viewLifecycleOwner, Observer { list ->
+                val listCreators: MutableList<CreatorsModel> = mutableListOf()
+                list.forEach {
+                    listCreators.add(jsonToObj(it.favorite))
+                }
+                getList(listCreators)
+            })
     }
 
     private fun getList(list: List<CreatorsModel>) {
