@@ -59,15 +59,24 @@ class FavoriteSeriesFragment : Fragment() {
         ).get(FavoriteViewModel::class.java)
 
 
-        val currentUser = _auth.currentUser
-        _viewModelFavorite.getFavoritesSeries(currentUser!!.uid).observe(viewLifecycleOwner, Observer { list ->
-            val listSeries: MutableList<SeriesModel> = mutableListOf()
-            list.forEach {
-                listSeries.add(jsonToObj(it.favorite))
-            }
-            getList(listSeries)
-        })
+        getFavoritesSeries()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        getFavoritesSeries()
+    }
+
+    private fun getFavoritesSeries() {
+        val currentUser = _auth.currentUser
+        _viewModelFavorite.getFavoritesSeries(currentUser!!.uid)
+            .observe(viewLifecycleOwner, Observer { list ->
+                val listSeries: MutableList<SeriesModel> = mutableListOf()
+                list.forEach {
+                    listSeries.add(jsonToObj(it.favorite))
+                }
+                getList(listSeries)
+            })
     }
 
     private fun objToJson(seriesModel: SeriesModel): String {

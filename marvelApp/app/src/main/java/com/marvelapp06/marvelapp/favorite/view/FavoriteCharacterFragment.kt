@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.gson.Gson
 import com.marvelapp06.marvelapp.MainActivity
 import com.marvelapp06.marvelapp.R
@@ -56,15 +57,24 @@ class FavoriteCharacterFragment : Fragment() {
             )
         ).get(FavoriteViewModel::class.java)
 
-        val currentUser = _auth.currentUser
-        _viewModelFavorite.getFavoritesCharacters(currentUser!!.uid).observe(viewLifecycleOwner, Observer { list ->
-            val listCharacters: MutableList<CharactersModel> = mutableListOf()
-            list.forEach {
-                listCharacters.add(jsonToObj(it.favorite))
-            }
-            getList(listCharacters)
-        })
+        getFavoritesCharacters()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        getFavoritesCharacters()
+    }
+
+    private fun getFavoritesCharacters() {
+        val currentUser = _auth.currentUser
+        _viewModelFavorite.getFavoritesCharacters(currentUser!!.uid)
+            .observe(viewLifecycleOwner, Observer { list ->
+                val listCharacters: MutableList<CharactersModel> = mutableListOf()
+                list.forEach {
+                    listCharacters.add(jsonToObj(it.favorite))
+                }
+                getList(listCharacters)
+            })
     }
 
     private fun getList(list: List<CharactersModel>) {
