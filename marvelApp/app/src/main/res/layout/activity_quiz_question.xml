@@ -1,23 +1,234 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QuizActivity">
+    android:background="@color/color_gray_dark"
+    tools:context=".quiz.QuizQuestionActivity">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/quiz_nav_host_fragment"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/color_gray_dark"
-        app:defaultNavHost='true'
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        app:navGraph="@navigation/quiz_navigation_graph" />
+        android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/quizStartToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_black"
+            android:minHeight="?attr/actionBarSize"
+            android:padding="@dimen/dimen_10dp"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imgBackLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_5dp"
+                    android:contentDescription="@string/back"
+                    android:src="@drawable/ic_baseline_close_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/color_white" />
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_100dp"
+                    android:layout_height="@dimen/dimen_50dp"
+                    android:contentDescription="@string/marvel_logo"
+                    android:src="@drawable/marvel_logo"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <TextView
+            android:id="@+id/tv_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_20dp"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:gravity="center"
+            tools:text="@string/question"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/dimen_22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/quizStartToolbar"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/quizStartToolbar" />
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_iv_image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_150dp"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:layout_marginTop="@dimen/dimen_50dp"
+            android:padding="@dimen/dimen_10dp"
+            android:src="@drawable/marvel_logo"
+            app:cardCornerRadius="@dimen/dimen_8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_question">
+
+            <ImageView
+                android:id="@+id/iv_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_100dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/image_question"
+                tools:src="@drawable/marvel_logo">
+            </ImageView>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <TextView
+            android:id="@+id/tv_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/dimen_15dp"
+            android:textSize="@dimen/dimen_14sp"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_iv_image"
+            tools:text="0/10"
+            />
+
+
+        <ProgressBar
+            android:id="@+id/progressBarQuestions"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:indeterminate="false"
+            android:max="10"
+            android:minHeight="@dimen/dimen_50dp"
+            android:progress="0"
+            android:layout_margin="@dimen/dimen_10dp"
+            app:layout_constraintEnd_toStartOf="@+id/tv_progress"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_iv_image" />
+
+        <TextView
+            android:id="@+id/tv_option_one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:background="@drawable/default_option_border"
+            android:backgroundTint="@color/color_white"
+            android:gravity="center"
+            android:padding="@dimen/dimen_15dp"
+            tools:text="@string/marvel"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/dimen_18sp"
+            app:layout_constraintEnd_toStartOf="@+id/quizStartToolbar"
+            app:layout_constraintStart_toEndOf="@+id/quizStartToolbar"
+            app:layout_constraintTop_toBottomOf="@+id/progressBarQuestions" />
+
+        <TextView
+            android:id="@+id/tv_option_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:background="@drawable/default_option_border"
+            android:backgroundTint="@color/color_white"
+            android:gravity="center"
+            android:padding="@dimen/dimen_15dp"
+            tools:text="@string/marvel"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/dimen_18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/quizStartToolbar"
+            app:layout_constraintStart_toEndOf="@+id/quizStartToolbar"
+            app:layout_constraintTop_toBottomOf="@+id/tv_option_one" />
+
+        <TextView
+            android:id="@+id/tv_option_three"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:background="@drawable/default_option_border"
+            android:backgroundTint="@color/color_white"
+            android:gravity="center"
+            android:padding="@dimen/dimen_15dp"
+            tools:text="@string/marvel"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/dimen_18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/quizStartToolbar"
+            app:layout_constraintStart_toEndOf="@+id/quizStartToolbar"
+            app:layout_constraintTop_toBottomOf="@+id/tv_option_two" />
+
+        <TextView
+            android:id="@+id/tv_option_four"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="9dp"
+            android:background="@drawable/default_option_border"
+            android:backgroundTint="@color/color_white"
+            android:gravity="center"
+            android:padding="@dimen/dimen_15dp"
+            tools:text="@string/marvel"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/dimen_18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_option_three" />
+
+        <TextView
+            android:id="@+id/tv_option_five"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:background="@drawable/default_option_border"
+            android:backgroundTint="@color/color_white"
+            android:gravity="center"
+            android:padding="@dimen/dimen_15dp"
+            tools:text="@string/marvel"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/dimen_18sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/tv_option_four" />
+
+
+        <Button
+            android:id="@+id/buttonSubmit"
+            android:layout_width="@dimen/dimen_200dp"
+            android:layout_height="@dimen/dimen_60dp"
+            android:layout_gravity="right"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:backgroundTint="@color/color_red"
+            android:padding="@dimen/dimen_15dp"
+            android:text="@string/submit"
+            android:textSize="@dimen/dimen_16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_option_five"
+            app:layout_constraintVertical_bias="0.421">
+
+        </Button>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
+
