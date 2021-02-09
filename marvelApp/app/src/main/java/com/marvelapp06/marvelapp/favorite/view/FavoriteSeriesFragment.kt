@@ -76,7 +76,16 @@ class FavoriteSeriesFragment : Fragment() {
                     listSeries.add(jsonToObj(it.favorite))
                 }
                 getList(listSeries)
+                notFoundFavorite(listSeries.isEmpty())
             })
+    }
+
+    private fun notFoundFavorite(notFound: Boolean) {
+        if (notFound) {
+            _view.findViewById<View>(R.id.noFavoriteSeries).visibility = View.VISIBLE
+        } else {
+            _view.findViewById<View>(R.id.noFavoriteSeries).visibility = View.GONE
+        }
     }
 
     private fun objToJson(seriesModel: SeriesModel): String {

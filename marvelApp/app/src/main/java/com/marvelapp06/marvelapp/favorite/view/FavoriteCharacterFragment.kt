@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.gson.Gson
 import com.marvelapp06.marvelapp.MainActivity
 import com.marvelapp06.marvelapp.R
@@ -70,11 +69,21 @@ class FavoriteCharacterFragment : Fragment() {
         _viewModelFavorite.getFavoritesCharacters(currentUser!!.uid)
             .observe(viewLifecycleOwner, Observer { list ->
                 val listCharacters: MutableList<CharactersModel> = mutableListOf()
-                list.forEach {
-                    listCharacters.add(jsonToObj(it.favorite))
+                    list.forEach {
+                        listCharacters.add(jsonToObj(it.favorite))
                 }
                 getList(listCharacters)
+                notFoundFavorite(listCharacters.isEmpty())
             })
+    }
+
+
+    private fun notFoundFavorite(notFound: Boolean) {
+        if (notFound) {
+            _view.findViewById<View>(R.id.noFavoriteCharacters).visibility = View.VISIBLE
+        } else {
+            _view.findViewById<View>(R.id.noFavoriteCharacters).visibility = View.GONE
+        }
     }
 
     private fun getList(list: List<CharactersModel>) {
@@ -107,6 +116,7 @@ class FavoriteCharacterFragment : Fragment() {
         }
     }
 
+
     private fun objToJson(charactersModel: CharactersModel):String{
         val gson = Gson()
         return gson.toJson(charactersModel)
@@ -125,6 +135,7 @@ class FavoriteCharacterFragment : Fragment() {
         val gson = Gson()
         return gson.fromJson(json, CharactersModel::class.java)
     }
+
 
 
     companion object {

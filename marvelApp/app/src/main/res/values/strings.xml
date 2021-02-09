@@ -121,5 +121,9 @@
     <string name="finish">FINISH</string>
     <string name="next_question">GO TO NEXT QUESTION</string>
     <string name="your_score_is_out_of">Your score is %1$d out of %2$d</string>
+    <string name="no_favorite_creators">No favorite creators</string>
+    <string name="no_favorite_characters">No favorite characters</string>
+    <string name="no_favorite_comics">No favorite comics</string>
+    <string name="no_favorite_series">No favorite series</string>
 </resources>
 
