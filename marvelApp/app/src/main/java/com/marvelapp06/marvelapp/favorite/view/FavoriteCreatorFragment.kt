@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.marvelapp06.marvelapp.MainActivity
 import com.marvelapp06.marvelapp.R
+import com.marvelapp06.marvelapp.character.model.CharactersModel
 import com.marvelapp06.marvelapp.creator.model.CreatorsModel
 import com.marvelapp06.marvelapp.data.model.ComicSummary
 import com.marvelapp06.marvelapp.data.model.EventSummary
@@ -38,7 +39,7 @@ class FavoriteCreatorFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _view = inflater.inflate(R.layout.fragment_favorite_comic, container, false)
+        _view = inflater.inflate(R.layout.fragment_favorite_creator, container, false)
         return _view
     }
 
@@ -73,12 +74,21 @@ class FavoriteCreatorFragment : Fragment() {
                     listCreators.add(jsonToObj(it.favorite))
                 }
                 getList(listCreators)
+                notFoundFavorite(listCreators.isEmpty())
             })
+    }
+
+    private fun notFoundFavorite(notFound: Boolean) {
+        if (notFound) {
+            _view.findViewById<View>(R.id.noFavoriteCreators).visibility = View.VISIBLE
+        } else {
+            _view.findViewById<View>(R.id.noFavoriteCreators).visibility = View.GONE
+        }
     }
 
     private fun getList(list: List<CreatorsModel>) {
         val viewManager = GridLayoutManager(_view.context, 2)
-        val recyclerView = _view.findViewById<RecyclerView>(R.id.listComicFavorites)
+        val recyclerView = _view.findViewById<RecyclerView>(R.id.listCreatorsFavorite)
         val menuAdapter =
             CreatorsFavoriteAdapter(
                 list

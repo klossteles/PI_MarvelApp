@@ -73,7 +73,16 @@ class FavoriteComicFragment : Fragment() {
                     listComics.add(jsonToObj(it.favorite))
                 }
                 getList(listComics)
+                notFoundFavorite(listComics.isEmpty())
             })
+    }
+
+    private fun notFoundFavorite(notFound: Boolean) {
+        if (notFound) {
+            _view.findViewById<View>(R.id.noFavoriteComics).visibility = View.VISIBLE
+        } else {
+            _view.findViewById<View>(R.id.noFavoriteComics).visibility = View.GONE
+        }
     }
 
     private fun objToJson(comicsModel: ComicsModel):String{
