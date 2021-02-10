@@ -121,6 +121,10 @@
     <string name="finish">FINISH</string>
     <string name="next_question">GO TO NEXT QUESTION</string>
     <string name="your_score_is_out_of">Your score is %1$d out of %2$d</string>
+    <string name="exit_the_quiz">Exit the quiz</string>
+    <string name="supporting_text">Are you sure you want to end the quiz ?</string>
+    <string name="decline">Decline</string>
+    <string name="accept">accept</string>
     <string name="no_favorite_creators">No favorite creators</string>
     <string name="no_favorite_characters">No favorite characters</string>
     <string name="no_favorite_comics">No favorite comics</string>
