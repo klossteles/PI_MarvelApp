@@ -21,6 +21,8 @@ class QuizResultActivity : AppCompatActivity() {
 
         tv_score.text = getString(R.string.your_score_is_out_of, correctAnswers, totalQuestions)
 
+        onClose()
+
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.quizResultBottomNav)
 
         bottomNavigationView.setOnNavigationItemSelectedListener {
@@ -45,6 +47,12 @@ class QuizResultActivity : AppCompatActivity() {
                 }
                 else -> false
             }
+        }
+    }
+
+    private fun onClose() {
+        iwCloseQuizResult.setOnClickListener {
+            finish()
         }
     }
 }

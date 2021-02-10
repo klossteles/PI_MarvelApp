@@ -186,7 +186,7 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
         val closeQuiz: ImageView = findViewById<ImageView>(R.id.imgCloseQuiz)
         closeQuiz.setOnClickListener {
 
-            MaterialAlertDialogBuilder(this, R.style.Theme_MaterialComponents_DayNight_Dialog_Alert)
+            MaterialAlertDialogBuilder(this, R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog)
                     .setTitle(resources.getString(R.string.exit_the_quiz))
                     .setMessage(resources.getString(R.string.supporting_text))
                     .setNeutralButton(resources.getString(R.string.cancel)) { dialog, which ->
