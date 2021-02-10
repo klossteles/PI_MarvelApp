@@ -43,6 +43,7 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
         tv_option_four.setOnClickListener(this)
         tv_option_five.setOnClickListener(this)
         buttonSubmit.setOnClickListener(this)
+        onClose()
     }
 
     override fun onClick(v: View?) {
@@ -180,25 +181,27 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
                     ContextCompat.getDrawable(this@QuizQuestionActivity, drawbleView)
             }
         }
+    }
 
+    private fun onClose() {
         val closeQuiz: ImageView = findViewById<ImageView>(R.id.imgCloseQuiz)
         closeQuiz.setOnClickListener {
 
             MaterialAlertDialogBuilder(this)
-                .setTitle(resources.getString(R.string.exit_the_quiz))
-                .setMessage(resources.getString(R.string.supporting_text))
-                .setNeutralButton(resources.getString(R.string.cancel)) { dialog, which ->
-                    // Respond to neutral button press
-                }
-                .setNegativeButton(resources.getString(R.string.decline)) { dialog, which ->
-                    // Respond to negative button press
-                }
-                .setPositiveButton(resources.getString(R.string.accept)) { dialog, which ->
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-                .show()
+                    .setTitle(resources.getString(R.string.exit_the_quiz))
+                    .setMessage(resources.getString(R.string.supporting_text))
+                    .setNeutralButton(resources.getString(R.string.cancel)) { dialog, which ->
+                        // Respond to neutral button press
+                    }
+                    .setNegativeButton(resources.getString(R.string.decline)) { dialog, which ->
+                        // Respond to negative button press
+                    }
+                    .setPositiveButton(resources.getString(R.string.accept)) { dialog, which ->
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                    .show()
         }
     }
 
