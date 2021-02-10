@@ -1,4 +1,4 @@
-package com.marvelapp06.marvelapp.quiz
+package com.marvelapp06.marvelapp.quiz.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +8,7 @@ import com.marvelapp06.marvelapp.MainActivity
 import com.marvelapp06.marvelapp.ProfileActivity
 import com.marvelapp06.marvelapp.R
 import com.marvelapp06.marvelapp.favorite.view.FavoritesActivity
+import com.marvelapp06.marvelapp.quiz.model.Constants
 import kotlinx.android.synthetic.main.activity_quiz_result.*
 
 class QuizResultActivity : AppCompatActivity() {

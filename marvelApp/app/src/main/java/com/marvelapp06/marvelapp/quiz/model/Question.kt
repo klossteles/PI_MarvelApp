@@ -1,4 +1,4 @@
-package com.marvelapp06.marvelapp.quiz
+package com.marvelapp06.marvelapp.quiz.model
 
 data class Question(
         val id: Int,

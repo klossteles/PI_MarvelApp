@@ -1,8 +1,9 @@
-package com.marvelapp06.marvelapp.quiz
+package com.marvelapp06.marvelapp.quiz.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.marvelapp06.marvelapp.MainActivity
 import com.marvelapp06.marvelapp.ProfileActivity
@@ -48,5 +49,14 @@ class QuizStartActivity : AppCompatActivity() {
             }
         }
 
+        val imgBack = findViewById<ImageView>(R.id.imgBackQuiz)
+        imgBack.setOnClickListener{
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+
+        }
+
+        }
+
     }
-}

@@ -1,4 +1,4 @@
-package com.marvelapp06.marvelapp.quiz
+package com.marvelapp06.marvelapp.quiz.model
 
 import com.marvelapp06.marvelapp.R
 
@@ -39,7 +39,7 @@ object Constants {
 
         // 3
         val que3 = Question(
-                3, "when the “Thor & Hulk” series was launched ",
+                3, "When the “Thor & Hulk” series was launched?",
                 R.drawable.image3_quiz,
                 "1990", "2030",
                 "2017", "2015","1987", 3

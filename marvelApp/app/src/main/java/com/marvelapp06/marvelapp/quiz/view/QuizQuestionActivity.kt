@@ -1,14 +1,23 @@
-package com.marvelapp06.marvelapp.quiz
+package com.marvelapp06.marvelapp.quiz.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings.Global.getString
+import android.provider.Settings.Secure.getString
+import android.system.Os.accept
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.TypedArrayUtils.getString
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.marvelapp06.marvelapp.MainActivity
 import com.marvelapp06.marvelapp.R
+import com.marvelapp06.marvelapp.quiz.model.Constants
+import com.marvelapp06.marvelapp.quiz.model.Question
 import kotlinx.android.synthetic.main.activity_quiz_question.*
 
 //onBackPressed()
@@ -171,7 +180,30 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
                     ContextCompat.getDrawable(this@QuizQuestionActivity, drawbleView)
             }
         }
+
+        val closeQuiz: ImageView = findViewById<ImageView>(R.id.imgCloseQuiz)
+        closeQuiz.setOnClickListener {
+
+            MaterialAlertDialogBuilder(this)
+                .setTitle(resources.getString(R.string.exit_the_quiz))
+                .setMessage(resources.getString(R.string.supporting_text))
+                .setNeutralButton(resources.getString(R.string.cancel)) { dialog, which ->
+                    // Respond to neutral button press
+                }
+                .setNegativeButton(resources.getString(R.string.decline)) { dialog, which ->
+                    // Respond to negative button press
+                }
+                .setPositiveButton(resources.getString(R.string.accept)) { dialog, which ->
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                .show()
+        }
     }
+
+
+
 }
 
 
