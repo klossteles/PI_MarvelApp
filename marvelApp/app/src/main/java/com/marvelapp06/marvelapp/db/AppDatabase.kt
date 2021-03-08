@@ -7,7 +7,6 @@ import androidx.room.RoomDatabase
 import com.marvelapp06.marvelapp.favorite.dao.FavoriteDao
 import com.marvelapp06.marvelapp.favorite.entity.FavoriteEntity
 
-
 @Database(
     entities = [FavoriteEntity::class],
     version = 1,

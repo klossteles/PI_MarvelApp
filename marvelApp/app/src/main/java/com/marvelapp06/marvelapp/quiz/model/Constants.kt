@@ -15,7 +15,7 @@ object Constants {
         val que1 = Question(
                 1,
                 "What is the name of this character?",
-                R.drawable.image1_quiz,
+                R.drawable.image1quiz,
                 "Spider-man",
                 "Ant-man",
                 "Iron-man",
@@ -30,7 +30,7 @@ object Constants {
         val que2 = Question(
                 2,
                     "What the creator of HQ:",
-                R.drawable.image2_quiz,
+                R.drawable.image2quiz,
                 "Henry Abrams", "Oliver Coipel",
                 "Pelé", "Christopher Cantwell","Pat Davidson", 4
         )
@@ -40,7 +40,7 @@ object Constants {
         // 3
         val que3 = Question(
                 3, "When the “Thor & Hulk” series was launched?",
-                R.drawable.image3_quiz,
+                R.drawable.image3quiz,
                 "1990", "2030",
                 "2017", "2015","1987", 3
         )
@@ -50,7 +50,7 @@ object Constants {
         // 4
         val que4 = Question(
                 4, "How did the Hulk acquire the “emerald giant” shape?",
-                R.drawable.image4_quiz,
+                R.drawable.image4quiz,
                 "Got hit by gamma rays", "Used anabolic steroids",
                         "Was struck by grass rays",
                 "It was reaching by beta rays",
@@ -64,7 +64,7 @@ object Constants {
                 5,
                     "What is the name of the Thor hammer?",
 
-                R.drawable.image5_quiz,
+                R.drawable.image5quiz,
                 "Vanir", "Thor's Hammer",
                 "Mjolnir", "Norn","Argos", 3
         )
@@ -75,7 +75,7 @@ object Constants {
         val que6 = Question(
                 6,
                     "What is the real name of Deadpool?",
-                R.drawable.image6_quiz,
+                R.drawable.image6quiz,
                 "Wade Robson", "Wade Williams",
                 "Wade James", "Wade Wilson","Wade Johnson", 4
         )
@@ -85,7 +85,7 @@ object Constants {
         // 7
         val que7 = Question(
                 7, "What Captain America's shield is made of?",
-                R.drawable.image7_quiz,
+                R.drawable.image7quiz,
                 "Adamantium", "Vibranium",
                 "Pomethium", "Dolomite","Hemalite", 2
         )
@@ -95,7 +95,7 @@ object Constants {
         // 8
         val que8 = Question(
                 8, "What is the real name of Pantera Negra?",
-                R.drawable.image8_quiz,
+                R.drawable.image8quiz,
                 "T'Challa", "M'Baku",
                 "N'Jadaka", "N'Jobu","Nyong'o",1
         )
@@ -106,7 +106,7 @@ object Constants {
         val que9 = Question(
                 9,
                     "What kind of doctor is Stephen Strange?",
-                R.drawable.image9_quiz,
+                R.drawable.image9quiz,
                 "Neurosurgeon", "Cardiothoracic surgeon",
                 "Trauma surgeon", "Plastic surgeon","Gynecologist", 1
         )
@@ -117,7 +117,7 @@ object Constants {
         val que10 = Question(
                 10,
                     "What is the name of the microscopic universe that Ant-Man travels when he becomes subatomic?",
-                R.drawable.image10_quiz,
+                R.drawable.image10quiz,
                 "Underworld", "Quantum Realm",
                 "Parallel universe", "Quantum universe","Kingdom Sculptor", 2
         )
