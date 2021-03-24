@@ -2,19 +2,17 @@ package com.marvelapp06.marvelapp
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.Observer
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.card.MaterialCardView
 import com.marvelapp06.marvelapp.character.view.CharacterFragment
 import com.marvelapp06.marvelapp.comic.view.ComicFragment
 import com.marvelapp06.marvelapp.creator.view.CreatorsFragment
 import com.marvelapp06.marvelapp.favorite.view.FavoritesActivity
 import com.marvelapp06.marvelapp.series.view.SeriesFragment
-import com.marvelapp06.marvelapp.utils.NetworkConnection
+import com.microsoft.appcenter.AppCenter
+import com.microsoft.appcenter.analytics.Analytics
+import com.microsoft.appcenter.crashes.Crashes
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -64,10 +62,9 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-
     }
 
-    private fun addTransaction( fragment: Fragment) {
+    private fun addTransaction(fragment: Fragment) {
         val manager = supportFragmentManager
         val transaction = manager.beginTransaction()
         fragment.arguments = intent.extras
