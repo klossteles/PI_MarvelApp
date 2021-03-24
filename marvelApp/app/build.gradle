@@ -10,6 +10,18 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
 
+    signingConfigs {
+        config {
+            keyAlias System.getenv("alias")
+            keyPassword System.getenv("password")
+            storeFile file(String.valueOf(System.getenv("file")))
+            storePassword System.getenv("storePassword")
+        }
+        homolog {
+            storeFile file('debug.keystore')
+        }
+    }
+
     defaultConfig {
         applicationId "com.marvelapp06.marvelapp"
         minSdkVersion 23
@@ -24,6 +36,14 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable true
+            signingConfig signingConfigs.config
+        }
+
+        debug {
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-DEBUG'
+            signingConfig signingConfigs.config
         }
     }
 
